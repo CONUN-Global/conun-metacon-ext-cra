@@ -1,0 +1,92 @@
+.BalanceBox {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 10px;
+  height: 110px;
+  justify-content: center;
+  padding: 30px;
+  width: 100%;
+
+  &.con {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      rgba(193, 232, 211, 0.71) -82.37deg,
+      rgba(32, 166, 255, 0.58) 44.68deg,
+      rgba(58, 255, 184, 0.53) 148.13deg,
+      rgba(193, 232, 211, 0.71) 277.63deg,
+      rgba(32, 166, 255, 0.58) 404.68deg
+    );
+  }
+  &.conx {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      #d7e2f3 -86.25deg,
+      #91befd 62.32deg,
+      #bcf0fe 116.25deg,
+      #d7e2f3 273.75deg,
+      #91befd 422.32deg
+    );
+  }
+  &.eth {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      rgba(161, 195, 249, 0.72) -86.25deg,
+      rgba(159, 133, 236, 0.79) 62.32deg,
+      rgba(236, 183, 250, 0.86) 116.25deg,
+      rgba(161, 195, 249, 0.72) 273.75deg,
+      rgba(159, 133, 236, 0.79) 422.32deg
+    );
+  }
+
+  .Title {
+    color: var(--cba);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    line-height: 18px;
+    margin-right: 4px;
+    text-transform: uppercase;
+  }
+
+  & .Balance {
+    align-self: flex-start;
+    color: var(--conun-blue);
+    display: flex;
+    flex-direction: column;
+
+    & .Amount {
+      align-items: flex-end;
+      display: flex;
+      font-weight: 300;
+      gap: 5px;
+      line-height: 32px;
+
+      & .Loading {
+        filter: blur(3px);
+        font-size: 26px;
+      }
+
+      & .Number {
+        font-size: 32px;
+      }
+
+      & .Token {
+        font-size: 14px;
+        margin-bottom: -6px;
+        text-transform: uppercase;
+      }
+    }
+  }
+  & .Details {
+    align-items: flex-end;
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+
+    & .Address {
+      color: var(--cba);
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.Buy {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  width: 360px;
+
+  & .BuyHeader {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 30px;
+    width: 100%;
+    & .Title {
+      color: var(--dark-purple);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 18px;
+      text-transform: uppercase;
+    }
+    & .Ecks {
+      color: #b2c0c9;
+      transform: scaleX(1.35);
+    }
+  }
+  & .BuyBanner {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      #d7e2f3 -86.25deg,
+      #91befd 62.32deg,
+      #bcf0fe 116.25deg,
+      #d7e2f3 273.75deg,
+      #91befd 422.32deg
+    );
+    color: var(--tertiary-color-font);
+    font-size: 15px;
+    height: 75px;
+    letter-spacing: -0.03em;
+    line-height: 21px;
+    padding: 15px 30px;
+  }
+
+  & .ServiceDeck {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 370px;
+    overflow-y: auto;
+  }
+}
+
+.Icon {
+  height: 60px;
+  width: 60px;
+}

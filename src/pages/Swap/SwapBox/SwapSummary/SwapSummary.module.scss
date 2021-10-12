@@ -1,0 +1,98 @@
+.SwapSummary {
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+
+  & .ReviewText {
+    font-size: 14px;
+    letter-spacing: -0.03em;
+    line-height: 16px;
+    margin-bottom: 16px;
+  }
+
+  & .SwapBox {
+    display: flex;
+    flex-direction: column;
+    & .SwapInput {
+      display: flex;
+      flex-direction: column;
+      & .Label {
+        text-transform: uppercase;
+      }
+
+      & .Input {
+        display: flex;
+      }
+    }
+  }
+
+  & .EstimatedGasBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 13px;
+    margin-top: 13px;
+
+    & .GasLabel {
+      display: flex;
+
+      & .Text {
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 3px;
+      }
+
+      & .InfoIcon {
+        width: 12px;
+      }
+    }
+
+    & .GasValueBox {
+      display: flex;
+      justify-content: flex-end;
+
+      & .GasValue {
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: -0.03em;
+      }
+    }
+  }
+
+  & .TotalBox {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 34px;
+    margin-top: 13px;
+
+    & .LabelBox {
+      display: flex;
+      flex-direction: column;
+
+      & .Label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      & .SubLabel {
+        color: #9eaeb8;
+        font-size: 12px;
+        letter-spacing: -0.03em;
+      }
+    }
+
+    & .TotalAmount {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: -0.03em;
+    }
+  }
+
+  & .ButtonsContainer {
+    display: flex;
+    justify-content: space-between;
+
+    & > button {
+      width: 49%;
+    }
+  }
+}

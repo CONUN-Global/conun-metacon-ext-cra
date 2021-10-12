@@ -1,0 +1,50 @@
+.ServiceCard {
+  color: var(--tertiary-color-font);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 240px;
+  padding: 30px 45px;
+  width: calc(100% - 15px);
+
+  & .Title {
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    line-height: 20px;
+    text-transform: uppercase;
+  }
+
+  & .Content {
+    display: flex;
+    width: 100%;
+
+    & .IconBox {
+      height: 80px;
+      padding: 15px;
+      width: 100px;
+    }
+
+    & .CaptionBox {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      & .Subtitle {
+        font-size: 15px;
+        letter-spacing: -0.03em;
+        line-height: 21px;
+        width: 160px;
+      }
+
+      & .Caption {
+        font-size: 15px;
+        font-weight: 300;
+        letter-spacing: -0.03em;
+        line-height: 21px;
+      }
+    }
+  }
+
+  & .Button {
+    width: 100%;
+  }
+}

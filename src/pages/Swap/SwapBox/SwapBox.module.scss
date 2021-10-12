@@ -1,0 +1,44 @@
+.SwapBox {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 30px;
+
+  & .FromBox {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+    & .MinHalfMax {
+      align-items: flex-end;
+      display: flex;
+      gap: 4px;
+      height: 26px;
+      justify-content: flex-end;
+
+      & .MHMButton {
+        align-items: center;
+        display: flex;
+        height: 26px;
+        justify-content: center;
+        width: 65px;
+      }
+      & .InfoMsg {
+        display: flex;
+        flex-direction: column;
+        width: 150px;
+      }
+    }
+  }
+  & .ToBox {
+    margin-top: 35px;
+  }
+}
+
+.Buttons {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-top: 65px;
+  & .ConfirmButton {
+    align-self: center;
+  }
+}

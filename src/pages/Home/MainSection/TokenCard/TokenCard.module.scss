@@ -1,0 +1,142 @@
+.CardContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.Card {
+  backdrop-filter: blur(50px);
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgba(171, 171, 171, 0.8);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  height: 150px;
+  justify-content: space-between;
+  padding: 15px 20px;
+  position: relative;
+  width: 265px;
+
+  &.conx {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      #d7e2f3 -86.25deg,
+      #91befd 62.32deg,
+      #bcf0fe 116.25deg,
+      #d7e2f3 273.75deg,
+      #91befd 422.32deg
+    );
+  }
+  &.eth {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      rgba(161, 195, 249, 0.72) -86.25deg,
+      rgba(159, 133, 236, 0.79) 62.32deg,
+      rgba(236, 183, 250, 0.86) 116.25deg,
+      rgba(161, 195, 249, 0.72) 273.75deg,
+      rgba(159, 133, 236, 0.79) 422.32deg
+    );
+  }
+  &.con {
+    background: conic-gradient(
+      from 269.25deg at 55.28% 60%,
+      rgba(193, 232, 211, 0.71) -82.37deg,
+      rgba(32, 166, 255, 0.58) 44.68deg,
+      rgba(58, 255, 184, 0.53) 148.13deg,
+      rgba(193, 232, 211, 0.71) 277.63deg,
+      rgba(32, 166, 255, 0.58) 404.68deg
+    );
+  }
+
+  .Header {
+    align-items: center;
+    color: var(--conun-blue);
+    display: flex;
+    justify-content: space-between;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+
+    & .LogoBox {
+      align-items: center;
+      display: flex;
+      gap: 3px;
+
+      & .TokenLabel {
+        justify-self: flex-start;
+      }
+
+      & .ConunLogo {
+        fill: white;
+        height: 20px;
+        width: 35px;
+      }
+
+      & .Logo {
+        align-items: center;
+        display: flex;
+
+        & .ConLogo {
+          fill: var(--conun-blue);
+          height: 20px;
+          width: 40px;
+        }
+
+        & .ConxLogo {
+          fill: white;
+          height: 20px;
+          width: 40px;
+        }
+        & .EthLogo {
+          height: 35px;
+          margin: -10px -7px;
+        }
+      }
+    }
+
+    & .Name {
+      color: var(--cba);
+      font-size: 10px;
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+  }
+
+  .Balance {
+    align-items: flex-end;
+    align-self: flex-end;
+    color: var(--conun-blue);
+    display: flex;
+    gap: 4px;
+
+    & .Number {
+      font-size: 26px;
+    }
+    & .Spinner {
+      align-self: center;
+      font-size: 10px;
+    }
+    & .Loading {
+      filter: blur(3px);
+      font-size: 26px;
+    }
+  }
+
+  .Details {
+    color: var(--cba);
+    font-size: 10px;
+    & .LabelLine {
+      align-items: center;
+      display: flex;
+      gap: 2px;
+
+      & .Label {
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      & .CopyIcon {
+        fill: var(--cba);
+        height: 12px;
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+.Home {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  & .TopSection {
+    align-items: flex-end;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+    width: 100%;
+
+    & .Logo {
+      height: 45px;
+      width: 47px;
+    }
+    & .RightControls {
+      align-self: flex-end;
+      display: flex;
+      gap: 10px;
+      height: 100%;
+      & .DropDown {
+        align-items: center;
+        background-color: blueviolet;
+        color: white;
+        display: flex;
+        font-size: 12px;
+        justify-content: center;
+        width: 122px;
+      }
+      & .MenuOpenButton {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+
+  & .CardSlider {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 200px;
+    padding-top: 15px;
+    width: 100%;
+  }
+
+  .CardsContainer {
+    width: 100%;
+  }
+
+  & .DotGroup {
+    align-items: center;
+    display: flex;
+    gap: 15px;
+    height: 32px;
+    justify-content: center;
+
+    & .Dot {
+      background: transparent;
+      border: 1px solid var(--secondary-color-font);
+      border-radius: 50%;
+      fill: #e9ebef;
+      height: 9px;
+      width: 9px;
+
+      &:focus {
+        outline: none;
+      }
+
+      &.active {
+        background-color: var(--secondary-color-font);
+      }
+    }
+  }
+}

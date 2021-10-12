@@ -1,0 +1,81 @@
+.Cell {
+  border-bottom: 1px solid rgba(144, 158, 193, 0.4);
+  display: flex;
+  gap: 9px;
+  height: 76px;
+  padding: 18px 0;
+  & .IconCell {
+    align-items: center;
+    display: flex;
+    height: 24px;
+    justify-content: center;
+    width: 24px;
+
+    .IconLink {
+      height: 24px;
+      width: 24px;
+      & .Icon {
+        border-radius: 50%;
+        box-shadow: 0 1px 4px rgba(171, 171, 171, 0.8);
+      }
+    }
+  }
+
+  & .TypeTime {
+    align-items: flex-start;
+    display: flex;
+    flex: 0 0 68px;
+    flex-direction: column;
+
+    & .Type {
+      color: #437dbf;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+    }
+
+    & .Time {
+      align-items: center;
+      display: flex;
+      font-size: 14px;
+      justify-content: center;
+      letter-spacing: -0.03em;
+      line-height: 16px;
+      & .Success {
+        color: #6fb0e8;
+      }
+      & .Pending {
+        color: var(--grey);
+        font-style: italic;
+        opacity: 0.4;
+      }
+      & .Failed {
+        color: var(--ui-red);
+      }
+    }
+  }
+
+  & .Value {
+    align-items: flex-end;
+    display: flex;
+    flex: 1 0 180px;
+    flex-direction: column;
+
+    & .FromVal {
+      color: #909ec1;
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: -0.03em;
+      line-height: 16px;
+      text-transform: uppercase;
+    }
+    & .ToVal {
+      color: #909ec1;
+      font-size: 14px;
+      letter-spacing: -0.03em;
+      line-height: 16px;
+      text-align: right;
+    }
+  }
+}

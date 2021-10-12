@@ -1,0 +1,43 @@
+.ActionsSection {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  height: 100%;
+  margin-bottom: 100px;
+  overflow: hidden;
+  width: 100%;
+
+  & .ActionButtons {
+    align-items: center;
+    display: flex;
+    gap: 45px;
+    height: 70px;
+    justify-content: space-between;
+    margin-top: 5px;
+    padding: 0 66px;
+    width: 100%;
+
+    & .ButtonCell {
+      align-items: center;
+      color: var(--dark-purple);
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      justify-content: center;
+      & .ActionButton {
+        align-items: center;
+        border: none;
+        display: flex;
+        justify-content: center;
+
+        & .Icon {
+          border-radius: 50%;
+          box-shadow: 0 2px 5px rgba(171, 171, 171, 0.5);
+          height: 46px;
+          width: 46px;
+        }
+      }
+    }
+  }
+}
