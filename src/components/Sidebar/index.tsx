@@ -2,21 +2,21 @@ import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import useStore from "@/store/store";
+import useStore from "../../store/store";
 
 import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "../Button";
-import Modal from "@/components/Modal";
-import Input from "@/components/Form/Input";
+import Modal from "../../components/Modal";
+import Input from "../../components/Form/Input";
 import OutsideClickWrapper from "../OutsideClickHandler";
 
-import useLogin from "@/hooks/useLogin";
+import useLogin from "../../hooks/useLogin";
 
-import {ReactComponent as MenuIcon} from "@/assets/icons/menu-icon.svg";
-import {ReactComponent as DiscordIcon} from "@/assets/icons/discord-icon.svg";
-import {ReactComponent as SecurityIcon} from "@/assets/icons/security-icon.svg";
-import {ReactComponent as SignoutIcon} from "@/assets/icons/signout-icon.svg";
+import {ReactComponent as MenuIcon} from "../../assets/icons/menu-icon.svg";
+import {ReactComponent as DiscordIcon} from "../../assets/icons/discord-icon.svg";
+import {ReactComponent as SecurityIcon} from "../../assets/icons/security-icon.svg";
+import {ReactComponent as SignoutIcon} from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
 
 function Sidebar() {

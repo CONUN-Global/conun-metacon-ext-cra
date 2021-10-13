@@ -2,17 +2,17 @@ import {Link} from "react-router-dom";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import Button from "@/components/Button";
-import TransactionInput from "@/components/Form/TransactionInput";
-import FormTransactionInput from "@/components/Form/HookForm/FormTransactionInput";
+import Button from "../../../components/Button";
+import TransactionInput from "../../../components/Form/TransactionInput";
+import FormTransactionInput from "../../../components/Form/HookForm/FormTransactionInput";
 import SwapSummary from "./SwapSummary";
 
-import useCurrentToken from "@/hooks/useCurrentToken";
-import useStore from "@/store/store";
-import useTransferFee from "@/hooks/useTransferFee";
+import useCurrentToken from "../../../hooks/useCurrentToken";
+import useStore from "../../../store/store";
+import useTransferFee from "../../../hooks/useTransferFee";
 
 import styles from "./SwapBox.module.scss";
-import InfoButton from "@/components/InfoButton";
+import InfoButton from "../../../components/InfoButton";
 
 type FormData = {
   amount: number;

@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
 
-import useStore from "@/store/store";
+import useStore from "../store/store";
 
-import { setAuthToken } from "@/helpers/authToken";
-import { setIdentity } from "@/helpers/indentity";
+import { setAuthToken } from "../helpers/authToken";
+import { setIdentity } from "../helpers/indentity";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 
 function useOAuthLogin() {
   const user = useStore((state) => state.user);

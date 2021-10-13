@@ -2,9 +2,9 @@ import { useMutation } from "react-query";
 
 import useCurrentUser from "./useCurrentUser";
 
-import approveSwap from "@/helpers/approveSwap";
-import despositTokens from "@/helpers/depositTokens";
-import { getPrivateKey } from "@/helpers/privateKey";
+import approveSwap from "../helpers/approveSwap";
+import despositTokens from "../helpers/depositTokens";
+import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
 

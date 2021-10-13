@@ -1,6 +1,6 @@
-import useGetConBalance from "@/hooks/useGetConBalance";
-import useGetConTokenBalance from "@/hooks/useGetConTokenBalance";
-import useGetEthBalance from "@/hooks/useGetEthBalance";
+import useGetConBalance from "../hooks/useGetConBalance";
+import useGetConTokenBalance from "../hooks/useGetConTokenBalance";
+import useGetEthBalance from "../hooks/useGetEthBalance";
 
 export const LOGGER_NAME = "metacon-is-logger-active";
 

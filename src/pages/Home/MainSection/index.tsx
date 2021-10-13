@@ -4,7 +4,7 @@ import classNames from "classnames";
 import TokenCard from "./TokenCard";
 import ActionsSection from "./ActionsSection";
 
-import useCarouselContext from "@/hooks/useCarouselContext";
+import useCarouselContext from "../../../hooks/useCarouselContext";
 
 import { TOKEN_CARDS } from "src/const";
 

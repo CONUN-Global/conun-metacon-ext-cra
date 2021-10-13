@@ -1,5 +1,5 @@
-import { setRecentTransactions } from "@/helpers/recentTransactions";
-import useStore from "@/store/store";
+import { setRecentTransactions } from "../helpers/recentTransactions";
+import useStore from "../store/store";
 import { RecentTransaction } from "../types";
 
 const TRANSACTION_LIMIT = 10;

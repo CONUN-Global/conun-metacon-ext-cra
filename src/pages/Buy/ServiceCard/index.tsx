@@ -1,8 +1,6 @@
-import React from "react";
+import Button from "../../../components/Button";
 
-import Button from "@/components/Button";
-
-import { ServiceCardObj } from "@/types/index";
+import { ServiceCardObj } from "../../../types/index";
 
 import styles from "./ServiceCard.module.scss";
 

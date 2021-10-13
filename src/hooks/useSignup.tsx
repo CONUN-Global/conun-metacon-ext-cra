@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 import { ORG_NAME, WALLET_TYPE } from "src/const";
 
 type SignupData = {

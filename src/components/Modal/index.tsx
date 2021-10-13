@@ -1,9 +1,9 @@
 import { default as LModal } from "react-modal";
 import classNames from "classnames";
 
-import {ReactComponent as IconClose} from "@/assets/icons/close.svg";
+import {ReactComponent as IconClose} from "../../assets/icons/close.svg";
 
-import isWindowPresent from "@/helpers/isWindowPresent";
+import isWindowPresent from "../../helpers/isWindowPresent";
 
 import styles from "./Modal.module.scss";
 

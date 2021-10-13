@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import { useDropzone } from "react-dropzone";
 
-import {ReactComponent as FileIcon} from "@/assets/icons/file-icon.svg";
+import {ReactComponent as FileIcon} from "../../assets/icons/file-icon.svg";
 import styles from "./Dropzone.module.scss";
 
 interface DropzoneProps {

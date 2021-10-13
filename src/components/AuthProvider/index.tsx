@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
-import useStore from "@/store/store";
+import useStore from "../../store/store";
 
 const PUBLIC_ROUTES = ["/intro"];
 

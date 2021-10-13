@@ -1,14 +1,14 @@
 import React from "react";
 
-import {ReactComponent as SendIcon} from "@/assets/icons/send-icon-blue.svg";
-import {ReactComponent as BuyIcon} from "@/assets/icons/buy-icon-blue.svg";
-import {ReactComponent as SwapIcon} from "@/assets/icons/swap-icon-blue.svg";
+import {ReactComponent as SendIcon} from "../../../../../../assets/icons/send-icon-blue.svg";
+import {ReactComponent as BuyIcon} from "../../../../../../assets/icons/buy-icon-blue.svg";
+import {ReactComponent as SwapIcon} from "../../../../../../assets/icons/swap-icon-blue.svg";
 
-import useTransactionStatus from "@/hooks/useTransactionStatus";
+import useTransactionStatus from "../../../../../../hooks/useTransactionStatus";
 
-import truncateString from "@/helpers/truncateString";
+import truncateString from "../../../../../../helpers/truncateString";
 
-import { RecentTransaction, txAction } from "@/types/index";
+import { RecentTransaction, txAction } from "../../../../../../types/index";
 
 import styles from "./HistoryCell.module.scss";
 

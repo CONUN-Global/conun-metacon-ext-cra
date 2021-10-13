@@ -2,8 +2,8 @@ import { useMutation } from "react-query";
 
 import useCurrentUser from "./useCurrentUser";
 
-import claimsTokens from "@/helpers/claimTokens";
-import { getPrivateKey } from "@/helpers/privateKey";
+import claimsTokens from "../helpers/claimTokens";
+import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
 

@@ -2,9 +2,9 @@ import React from "react";
 
 import { ConxHistoryCell, EthHistoryCell } from "./HistoryCell";
 
-import useTransactionList from "@/hooks/useTransactionList";
+import useTransactionList from "../../../../../hooks/useTransactionList";
 
-import { RecentTransaction } from "@/types/index";
+import { RecentTransaction } from "../../../../../types/index";
 
 import styles from "./TransactionHistory.module.scss";
 

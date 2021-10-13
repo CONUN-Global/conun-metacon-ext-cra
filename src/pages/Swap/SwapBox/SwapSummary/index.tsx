@@ -1,20 +1,20 @@
 import { useHistory } from "react-router";
 
-import Divider from "@/components/Divider";
-import Modal from "@/components/Modal";
-import Button from "@/components/Button";
+import Divider from "../../../../components/Divider";
+import Modal from "../../../../components/Modal";
+import Button from "../../../../components/Button";
 
-import useTransactionList from "@/hooks/useTransactionList";
-import useSwapFromCon from "@/hooks/useSwapFromCon";
-import useSwapFromConx from "@/hooks/useSwapFromConx";
-import useCurrentToken from "@/hooks/useCurrentToken";
+import useTransactionList from "../../../../hooks/useTransactionList";
+import useSwapFromCon from "../../../../hooks/useSwapFromCon";
+import useSwapFromConx from "../../../../hooks/useSwapFromConx";
+import useCurrentToken from "../../../../hooks/useCurrentToken";
 
 import { GAS_FEE_DIVIDEND, GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 
-import { Token } from "@/types/index";
+import { Token } from "../../../../types/index";
 import { Swap } from "..";
 
-import {ReactComponent as InfoIcon} from "@/assets/icons/info-icon.svg";
+import {ReactComponent as InfoIcon} from "../../../../assets/icons/info-icon.svg";
 
 import styles from "./SwapSummary.module.scss";
 

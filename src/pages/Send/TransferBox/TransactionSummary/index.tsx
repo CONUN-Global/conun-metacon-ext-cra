@@ -2,29 +2,29 @@ import { useHistory } from "react-router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import Button from "@/components/Button";
-import Input from "@/components/Form/Input";
-import Modal from "@/components/Modal";
-import Divider from "@/components/Divider";
-import Tooltip from "@/components/Tooltip";
+import Button from "../../../../components/Button";
+import Input from "../../../../components/Form/Input";
+import Modal from "../../../../components/Modal";
+import Divider from "../../../../components/Divider";
+import Tooltip from "../../../../components/Tooltip";
 import { Transaction } from "..";
 
-import useCurrentToken from "@/hooks/useCurrentToken";
-import useCurrentUser from "@/hooks/useCurrentUser";
-import useTransactionList from "@/hooks/useTransactionList";
-import useTransferCon from "@/hooks/useTransferCon";
-import useTransferConx from "@/hooks/useTransferConx";
-import useTransferEth from "@/hooks/useTransferEth";
-import useLogin from "@/hooks/useLogin";
+import useCurrentToken from "../../../../hooks/useCurrentToken";
+import useCurrentUser from "../../../../hooks/useCurrentUser";
+import useTransactionList from "../../../../hooks/useTransactionList";
+import useTransferCon from "../../../../hooks/useTransferCon";
+import useTransferConx from "../../../../hooks/useTransferConx";
+import useTransferEth from "../../../../hooks/useTransferEth";
+import useLogin from "../../../../hooks/useLogin";
 
-import useStore from "@/store/store";
+import useStore from "../../../../store/store";
 
-import truncateString from "@/helpers/truncateString";
+import truncateString from "../../../../helpers/truncateString";
 
-import { Token } from "@/types/index";
+import { Token } from "../../../../types/index";
 
-import {ReactComponent as ArrowIcon} from "@/assets/icons/arrow-right.svg";
-import {ReactComponent as InfoIcon} from "@/assets/icons/info-icon.svg";
+import {ReactComponent as ArrowIcon} from "../../../../assets/icons/arrow-right.svg";
+import {ReactComponent as InfoIcon} from "../../../../assets/icons/info-icon.svg";
 
 import styles from "./TransactionSummary.module.scss";
 

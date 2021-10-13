@@ -1,5 +1,5 @@
-import MetaconDeer from "@/assets/icons/metacon-deer.svg";
-import {ReactComponent as ConunLogo} from "@/assets/icons/conun-logo.svg";
+import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
+import {ReactComponent as ConunLogo} from "../../../assets/icons/conun-logo.svg";
 
 import styles from "./Welcome.module.scss";
 

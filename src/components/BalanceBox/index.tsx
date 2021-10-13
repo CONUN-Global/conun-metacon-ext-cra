@@ -1,16 +1,15 @@
-import React from "react";
-import useStore from "@/store/store";
+import useStore from "../../store/store";
 import classNames from "classnames";
 import Button from "../Button";
 
 import { TOKEN_CARDS } from "src/const";
 
-import copyToClipboard from "@/helpers/copyToClipboard";
-import truncateString from "@/helpers/truncateString";
+import copyToClipboard from "../../helpers/copyToClipboard";
+import truncateString from "../../helpers/truncateString";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
-import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as CopyIcon} from "../../assets/icons/copy-icon.svg";
 
 import styles from "./BalanceBox.module.scss";
 

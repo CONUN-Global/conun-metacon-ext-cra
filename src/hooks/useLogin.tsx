@@ -1,11 +1,11 @@
 import { useMutation } from "react-query";
 
-import useStore from "@/store/store";
+import useStore from "../store/store";
 
-import { getIdentity } from "@/helpers/indentity";
-import { setAuthToken } from "@/helpers/authToken";
+import { getIdentity } from "../helpers/indentity";
+import { setAuthToken } from "../helpers/authToken";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 
 import { ORG_NAME } from "src/const";
 

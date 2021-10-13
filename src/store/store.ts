@@ -1,9 +1,9 @@
 import create from "zustand";
 
-import { getAuthToken } from "@/helpers/authToken";
-import { getIsLoggerActive, setIsLoggerActive } from "@/helpers/logger";
-import { getRecentTransactions } from "@/helpers/recentTransactions";
-import { AppState } from "@/types/index";
+import { getAuthToken } from "../helpers/authToken";
+import { getIsLoggerActive, setIsLoggerActive } from "../helpers/logger";
+import { getRecentTransactions } from "../helpers/recentTransactions";
+import { AppState } from "../types/index";
 
 const useStore = create<AppState>((set) => ({
   currentStep: {

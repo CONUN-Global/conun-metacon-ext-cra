@@ -2,10 +2,10 @@ import { ToastContainer } from "react-toastify";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider } from "react-query";
 
-import AuthProvider from "@/components/AuthProvider";
-import Layout from "@/components/Layout";
+import AuthProvider from "./components/AuthProvider";
+import Layout from "./components/Layout";
 
-import { queryClient } from "@/react-query/config";
+import { queryClient } from "./react-query/config";
 
 import styles from "./App.module.scss";
 import { Route, Switch } from "react-router";

@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.3.0",
     "axios": "^0.22.0",
     "classnames": "^2.3.1",
     "ethereumjs-tx": "^2.1.2",
@@ -40,7 +39,6 @@
     "@types/react-router-dom": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^4.32.0",
     "@typescript-eslint/parser": "^4.29.1",
-    "craco-alias": "^3.0.1",
     "eslint": "^7.32.0",
     "eslint-config-next": "^11.1.2",
     "eslint-config-prettier": "^8.3.0",
@@ -69,8 +67,8 @@
     ]
   },
   "scripts": {
-    "start": "craco start",
-    "build": "react-scripts build",
+    "start": "react-scripts start",
+    "build": "./build.sh",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

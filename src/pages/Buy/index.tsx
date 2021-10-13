@@ -1,11 +1,10 @@
-import React from "react";
 import {Link} from "react-router-dom";
-import { ServiceCardObj } from "@/types/index";
+import { ServiceCardObj } from "../../types/index";
 
 import ServiceCard from "./ServiceCard";
 
-import {ReactComponent as BithumbIcon} from "@/assets/icons/bithumb-logo.svg";
-import {ReactComponent as UniswapIcon} from "@/assets/icons/uniswap-logo.svg";
+import {ReactComponent as BithumbIcon} from "../../assets/icons/bithumb-logo.svg";
+import {ReactComponent as UniswapIcon} from "../../assets/icons/uniswap-logo.svg";
 
 import styles from "./Buy.module.scss";
 

@@ -1,7 +1,7 @@
 import { Transaction as Tx } from "ethereumjs-tx";
 import { toast } from "react-toastify";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 import web3 from "src/web3";
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 

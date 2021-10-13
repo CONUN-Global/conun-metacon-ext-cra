@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 
 import useCurrentUser from "./useCurrentUser";
 import useSignature from "./useSignature";

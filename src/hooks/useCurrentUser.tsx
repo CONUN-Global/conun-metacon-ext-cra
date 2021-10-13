@@ -1,8 +1,8 @@
 import { useQuery } from "react-query";
 
-import useStore from "@/store/store";
+import useStore from "../store/store";
 
-import instance from "@/axios/instance";
+import instance from "../axios/instance";
 
 import { CurrentUser } from "../types";
 

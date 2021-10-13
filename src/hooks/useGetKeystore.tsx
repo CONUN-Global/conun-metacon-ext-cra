@@ -1,5 +1,5 @@
-import instance from "@/axios/instance";
-import { setPrivateKey } from "@/helpers/privateKey";
+import instance from "../axios/instance";
+import { setPrivateKey } from "../helpers/privateKey";
 import { useMutation } from "react-query";
 import { ORG_NAME, WALLET_TYPE } from "src/const";
 import web3 from "src/web3";

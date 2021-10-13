@@ -3,16 +3,16 @@ import classNames from "classnames";
 import {Link} from "react-router-dom";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
-import Button from "@/components/Button";
-import FormInput from "@/components/Form/HookForm/FormInput";
-import FormTransactionInput from "@/components/Form/HookForm/FormTransactionInput";
-import Switch from "@/components/Switch";
-import FormGasInput from "@/components/Form/HookForm/FormGasInput";
-import NonHookGasInput from "@/components/Form/Input/NonHookGasInput";
+import Button from "../../../components/Button";
+import FormInput from "../../../components/Form/HookForm/FormInput";
+import FormTransactionInput from "../../../components/Form/HookForm/FormTransactionInput";
+import Switch from "../../../components/Switch";
+import FormGasInput from "../../../components/Form/HookForm/FormGasInput";
+import NonHookGasInput from "../../../components/Form/Input/NonHookGasInput";
 import TransactionSummary from "./TransactionSummary";
 
-import useCurrentToken from "@/hooks/useCurrentToken";
-import useTransferFee from "@/hooks/useTransferFee";
+import useCurrentToken from "../../../hooks/useCurrentToken";
+import useTransferFee from "../../../hooks/useTransferFee";
 
 import styles from "./TransferBox.module.scss";
 

@@ -3,7 +3,7 @@ import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from "../../hooks/useCurrentUser";
 import styles from "./Layout.module.scss";
 
 interface Props {

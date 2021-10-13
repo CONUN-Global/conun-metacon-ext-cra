@@ -2,12 +2,12 @@ import classNames from "classnames";
 
 import NetworkSelector from "../NetworkSelector";
 
-import useStore from "@/store/store";
+import useStore from "../../store/store";
 
 import { NETWORK_OPTIONS } from "src/const";
 import Sidebar from "../Sidebar";
 
-import {ReactComponent as DeerIcon} from "@/assets/icons/metacon-deer-blue.svg";
+import {ReactComponent as DeerIcon} from "../../assets/icons/metacon-deer-blue.svg";
 
 import styles from "./Header.module.scss";
 

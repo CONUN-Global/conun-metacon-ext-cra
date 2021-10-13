@@ -2,17 +2,17 @@ import { useEffect } from "react";
 import { Slide } from "pure-react-carousel";
 import classNames from "classnames";
 
-import Button from "@/components/Button";
+import Button from "../../../../components/Button";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
-import useCurrentToken from "@/hooks/useCurrentToken";
+import useCurrentUser from "../../../../hooks/useCurrentUser";
+import useCurrentToken from "../../../../hooks/useCurrentToken";
 
-import copyToClipboard from "@/helpers/copyToClipboard";
-import truncateString from "@/helpers/truncateString";
+import copyToClipboard from "../../../../helpers/copyToClipboard";
+import truncateString from "../../../../helpers/truncateString";
 
-import {ReactComponent as ConunLogo} from "@/assets/icons/conun-white.svg";
-import {ReactComponent as EthLogo} from "@/assets/icons/ethereum.svg";
-import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as ConunLogo} from "../../../../assets/icons/conun-white.svg";
+import {ReactComponent as EthLogo} from "../../../../assets/icons/ethereum.svg";
+import {ReactComponent as CopyIcon} from "../../../../assets/icons/copy-icon.svg";
 
 import styles from "./TokenCard.module.scss";
 

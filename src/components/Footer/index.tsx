@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import Button from "../Button";
 import OutsideClickWrapper from "../OutsideClickHandler";
 
-import useCurrentUser from "@/hooks/useCurrentUser";
+import useCurrentUser from "../../hooks/useCurrentUser";
 
-import copyToClipboard from "@/helpers/copyToClipboard";
+import copyToClipboard from "../../helpers/copyToClipboard";
 
-import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as CopyIcon} from "../../assets/icons/copy-icon.svg";
 
 import styles from "./Footer.module.scss";
 

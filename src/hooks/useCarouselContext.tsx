@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { CarouselContext } from "pure-react-carousel";
 
-import useStore from "@/store/store";
+import useStore from "../store/store";
 
 import { TOKEN_CARDS } from "src/const";
 

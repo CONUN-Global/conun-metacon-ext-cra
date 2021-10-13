@@ -3,7 +3,7 @@ import { Transaction as Tx } from "ethereumjs-tx";
 
 import useCurrentUser from "./useCurrentUser";
 
-import { getPrivateKey } from "@/helpers/privateKey";
+import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
 import { toast } from "react-toastify";

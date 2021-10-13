@@ -1,6 +1,6 @@
 import { useMutation } from "react-query";
 
-import { getPrivateKey } from "@/helpers/privateKey";
+import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
 

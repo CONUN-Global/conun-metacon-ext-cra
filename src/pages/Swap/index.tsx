@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 
-import BalanceBox from "@/components/BalanceBox";
+import BalanceBox from "../../components/BalanceBox";
 import SwapBox from "./SwapBox";
 
 import styles from "./Swap.module.scss";

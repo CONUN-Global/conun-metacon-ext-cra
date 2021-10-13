@@ -2,9 +2,9 @@ import { InputHTMLAttributes } from "react";
 import classNames from "classnames";
 import { FieldError } from "react-hook-form";
 
-import Button from "@/components/Button";
+import Button from "../../../../components/Button";
 
-import {ReactComponent as ChangeIcon} from "@/assets/icons/change-icon.svg";
+import {ReactComponent as ChangeIcon} from "../../../../assets/icons/change-icon.svg";
 
 import styles from "./FormTransactionInput.module.scss";
 
