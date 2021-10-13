@@ -14,7 +14,7 @@ function Welcome() {
       <div className={styles.ColumnBottom}>
 
           
-          <a href={"http://192.168.100.54:5200/intro"} target="_blank" rel="noreferrer" className={styles.ButtonLow}>
+          <a href={"http://192.168.100.54:5200/intro"} target="_blank" rel="noreferrer" className={styles.Button}>
           Login / Sign Up
           </a>
 
