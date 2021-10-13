@@ -7,13 +7,15 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use(
-  (config) => {
+  (config:any) => {
     const token = useStore.getState().authToken;
 
     if (token) {
       config.headers.jwtAuthToken = token;
     } else {
-      delete instance.defaults.headers.jwtAuthToken;
+      if (instance && instance.defaults.headers){
+        delete instance.defaults.headers.jwtAuthToken;
+      }
     }
     return config;
   },

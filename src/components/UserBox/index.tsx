@@ -15,7 +15,7 @@ function UserBox() {
         <span className={styles.Email}>{user?.email}</span>
       </div>
 
-      <Image
+      <img
         src={user?.picture || ""}
         width="40"
         height="40"

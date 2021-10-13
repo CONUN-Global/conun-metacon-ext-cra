@@ -1,5 +1,5 @@
-import Link from "next/link";
-import React, { useState } from "react";
+import {Link} from "react-router-dom";
+import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 import Button from "@/components/Button";
@@ -141,7 +141,7 @@ function SwapBox() {
 
       <div className={styles.Buttons}>
         <Button type="reset" variant="secondary">
-          <Link href="/">Cancel</Link>
+          <Link to="/">Cancel</Link>
         </Button>
         <Button type="submit" variant="primary">
           Next

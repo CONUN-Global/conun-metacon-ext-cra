@@ -1,4 +1,4 @@
-import Link from "next/link";
+import {Link} from "react-router-dom";
 
 import TransactionHistory from "./TransactionHistory";
 
@@ -13,26 +13,20 @@ function ActionsSection() {
     <div className={styles.ActionsSection}>
       <div className={styles.ActionButtons}>
         <div className={styles.ButtonCell}>
-          <Link href="/buy">
-            <a className={styles.ActionButton}>
+          <Link to="/buy" className={styles.ActionButton}>
               <BuyIcon className={styles.Icon} />
-            </a>
           </Link>
           <div className={styles.Label}>Buy</div>
         </div>
         <div className={styles.ButtonCell}>
-          <Link href="/send">
-            <a className={styles.ActionButton}>
+          <Link to="/send" className={styles.ActionButton}>
               <SendIcon className={styles.Icon} />
-            </a>
           </Link>
           <div className={styles.Label}>Send</div>
         </div>
         <div className={styles.ButtonCell}>
-          <Link href="/swap">
-            <a className={styles.ActionButton}>
+          <Link to="/swap" className={styles.ActionButton}>
               <SwapIcon className={styles.Icon} />
-            </a>
           </Link>
           <div className={styles.Label}>Swap</div>
         </div>

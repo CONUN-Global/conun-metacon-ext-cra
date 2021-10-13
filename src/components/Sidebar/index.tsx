@@ -1,6 +1,5 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useState } from "react";
+import { useHistory, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import useStore from "@/store/store";
@@ -31,7 +30,7 @@ function Sidebar() {
   const [password, setPassword] = useState("");
   const [isChecked, setChecked] = useState(false);
 
-  const router = useRouter();
+  const history = useHistory();
 
   const { login } = useLogin();
 
@@ -40,7 +39,7 @@ function Sidebar() {
   };
   const onSecurityConfirmation = async () => {
     try {
-      const loginData = await login(password);
+      const loginData:any = await login(password);
       if (loginData?.success) {
         setNeedPassword(true);
         setIsSecurityModalOpen(false);
@@ -80,11 +79,9 @@ function Sidebar() {
                   </div>
                 </Button>
                 <div className={styles.Button}>
-                  <Link href={"https://discord.gg/VvXvQfa3Za"}>
-                    <a target="_blanck" className={styles.ButtonItem}>
+                  <Link to="https://discord.gg/VvXvQfa3Za" target="_blank" rel="noreferrer" className={styles.ButtonItem}>
                       <DiscordIcon className={styles.Icon} />
                       Connect to discord
-                    </a>
                   </Link>
                 </div>
                 <Button
@@ -92,7 +89,9 @@ function Sidebar() {
                   className={styles.Button}
                   onClick={() => {
                     localStorage.clear();
-                    router.reload();
+                    history.push("/");
+                    // This was router.reload for next
+                    // Let's try this.
                   }}
                 >
                   <div className={styles.ButtonItem}>

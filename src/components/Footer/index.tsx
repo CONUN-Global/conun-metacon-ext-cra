@@ -49,7 +49,7 @@ function Footer() {
               className={styles.QrCodeButton}
               onClick={() => setIsOpen((prev) => !prev)}
             >
-              <Image
+              <img
                 className={styles.QrCode}
                 src={data}
                 width="31"
@@ -62,7 +62,7 @@ function Footer() {
         <p className={styles.Title}>Your wallet address qr code</p>
         {data && (
           <Button noStyle className={styles.QrCodeWrapper}>
-            <Image
+            <img
               className={styles.QrCodeMain}
               src={data}
               width="170"

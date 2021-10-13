@@ -1,4 +1,4 @@
-import Link from "next/link";
+import {Link} from "react-router-dom";
 
 import BalanceBox from "@/components/BalanceBox";
 import TransferBox from "./TransferBox";
@@ -10,8 +10,8 @@ function Send() {
     <div className={styles.Send}>
       <div className={styles.TitleBar}>
         <div className={styles.Title}>SEND</div>
-        <Link href="/">
-          <a className={styles.Ecks}>X</a>
+        <Link to="/" className={styles.Ecks}>
+          X
         </Link>
       </div>
       <BalanceBox />

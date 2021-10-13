@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames";
-import Link from "next/link";
+import {Link} from "react-router-dom";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import Button from "@/components/Button";
@@ -264,8 +264,9 @@ function TransferBox() {
         </div>
       )}
       <div className={styles.Buttons}>
-        <Link href="/">
-          <a>
+        {/* Expect this to be broken */}
+        <Link to="/">
+          
             <Button
               className={styles.ConfirmButton}
               type="reset"
@@ -273,7 +274,7 @@ function TransferBox() {
             >
               Cancel
             </Button>
-          </a>
+          
         </Link>
         <Button
           className={classNames(styles.ConfirmButton, {

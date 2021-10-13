@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRouter } from "next/router";
+import { useHistory, useLocation } from "react-router-dom";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
@@ -16,21 +16,22 @@ interface AuthProvider {
 function AuthProvider({ children }: AuthProvider) {
   const { currentUser, isLoading } = useCurrentUser();
   const { current } = useStore((store) => store.currentStep);
-  const router = useRouter();
+  const history = useHistory();
+  const location = useLocation();
 
   useEffect(() => {
     if (
       currentUser &&
-      PUBLIC_ROUTES.includes(router.pathname) &&
+      PUBLIC_ROUTES.includes(location.pathname) &&
       !PRIVATE_STEPS.includes(current)
     ) {
-      router.replace("/");
+      history.replace("/");
     }
 
-    if (!currentUser && router.pathname !== "/intro") {
-      router.replace("/intro");
+    if (!currentUser && location.pathname !== "/intro") {
+      history.replace("/intro");
     }
-  }, [currentUser, router, current]);
+  }, [currentUser, location, history, current]);
 
   if (isLoading) {
     return null;

@@ -1,5 +1,5 @@
 import React from "react";
-import Link from "next/link";
+import {Link} from "react-router-dom";
 import { ServiceCardObj } from "@/types/index";
 
 import ServiceCard from "./ServiceCard";
@@ -27,8 +27,8 @@ function Buy() {
     <div className={styles.Buy}>
       <div className={styles.BuyHeader}>
         <div className={styles.Title}>BUY</div>
-        <Link href="/">
-          <a className={styles.Ecks}>X</a>
+        <Link to="/" className={styles.Ecks}>
+          X
         </Link>
       </div>
       <div className={styles.BuyBanner}>

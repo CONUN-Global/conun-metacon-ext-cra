@@ -1,4 +1,4 @@
-import Link from "next/link";
+import {Link} from "react-router-dom";
 
 import BalanceBox from "@/components/BalanceBox";
 import SwapBox from "./SwapBox";
@@ -10,8 +10,8 @@ function Swap() {
     <div className={styles.Swap}>
       <div className={styles.TitleBar}>
         <div className={styles.Title}>SWAP</div>
-        <Link href="/">
-          <a className={styles.Ecks}>X</a>
+        <Link to="/" className={styles.Ecks}>
+          X
         </Link>
       </div>
       <BalanceBox />

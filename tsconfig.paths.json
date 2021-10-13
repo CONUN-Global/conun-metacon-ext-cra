@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/components/*": ["src/components/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/pages/*": ["src/pages/*"],
+      "@/helpers/*": ["src/helpers/*"],
+      "@/assets/*": ["src/assets/*"],
+      "@/types/*": ["src/types/*"],
+      "@/react-query/*": ["src/react-query/*"],
+      "@/axios/*": ["src/axios/*"],
+      "@/store/*": ["src/store/*"]
+    }
+  }
+}
