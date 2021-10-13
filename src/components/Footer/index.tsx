@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { useQuery } from "react-query";
 import qrcode from "qrcode";
 import { motion } from "framer-motion";
@@ -11,7 +10,7 @@ import useCurrentUser from "@/hooks/useCurrentUser";
 
 import copyToClipboard from "@/helpers/copyToClipboard";
 
-import CopyIcon from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
 
 import styles from "./Footer.module.scss";
 

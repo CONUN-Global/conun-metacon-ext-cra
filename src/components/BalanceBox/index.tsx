@@ -10,7 +10,7 @@ import truncateString from "@/helpers/truncateString";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
 
-import CopyIcon from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
 
 import styles from "./BalanceBox.module.scss";
 

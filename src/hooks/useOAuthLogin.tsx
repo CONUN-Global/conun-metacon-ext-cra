@@ -25,7 +25,7 @@ function useOAuthLogin() {
       return data;
     },
     {
-      onSuccess: (data) => {
+      onSuccess: (data:any) => {
         setAuthToken(data?.payload?.jwtAuthToken);
         setStoreAuthToken(data?.payload?.jwtAuthToken);
         setIdentity(JSON.stringify(data?.payload?.x509Identity));

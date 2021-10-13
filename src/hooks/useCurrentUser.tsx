@@ -14,7 +14,7 @@ function useCurrentUser() {
   const { data, isLoading, isError } = useQuery<CurrentUser>(
     "current-user",
     async () => {
-      const { data } = await instance.get("/users/me");
+      const { data }:any = await instance.get("/users/me");
       return data.payload;
     },
     {

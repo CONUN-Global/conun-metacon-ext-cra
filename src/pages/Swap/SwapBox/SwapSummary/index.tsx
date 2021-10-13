@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useHistory } from "react-router";
 
 import Divider from "@/components/Divider";
 import Modal from "@/components/Modal";
@@ -14,7 +14,7 @@ import { GAS_FEE_DIVIDEND, GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 import { Token } from "@/types/index";
 import { Swap } from "..";
 
-import InfoIcon from "@/assets/icons/info-icon.svg";
+import {ReactComponent as InfoIcon} from "@/assets/icons/info-icon.svg";
 
 import styles from "./SwapSummary.module.scss";
 
@@ -46,19 +46,19 @@ function Total({
   );
 }
 
-interface SwapSummary {
+interface SwapSummaryProps {
   isOpen: boolean;
   swap: Swap | null;
   onClose: () => void;
 }
 
-function SwapSummary({ swap, isOpen, onClose }: SwapSummary) {
+function SwapSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const { token } = useCurrentToken();
 
   const { swapFromCon, isLoading } = useSwapFromCon();
   const { swapFromConx, isLoading: isLoadingFromConx } = useSwapFromConx();
 
-  const router = useRouter();
+  const history = useHistory();
 
   const { addTransaction } = useTransactionList();
 
@@ -94,7 +94,7 @@ function SwapSummary({ swap, isOpen, onClose }: SwapSummary) {
         status: "pending",
       });
 
-      router.push("/");
+      history.push("/");
     }
   };
 

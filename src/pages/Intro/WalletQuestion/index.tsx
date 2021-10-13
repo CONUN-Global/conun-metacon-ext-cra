@@ -1,8 +1,7 @@
 import Button from "@/components/Button";
 
 import useStore from "@/store/store";
-
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 
 import styles from "./WalletQuestion.module.scss";
 

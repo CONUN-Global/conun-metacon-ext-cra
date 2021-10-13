@@ -4,8 +4,8 @@ import { ServiceCardObj } from "@/types/index";
 
 import ServiceCard from "./ServiceCard";
 
-import BithumbIcon from "@/assets/icons/bithumb-logo.svg";
-import UniswapIcon from "@/assets/icons/uniswap-logo.svg";
+import {ReactComponent as BithumbIcon} from "@/assets/icons/bithumb-logo.svg";
+import {ReactComponent as UniswapIcon} from "@/assets/icons/uniswap-logo.svg";
 
 import styles from "./Buy.module.scss";
 

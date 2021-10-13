@@ -10,6 +10,9 @@ import { queryClient } from "@/react-query/config";
 import styles from "./App.module.scss";
 import { Route, Switch } from "react-router";
 import Home from "./pages/Home";
+import Send from "./pages/Send";
+import Swap from "./pages/Swap";
+import Intro from "./pages/Intro";
 
 
 function App() {
@@ -28,6 +31,18 @@ function App() {
           limit={1}
         />
         <Switch>
+          <Route path="/intro">
+            <Intro/>
+          </Route>
+          <Route path="/buy">
+            <Home/>
+          </Route>
+          <Route path="/send">
+            <Send/>
+          </Route>
+          <Route path="/swap">
+            <Swap/>
+          </Route>
           <Route path="/">
             <Home/>
           </Route>

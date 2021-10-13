@@ -12,7 +12,7 @@ type Args = {
 function useGetKeystore() {
   const { mutateAsync: getKeystore, isLoading } = useMutation(
     async (args: Args) => {
-      const { data } = await instance.post("/users/getLinkedWallets", {
+      const { data }:any = await instance.post("/users/getLinkedWallets", {
         ...args,
         orgName: ORG_NAME,
         walletType: WALLET_TYPE,

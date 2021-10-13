@@ -1,5 +1,3 @@
-import React from "react";
-
 import WalletQuestion from "./WalletQuestion";
 import Welcome from "./Welcome";
 import HelpUs from "./HelpUs";

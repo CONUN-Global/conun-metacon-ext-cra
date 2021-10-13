@@ -6,11 +6,11 @@ import Footer from "../Footer";
 import useCurrentUser from "@/hooks/useCurrentUser";
 import styles from "./Layout.module.scss";
 
-interface Layout {
+interface Props {
   children: React.ReactNode;
 }
 
-function Layout({ children }: Layout) {
+function Layout({ children }: Props) {
   const { currentUser } = useCurrentUser();
 
   return (

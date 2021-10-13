@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Slide } from "pure-react-carousel";
 import classNames from "classnames";
 
@@ -10,9 +10,9 @@ import useCurrentToken from "@/hooks/useCurrentToken";
 import copyToClipboard from "@/helpers/copyToClipboard";
 import truncateString from "@/helpers/truncateString";
 
-import ConunLogo from "@/assets/icons/conun-white.svg";
-import EthLogo from "@/assets/icons/ethereum.svg";
-import CopyIcon from "@/assets/icons/copy-icon.svg";
+import {ReactComponent as ConunLogo} from "@/assets/icons/conun-white.svg";
+import {ReactComponent as EthLogo} from "@/assets/icons/ethereum.svg";
+import {ReactComponent as CopyIcon} from "@/assets/icons/copy-icon.svg";
 
 import styles from "./TokenCard.module.scss";
 
@@ -48,7 +48,7 @@ function TokenCard({ token, i }: TokenCardProps) {
     if (currentToken?.token === token?.token) {
       refetch();
     }
-  }, [currentToken]);
+  }, [currentToken]); //eslint-disable-line
 
   return (
     <Slide innerClassName={styles.CardContainer} index={i}>

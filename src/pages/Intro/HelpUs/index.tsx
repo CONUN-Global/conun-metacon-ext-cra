@@ -2,9 +2,9 @@ import Button from "@/components/Button";
 
 import useStore from "@/store/store";
 
-import GoBack from "@/assets/icons/go-back.svg";
-import GreenCircle from "@/assets/icons/green_circle.svg";
-import RedCircle from "@/assets/icons/red_circle.svg";
+import {ReactComponent as GoBack} from "@/assets/icons/go-back.svg";
+import {ReactComponent as GreenCircle} from "@/assets/icons/green_circle.svg";
+import {ReactComponent as RedCircle} from "@/assets/icons/red_circle.svg";
 
 import styles from "./HelpUs.module.scss";
 

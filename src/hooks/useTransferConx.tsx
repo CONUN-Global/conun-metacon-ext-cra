@@ -20,7 +20,7 @@ function useTransferConx() {
       const signature = await sign({
         ...transferData,
       });
-      const { data } = await instance.post(
+      const { data }:any = await instance.post(
         `/con-token/channels/mychannel/chaincodes/${process.env.NEXT_PUBLIC_SMART_CONTRACT}`,
         {
           ...transferData,

@@ -1,4 +1,4 @@
-import { useRouter } from "next/router";
+import { useHistory } from "react-router";
 import { useState } from "react";
 import { toast } from "react-toastify";
 
@@ -23,12 +23,12 @@ import truncateString from "@/helpers/truncateString";
 
 import { Token } from "@/types/index";
 
-import ArrowIcon from "@/assets/icons/arrow-right.svg";
-import InfoIcon from "@/assets/icons/info-icon.svg";
+import {ReactComponent as ArrowIcon} from "@/assets/icons/arrow-right.svg";
+import {ReactComponent as InfoIcon} from "@/assets/icons/info-icon.svg";
 
 import styles from "./TransactionSummary.module.scss";
 
-interface TransactionSummary {
+interface TransactionSummaryProps {
   isOpen: boolean;
   transaction: Transaction | null;
   onClose: () => void;
@@ -70,10 +70,10 @@ function TransactionSummary({
   transaction,
   isOpen,
   onClose,
-}: TransactionSummary) {
+}: TransactionSummaryProps) {
   const { currentUser } = useCurrentUser();
 
-  const router = useRouter();
+  const history = useHistory();
 
   const token = useCurrentToken();
 
@@ -92,7 +92,7 @@ function TransactionSummary({
 
   const onValidateAndConfirm = async () => {
     try {
-      const loginData = await login(password);
+      const loginData:any = await login(password);
       if (loginData?.success) {
         onConfirm();
       }
@@ -143,7 +143,7 @@ function TransactionSummary({
         status: token.token === "conx" ? "success" : "pending",
       });
 
-      router.push("/");
+      history.push("/");
     }
   };
 

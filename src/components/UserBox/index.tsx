@@ -1,6 +1,3 @@
-import React from "react";
-import Image from "next/image";
-
 import useStore from "@/store/store";
 
 import styles from "./UserBox.module.scss";
@@ -20,7 +17,7 @@ function UserBox() {
         width="40"
         height="40"
         className={styles.ProfilePicture}
-        alt="profile-picture"
+        alt="profile"
       />
     </div>
   );

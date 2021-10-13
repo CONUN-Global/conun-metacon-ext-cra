@@ -1,16 +1,16 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import classNames from "classnames";
 
 import styles from "./TransactionInput.module.scss";
 
-interface TransactionInput extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
   token: "con" | "conx" | "eth";
   name?: string;
   label?: string;
   isSwapFrom?: boolean;
 }
 
-function TransactionInput({ id, token, label, ...props }: TransactionInput) {
+function TransactionInput({ id, token, label, ...props }: Props) {
   return (
     <div className={styles.TransactionInput}>
       {!!label && (

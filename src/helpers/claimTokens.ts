@@ -28,7 +28,7 @@ async function claimsTokens({
 
     const {
       data: { payload },
-    } = await instance.post("/bridge-swap/swap-request/type/CONXtoCON", {
+    }:any = await instance.post("/bridge-swap/swap-request/type/CONXtoCON", {
       amount: amount,
       walletAddress,
     });

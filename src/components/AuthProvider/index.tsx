@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
@@ -9,11 +9,11 @@ const PUBLIC_ROUTES = ["/intro"];
 
 const PRIVATE_STEPS = ["backup"];
 
-interface AuthProvider {
+interface Props {
   children: React.ReactNode;
 }
 
-function AuthProvider({ children }: AuthProvider) {
+function AuthProvider({ children }: Props) {
   const { currentUser, isLoading } = useCurrentUser();
   const { current } = useStore((store) => store.currentStep);
   const history = useHistory();

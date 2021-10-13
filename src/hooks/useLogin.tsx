@@ -30,7 +30,7 @@ function useLogin() {
       return data;
     },
     {
-      onSuccess: (data) => {
+      onSuccess: (data:any) => {
         setStoreAuthToken(data?.payload?.jwtAuthToken);
         setAuthToken(data?.payload?.jwtAuthToken);
       },

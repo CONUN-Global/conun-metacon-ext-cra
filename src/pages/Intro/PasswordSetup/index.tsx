@@ -13,8 +13,7 @@ import web3 from "src/web3";
 
 import { setIdentity } from "@/helpers/indentity";
 import { setPrivateKey } from "@/helpers/privateKey";
-
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 
 import styles from "./PasswordSetup.module.scss";
 
@@ -43,7 +42,7 @@ function PasswordSetup() {
       const keyStore = web3.eth.accounts.encrypt(privateKey, password);
       const stringKeystore = JSON.stringify(keyStore);
 
-      let res;
+      let res:any;
 
       if (user?.token) {
         res = await oAuthSignup({

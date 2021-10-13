@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { useRouter } from "next/router";
+import { useHistory } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
@@ -14,7 +14,7 @@ import useGetKeystore from "@/hooks/useGetKeystore";
 
 import { setIdentity } from "@/helpers/indentity";
 
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 
 import styles from "./ImportWallet.module.scss";
 
@@ -29,7 +29,7 @@ function ImportWallet() {
 
   const { login, isLoading } = useLogin();
 
-  const router = useRouter();
+  const history = useHistory();
 
   const onActivate = async () => {
     if (!idFile) {
@@ -41,7 +41,7 @@ function ImportWallet() {
     } else {
       try {
         setIdentity(idFile);
-        const data = await login(password);
+        const data:any = await login(password);
 
         if (data?.success) {
           await getKeystore({
@@ -49,7 +49,7 @@ function ImportWallet() {
             x509Identity:
               typeof idFile === "string" ? JSON.parse(idFile) : idFile,
           });
-          router.replace("/");
+          history.replace("/");
         }
       } catch (error: any) {
         toast.error(error?.response?.data?.payload ?? "An error happened", {
@@ -124,7 +124,7 @@ function ImportWallet() {
           id="checkbox"
         />
         <label className={styles.Label} htmlFor="checkbox">
-          I agree to the <span>Terms of Use & Privacy Policy</span>
+          I agree to the <span>Terms of Use &amp; Privacy Policy</span>
         </label>
       </div>
       <Button

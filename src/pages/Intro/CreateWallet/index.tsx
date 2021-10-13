@@ -15,7 +15,7 @@ import { setPrivateKey } from "@/helpers/privateKey";
 
 import web3 from "src/web3";
 
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 import styles from "./CreateWallet.module.scss";
 
 interface FormData {
@@ -44,7 +44,7 @@ function CreateWallet() {
     try {
       const keyStore = web3.eth.accounts.encrypt(privateKey, password);
       const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-      let res;
+      let res:any;
       if (user?.token) {
         res = await oauthSignup({
           password,

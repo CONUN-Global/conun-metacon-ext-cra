@@ -2,8 +2,7 @@ import Button from "@/components/Button";
 import UserBox from "@/components/UserBox";
 
 import useStore from "@/store/store";
-
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 
 import styles from "./NewUser.module.scss";
 

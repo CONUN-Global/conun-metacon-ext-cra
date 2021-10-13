@@ -7,12 +7,12 @@ import Button from "@/components/Button";
 import Modal from "@/components/Modal";
 
 import useCurrentUser from "@/hooks/useCurrentUser";
-import { useRouter } from "next/router";
+import { useHistory } from "react-router-dom";
 
 import { getIdentity } from "@/helpers/indentity";
 
-import MetaconCircle from "@/assets/icons/metacon-circle.svg";
-import FileIcon from "@/assets/icons/file-icon.svg";
+import {ReactComponent as MetaconCircle} from "@/assets/icons/metacon-circle.svg";
+import {ReactComponent as FileIcon} from "@/assets/icons/file-icon.svg";
 
 import styles from "./Backup.module.scss";
 
@@ -29,7 +29,7 @@ function Backup() {
 
   const { currentUser } = useCurrentUser();
 
-  const router = useRouter();
+  const history = useHistory();
 
   const handleActivate = () => {
     if (!isChecked) {
@@ -115,7 +115,7 @@ function Backup() {
             </Button>
             <Button
               type="button"
-              onClick={() => router.replace("/")}
+              onClick={() => history.replace("/")}
               variant="primary"
             >
               Yes

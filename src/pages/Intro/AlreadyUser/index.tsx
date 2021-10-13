@@ -11,7 +11,7 @@ import useGetKeystore from "@/hooks/useGetKeystore";
 
 import { getIdentity } from "@/helpers/indentity";
 
-import GoBackWhite from "@/assets/icons/go-back-white.svg";
+import {ReactComponent as GoBackWhite} from "@/assets/icons/go-back-white.svg";
 
 import styles from "./AlreadyUser.module.scss";
 

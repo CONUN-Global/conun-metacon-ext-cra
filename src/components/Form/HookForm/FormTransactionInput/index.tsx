@@ -1,14 +1,14 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import classNames from "classnames";
 import { FieldError } from "react-hook-form";
 
 import Button from "@/components/Button";
 
-import ChangeIcon from "@/assets/icons/change-icon.svg";
+import {ReactComponent as ChangeIcon} from "@/assets/icons/change-icon.svg";
 
 import styles from "./FormTransactionInput.module.scss";
 
-interface FormTransactionInput extends InputHTMLAttributes<HTMLInputElement> {
+interface FormTransactionInputProps extends InputHTMLAttributes<HTMLInputElement> {
   register: any;
   token: "con" | "conx" | "eth";
   name?: string;
@@ -27,7 +27,7 @@ function FormTransactionInput({
   register,
   isSwapFrom,
   ...props
-}: FormTransactionInput) {
+}: FormTransactionInputProps) {
   return (
     <div className={styles.FormTransactionInput}>
       {!!label && (

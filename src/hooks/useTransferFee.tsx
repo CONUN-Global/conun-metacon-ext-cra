@@ -69,7 +69,7 @@ async function getGasEstimate(
     });
   }
 
-  const gweiGasPrice = await web3.utils.fromWei(gasPrice, "gwei");
+  const gweiGasPrice = web3.utils.fromWei(gasPrice, "gwei");
 
   return {
     slow: {

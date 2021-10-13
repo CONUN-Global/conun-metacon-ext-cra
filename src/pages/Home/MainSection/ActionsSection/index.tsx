@@ -2,9 +2,9 @@ import {Link} from "react-router-dom";
 
 import TransactionHistory from "./TransactionHistory";
 
-import BuyIcon from "@/assets/icons/buy-icon.svg";
-import SwapIcon from "@/assets/icons/swap-icon.svg";
-import SendIcon from "@/assets/icons/send-icon.svg";
+import {ReactComponent as BuyIcon} from "@/assets/icons/buy-icon.svg";
+import {ReactComponent as SwapIcon} from "@/assets/icons/swap-icon.svg";
+import {ReactComponent as SendIcon} from "@/assets/icons/send-icon.svg";
 
 import styles from "./ActionsSection.module.scss";
 

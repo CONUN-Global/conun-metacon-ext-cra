@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import classNames from "classnames";
 
 import useStore from "@/store/store";
 
 import { NETWORK_OPTIONS } from "src/const";
 
-import ArrowDownside from "@/assets/icons/arrow-downside.svg";
+import {ReactComponent as ArrowDownside} from "@/assets/icons/arrow-downside.svg";
 
 import styles from "./NetworkSelector.module.scss";
 

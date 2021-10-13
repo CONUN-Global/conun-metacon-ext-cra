@@ -26,7 +26,7 @@ async function despositTokens({
       process.env.NEXT_PUBLIC_BRIDGE_CONTRACT_ADDRESS
     );
 
-    const { data } = await instance.post(
+    const { data }:any = await instance.post(
       "/bridge-swap/swap-request/type/CONtoCONX",
       {
         amount: amount,

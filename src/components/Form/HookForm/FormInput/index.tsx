@@ -1,11 +1,11 @@
-import React, { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes } from "react";
 import classNames from "classnames";
 
 import Tooltip from "@/components/Tooltip";
 
 import { FieldError } from "react-hook-form";
 
-import QuestionIcon from "@/assets/icons/question-icon.svg";
+import {ReactComponent as QuestionIcon} from "@/assets/icons/question-icon.svg";
 import styles from "./FormInput.module.scss";
 
 interface FormInputProps extends InputHTMLAttributes<HTMLInputElement> {

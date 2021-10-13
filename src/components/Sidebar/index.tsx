@@ -13,10 +13,10 @@ import OutsideClickWrapper from "../OutsideClickHandler";
 
 import useLogin from "@/hooks/useLogin";
 
-import MenuIcon from "@/assets/icons/menu-icon.svg";
-import DiscordIcon from "@/assets/icons/discord-icon.svg";
-import SecurityIcon from "@/assets/icons/security-icon.svg";
-import SignoutIcon from "@/assets/icons/signout-icon.svg";
+import {ReactComponent as MenuIcon} from "@/assets/icons/menu-icon.svg";
+import {ReactComponent as DiscordIcon} from "@/assets/icons/discord-icon.svg";
+import {ReactComponent as SecurityIcon} from "@/assets/icons/security-icon.svg";
+import {ReactComponent as SignoutIcon} from "@/assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
 
 function Sidebar() {
