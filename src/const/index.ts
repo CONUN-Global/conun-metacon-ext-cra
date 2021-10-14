@@ -20,6 +20,7 @@ export const GAS_FEE_DIVIDEND = 1000000000;
 
 export const PASSWORD_SECURITY = "password-security";
 
+export const WEBSITE_ADDRESS = "http://localhost:3333/";
 /**
  Temporary workaround to calculate gas limit for SWAP, can be changed once we find a way to calculate the gas limit dynamically
  **/

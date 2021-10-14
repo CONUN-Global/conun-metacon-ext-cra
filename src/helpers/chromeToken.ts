@@ -1,0 +1,28 @@
+import isWindowPresent from "./isWindowPresent";
+
+export function getChromeAuthToken() {
+  if (!isWindowPresent()) {
+    return "";
+  }
+  return chrome.storage.local.get(["METACON_AUTH_KEY"], function(val){
+    console.log("RETURNED VAL: ", val);
+  });
+}
+
+export function setChromeAuthToken(key: string) {
+  chrome.storage.sync.set({"METACON_AUTH_KEY": key}, ()=> {
+    console.log("STORED: ", key);
+  })
+}
+
+
+export async function getChromeAuthHeader() {
+  const getToken = async () =>
+    new Promise((resolve) =>
+      chrome.storage.sync.get(["METACON_AUTH_KEY"], (result) => resolve(result))
+    );
+
+  const token: any = await getToken();
+
+  return token ?? "";
+}
