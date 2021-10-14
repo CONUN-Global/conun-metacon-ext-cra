@@ -79,3 +79,13 @@ export type ServiceCardObj = {
   caption: string;
   icon: JSX.Element;
 };
+
+export type ContractConfigObj = {
+  address: string;
+  abiRaw: any;
+};
+
+export type ContractConfigResponseObj = {
+  conContract: ContractConfigObj;
+  bridgeContract: ContractConfigObj;
+};

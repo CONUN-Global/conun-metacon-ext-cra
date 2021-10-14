@@ -1,8 +1,10 @@
 import { useQuery } from "react-query";
 
+import web3 from "src/web3";
+
 import useCurrentUser from "./useCurrentUser";
 
-import web3 from "src/web3";
+import getConfig from "../helpers/getConfig";
 
 function useGetConBalance() {
   const { currentUser } = useCurrentUser();
@@ -10,16 +12,18 @@ function useGetConBalance() {
   const { data, isLoading, refetch, isFetching } = useQuery(
     "get-con-balance",
     async () => {
+      const configData = await getConfig();
+
       const contract = new web3.eth.Contract(
-        JSON.parse(process.env.NEXT_PUBLIC_ABI || ""),
-        process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+        configData?.conContract?.abiRaw,
+        configData?.conContract?.address
       );
 
       const data = await contract.methods
         .balanceOf(currentUser?.walletAddress)
         .call();
 
-      const balance = await web3.utils.fromWei(data);
+      const balance = web3.utils.fromWei(data);
 
       return { payload: balance };
     },

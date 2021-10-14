@@ -23,9 +23,6 @@ function AuthProvider({ children }: Props) {
   }
 
   useEffect(() => {
-
-    if (currentUser) console.log("Current User is loaded")
-
     if (
       currentUser &&
       PUBLIC_ROUTES.includes(location.pathname)

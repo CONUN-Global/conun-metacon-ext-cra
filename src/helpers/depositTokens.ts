@@ -3,6 +3,9 @@ import { toast } from "react-toastify";
 
 import instance from "../axios/instance";
 import web3 from "src/web3";
+
+import getConfig from "./getConfig";
+
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 
 type args = {
@@ -21,12 +24,14 @@ async function despositTokens({
   bufferedPrivateKey,
 }: args) {
   try {
+    const configData = await getConfig();
+
     const bridgeContract = new web3.eth.Contract(
-      JSON.parse(process.env.NEXT_PUBLIC_BRIDGE_ABI || "[]"),
-      process.env.NEXT_PUBLIC_BRIDGE_CONTRACT_ADDRESS
+      configData?.bridgeContract?.abiRaw,
+      configData?.bridgeContract?.address
     );
 
-    const { data }:any = await instance.post(
+    const { data }: any = await instance.post(
       "/bridge-swap/swap-request/type/CONtoCONX",
       {
         amount: amount,
@@ -47,7 +52,7 @@ async function despositTokens({
     const txObject = {
       from: walletAddress,
       nonce: web3.utils.toHex(txCount),
-      to: process.env.NEXT_PUBLIC_BRIDGE_CONTRACT_ADDRESS,
+      to: configData?.bridgeContract?.address,
       value: "0x0",
       gasLimit: web3.utils.toHex(
         String(gasLimit * GAS_LIMIT_MULTIPLIER_FOR_SWAP)

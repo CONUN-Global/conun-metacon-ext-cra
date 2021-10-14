@@ -10,13 +10,9 @@ function useCurrentUser() {
   const setIsUserLoggedIn = useStore((state) => state.setIsUserLoggedIn);
   const authToken = useStore((state) => state.authToken);
   const setAuthToken = useStore((state) => state.setAuthToken);
-
-  console.log("useCurrentUser")
-
   const { data, isLoading, isError } = useQuery<CurrentUser>(
     "current-user",
     async () => {
-      console.log("Current User: Pre-request")
       const { data }:any = await instance.get("/users/me");
       return data.payload;
     },

@@ -14,7 +14,7 @@ function Layout({ children }: Props) {
   const { currentUser } = useCurrentUser();
 
   return (
-    <div className={styles.Layout}>
+    <div className={styles.Layout} id="appLayout">
       <div className={styles.AppContainer}>
         <Header />
         <div>{children}</div>
