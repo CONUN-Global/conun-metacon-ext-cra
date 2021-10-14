@@ -13,7 +13,7 @@ function useGetConTokenBalance() {
     "balance",
     async () => {
       const { data } = await instance.get(
-        `/con-token/channels/mychannel/chaincodes/${process.env.NEXT_PUBLIC_SMART_CONTRACT}?walletAddress=${currentUser?.walletAddress}&orgName=${ORG_NAME}&fcn=${FcnTypes.BalanceOf}`
+        `/con-token/channels/mychannel/chaincodes/${process.env.REACT_APP_SMART_CONTRACT}?walletAddress=${currentUser?.walletAddress}&orgName=${ORG_NAME}&fcn=${FcnTypes.BalanceOf}`
       );
       return data;
     },

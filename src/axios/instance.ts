@@ -3,7 +3,7 @@ import axios from "axios";
 import useStore from "../store/store";
 
 const instance = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_SERVER_URL,
+  baseURL: process.env.REACT_APP_SERVER_URL,
 });
 
 instance.interceptors.request.use(

@@ -1,28 +1,26 @@
-import { useState } from "react";
-import { setChromeAuthToken } from "src/helpers/chromeToken";
-
+import { useQuery } from "react-query";
+import getLoginFromBg from "src/helpers/getLoginFromBg";
+import useStore from "src/store/store";
 
 function useExtensionLogin(){
 
-  const [authKey, setAuthKey] = useState<undefined | string >(undefined);
-   
-  chrome.runtime.sendMessage({message:"EXT_KEY_REQUEST"}, function(response){
-    console.log("Background responded with: ", response)
-    setAuthKey(response.payload);
-  })
+  const setStoreAuthToken = useStore((state) => state.setAuthToken);
 
-  if (authKey){
-    console.log("KEY ACQUIRED")
-    setChromeAuthToken(authKey);
-  } else {
-    console.log("KEY UNKNOWN")
-  }
+   const {data, isLoading, isError} = useQuery("EXT_LOGIN", async ()=> {
+      const loginPackage = await getLoginFromBg();
+      return loginPackage;
+    },{
+      onSuccess: (loginPackage:any)=> {
+        console.log("Login worked:  ", loginPackage)
+        setStoreAuthToken(loginPackage.webAppAuthToken);
+      }
+    })
 
-  return {
-   isAuthorized: !!authKey,
-   authKey: authKey
-  }
-    
+    return {
+      loginPackage: data,
+      isLoading,
+      isError
+    }
 
 
 

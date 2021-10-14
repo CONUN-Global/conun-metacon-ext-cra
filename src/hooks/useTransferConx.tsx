@@ -21,7 +21,7 @@ function useTransferConx() {
         ...transferData,
       });
       const { data }:any = await instance.post(
-        `/con-token/channels/mychannel/chaincodes/${process.env.NEXT_PUBLIC_SMART_CONTRACT}`,
+        `/con-token/channels/mychannel/chaincodes/${process.env.REACT_APP_SMART_CONTRACT}`,
         {
           ...transferData,
           fcn: FcnTypes.Transfer,
