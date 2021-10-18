@@ -1,16 +1,11 @@
 import {ReactComponent as ConunLogo} from "../../../assets/icons/conun-logo.svg";
 
-import executeWebapp from "src/helpers/executeWebapp";
-
 import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
 
 import styles from "./Welcome.module.scss";
 
 function Welcome() {
 
-  executeWebapp()
-
- 
   return (
     <div className={styles.Welcome}>
       <div className={styles.ColumnTop}>
