@@ -3,9 +3,9 @@ import { useMutation } from "react-query";
 import useCurrentUser from "./useCurrentUser";
 
 import claimsTokens from "../helpers/claimTokens";
-import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
+import useStore from "src/store/store";
 
 type Args = {
   amount: number;
@@ -15,12 +15,14 @@ type Args = {
 
 function useSwapFromConx() {
   const { currentUser, isLoading } = useCurrentUser();
+  const etherKey = useStore((state) => state.etherKey);
+
   const { mutateAsync: swapFromConx } = useMutation(async (args: Args) => {
     const from = currentUser?.walletAddress;
 
     web3.eth.defaultAccount = from!;
 
-    let formattedPrivateKey = getPrivateKey() || "";
+    let formattedPrivateKey = etherKey || "";
 
     if (formattedPrivateKey.includes("0x")) {
       formattedPrivateKey = formattedPrivateKey.slice(

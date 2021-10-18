@@ -22,14 +22,11 @@ const extMsg = {
 const METACON_AUTH = "METACON_AUTH";
 const METACON_LOGIN ="METACON_LOGIN";
 
-chrome.runtime.onMessageExternal.addListener(function (
+chrome.runtime.onMessageExternal.addListener(async function (
   request,
   sender,
   sendResponse
 ) {
-  if (request) console.log("Verify a request was received")
-  if (request.message) console.log("Request has message: ", request.message)
-  
   // Receiving message from webpage
   if (request.message === extMsg.WEBAPP_SEND_AUTH){
     console.log("Received AUTH KEY from Metacon Webapp")

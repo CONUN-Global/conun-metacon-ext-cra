@@ -1,15 +1,15 @@
 import { default as LModal } from "react-modal";
 import classNames from "classnames";
 
-import {ReactComponent as IconClose} from "../../assets/icons/close.svg";
+import { ReactComponent as IconClose } from "../../assets/icons/close.svg";
 
 // import isWindowPresent from "../../helpers/isWindowPresent";
 
 import styles from "./Modal.module.scss";
 
 // if (isWindowPresent()) {
-  // }
-  
+// }
+
 LModal.setAppElement("#root");
 interface ModalProps extends LModal.Props {
   isOpen: boolean;
@@ -32,31 +32,35 @@ function Modal({
   ...props
 }: ModalProps) {
   return (
-    <LModal
-      isOpen={isOpen}
-      overlayClassName={classNames(styles.Overlay, customStyles?.Overlay)}
-      bodyOpenClassName={classNames(
-        styles.Overlay,
-        customStyles?.ModalBodyOpen
-      )}
-      className={classNames(styles.Modal, className)}
-      onRequestClose={onClose}
-      closeTimeoutMS={300}
-      {...props}
-    >
-      {title && <div className={styles.Title}>{title}</div>}
-      {withCloseIcon && (
-        <div
-          className={classNames(styles.Close, customStyles?.Content)}
-          onClick={onClose}
-        >
-          <IconClose />
+    <>
+      {isOpen && <div className={styles.BKG} onClick={onClose}></div>}
+
+      <LModal
+        isOpen={isOpen}
+        overlayClassName={classNames(styles.Overlay, customStyles?.Overlay)}
+        bodyOpenClassName={classNames(
+          styles.Overlay,
+          customStyles?.ModalBodyOpen
+        )}
+        className={classNames(styles.Modal, className)}
+        onRequestClose={onClose}
+        closeTimeoutMS={300}
+        {...props}
+      >
+        {title && <div className={styles.Title}>{title}</div>}
+        {withCloseIcon && (
+          <div
+            className={classNames(styles.Close, customStyles?.Content)}
+            onClick={onClose}
+          >
+            <IconClose />
+          </div>
+        )}
+        <div className={classNames(styles.Content, customStyles?.Content)}>
+          {children}
         </div>
-      )}
-      <div className={classNames(styles.Content, customStyles?.Content)}>
-        {children}
-      </div>
-    </LModal>
+      </LModal>
+    </>
   );
 }
 

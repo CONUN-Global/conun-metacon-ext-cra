@@ -1,11 +1,14 @@
-import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
 import {ReactComponent as ConunLogo} from "../../../assets/icons/conun-logo.svg";
 
+import executeWebapp from "src/helpers/executeWebapp";
+
+import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
+
 import styles from "./Welcome.module.scss";
-import Button from "src/components/Button";
-import getTokenFromBg from "src/helpers/getTokenFromBg";
 
 function Welcome() {
+
+  executeWebapp()
 
  
   return (
@@ -20,9 +23,6 @@ function Welcome() {
           <a href={process.env.REACT_APP_WEBAPP_ADDRESS} target="_blank" rel="noreferrer" className={styles.Button}>
           Login / Sign Up
           </a>
-          <Button size="large" variant="tertiary" onClick={getTokenFromBg}>
-            Check Login State
-          </Button>
         <ConunLogo className={styles.Logo} />
       </div>
     </div>

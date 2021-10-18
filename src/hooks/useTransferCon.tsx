@@ -6,8 +6,8 @@ import web3 from "src/web3";
 
 import useCurrentUser from "./useCurrentUser";
 
-import { getPrivateKey } from "../helpers/privateKey";
 import getConfig from "../helpers/getConfig";
+import useStore from "src/store/store";
 
 type TransferData = {
   to: string;
@@ -18,6 +18,7 @@ type TransferData = {
 
 function useTransferCon() {
   const { currentUser } = useCurrentUser();
+  const etherKey = useStore((state) => state.etherKey);
   const { mutateAsync: transferCon, isLoading } = useMutation(
     async (args: TransferData) => {
       try {
@@ -25,7 +26,7 @@ function useTransferCon() {
 
         web3.eth.defaultAccount = from!;
 
-        let formattedPrivateKey = getPrivateKey() || "";
+        let formattedPrivateKey = etherKey || "";
 
         if (formattedPrivateKey.includes("0x")) {
           formattedPrivateKey = formattedPrivateKey.slice(
