@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
-import getLoginFromBg from "src/helpers/getLoginFromBg";
+import { METACON_LOGIN } from "src/const";
+import { getChromeStorage } from "src/helpers/chromeStorage";
 import useStore from "src/store/store";
 import { LoginPackage } from "src/types";
 
@@ -9,8 +10,9 @@ function useExtensionLogin(){
   const setEtherKey = useStore((state) => state.setEtherKey);
 
    const {data, isLoading, isError} = useQuery("EXT_LOGIN", async ()=> {
-      const loginPackage = await getLoginFromBg();
-      return loginPackage;
+
+      const res = await getChromeStorage(METACON_LOGIN);
+      return res as LoginPackage
     },{
       onSuccess: (loginPackage:LoginPackage)=> {
         setStoreAuthToken(loginPackage.webAppAuthToken);

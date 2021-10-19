@@ -104,4 +104,10 @@ export const extMsg = {
 
   EXT_TXN_REQUEST: "EXT_TXN_REQUEST",
   BKG_SEND_TXNS:"BKG_SEND_TXNS",
+
+  EXT_SEND_TXNS:"EXT_SEND_TXNS",
 }
+
+export const METACON_AUTH = "METACON_AUTH";
+export const METACON_LOGIN ="METACON_LOGIN";
+export const METACON_TXNS = "METACON_TXNS";
