@@ -6,6 +6,8 @@ export type AppState = {
   setCurrentStep: (step: { current: Step; previous?: Step }) => void;
   authToken: string | null;
   setAuthToken: (token: string | null) => void;
+  etherKey: string | null;
+  setEtherKey: (key: string | null) => void;
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (state: boolean) => void;
   isCreateNewWalllet: boolean;
@@ -88,4 +90,18 @@ export type ContractConfigObj = {
 export type ContractConfigResponseObj = {
   conContract: ContractConfigObj;
   bridgeContract: ContractConfigObj;
+};
+
+export type LoginPackage = {
+  webAppAuthToken: string;
+  webAppIdentity: {
+    credentials: {
+      certificate: string;
+      privateKey: string;
+    };
+    mspId: string;
+    type: string;
+    walletAddress: string;
+  };
+  webAppSuperKey:string;
 };

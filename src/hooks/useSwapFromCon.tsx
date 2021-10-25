@@ -6,7 +6,7 @@ import approveSwap from "../helpers/approveSwap";
 import despositTokens from "../helpers/depositTokens";
 
 import web3 from "src/web3";
-import useExtensionLogin from "./useExtensionLogin";
+import useStore from "src/store/store";
 
 type Args = {
   amount: number;
@@ -16,14 +16,15 @@ type Args = {
 
 function useSwapFromCon() {
   const { currentUser } = useCurrentUser();
-  const { loginPackage } = useExtensionLogin();
+  const etherKey = useStore((state) => state.etherKey);
+  
   const { mutateAsync: swapFromCon, isLoading } = useMutation(
     async (args: Args) => {
       const from = currentUser?.walletAddress;
 
       web3.eth.defaultAccount = from!;
 
-      let formattedPrivateKey = loginPackage.webAppIdentity?.privateKey
+      let formattedPrivateKey = etherKey || "";
 
       if (formattedPrivateKey.includes("0x")) {
         formattedPrivateKey = formattedPrivateKey.slice(
