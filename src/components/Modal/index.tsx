@@ -3,12 +3,7 @@ import classNames from "classnames";
 
 import { ReactComponent as IconClose } from "../../assets/icons/close.svg";
 
-// import isWindowPresent from "../../helpers/isWindowPresent";
-
 import styles from "./Modal.module.scss";
-
-// if (isWindowPresent()) {
-// }
 
 LModal.setAppElement("#root");
 interface ModalProps extends LModal.Props {
