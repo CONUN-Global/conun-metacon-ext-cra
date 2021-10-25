@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
+    "@types/chrome": "^0.0.159",
     "@types/file-saver": "^2.0.3",
     "@types/qrcode": "^1.4.1",
     "@types/react": "17.0.21",

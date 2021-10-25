@@ -4,9 +4,9 @@ import useCurrentUser from "./useCurrentUser";
 
 import approveSwap from "../helpers/approveSwap";
 import despositTokens from "../helpers/depositTokens";
-import { getPrivateKey } from "../helpers/privateKey";
 
 import web3 from "src/web3";
+import useStore from "src/store/store";
 
 type Args = {
   amount: number;
@@ -16,13 +16,15 @@ type Args = {
 
 function useSwapFromCon() {
   const { currentUser } = useCurrentUser();
+  const etherKey = useStore((state) => state.etherKey);
+  
   const { mutateAsync: swapFromCon, isLoading } = useMutation(
     async (args: Args) => {
       const from = currentUser?.walletAddress;
 
       web3.eth.defaultAccount = from!;
 
-      let formattedPrivateKey = getPrivateKey() || "";
+      let formattedPrivateKey = etherKey || "";
 
       if (formattedPrivateKey.includes("0x")) {
         formattedPrivateKey = formattedPrivateKey.slice(

@@ -16,7 +16,7 @@ function TransactionHistory() {
     <div className={styles.TransactionHistory}>
       <div className={styles.Title}>TRANSACTION HISTORY</div>
       <div className={styles.Table}>
-        {transactions.length ? (
+        {transactions?.length ? (
           transactions?.map((h: RecentTransaction) => {
             if (h.txType === "swap" && h.swapInfo?.to === "con") {
               return <EthHistoryCell key={h.date} history={h} />;

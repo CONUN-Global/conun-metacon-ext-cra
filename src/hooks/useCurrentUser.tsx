@@ -10,7 +10,6 @@ function useCurrentUser() {
   const setIsUserLoggedIn = useStore((state) => state.setIsUserLoggedIn);
   const authToken = useStore((state) => state.authToken);
   const setAuthToken = useStore((state) => state.setAuthToken);
-
   const { data, isLoading, isError } = useQuery<CurrentUser>(
     "current-user",
     async () => {

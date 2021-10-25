@@ -1,7 +1,7 @@
 #!/bin/bash
 
 build() {
-    echo 'building react'
+    echo 'Building React App to Ext'
 
     rm -rf dist/*
 
@@ -13,6 +13,7 @@ build() {
     mkdir -p dist
     cp -r build/* dist
 
+    echo 'Done!'
 }
 
 build

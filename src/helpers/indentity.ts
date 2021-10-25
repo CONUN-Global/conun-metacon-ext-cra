@@ -1,11 +1,6 @@
-import isWindowPresent from "./isWindowPresent";
-
 import { METACON_IDENTITY } from "../const";
 
 export function getIdentity() {
-  if (!isWindowPresent()) {
-    return "";
-  }
   return JSON.parse(localStorage.getItem(METACON_IDENTITY) || "{}");
 }
 

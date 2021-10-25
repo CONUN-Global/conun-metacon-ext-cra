@@ -1,8 +1,10 @@
 import { useQuery } from "react-query";
 
+import web3 from "src/web3";
+
 import useCurrentUser from "./useCurrentUser";
 
-import web3 from "src/web3";
+import getConfig from "../helpers/getConfig";
 
 interface UseTransferFeeProps {
   to: string;
@@ -35,10 +37,12 @@ async function getGasEstimate(
 
   const gasPrice = await web3.eth.getGasPrice();
 
+  const configData = await getConfig();
+
   if (type === "con") {
     const contract = new web3.eth.Contract(
-      JSON.parse(process.env.NEXT_PUBLIC_ABI || ""),
-      process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+      configData?.conContract?.abiRaw,
+      configData?.conContract?.address,
       {
         from,
       }
@@ -46,7 +50,7 @@ async function getGasEstimate(
 
     const data = contract.methods
       .transfer(
-        to || process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+        to || configData?.conContract?.address,
         web3.utils.toWei(amount)
       )
       .encodeABI();
@@ -54,7 +58,7 @@ async function getGasEstimate(
     try {
       gasLimit = await web3.eth.estimateGas({
         from,
-        to: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+        to: configData?.conContract?.address,
         data,
       });
     } catch (error: any) {

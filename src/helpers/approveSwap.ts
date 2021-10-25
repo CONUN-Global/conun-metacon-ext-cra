@@ -2,6 +2,7 @@ import { Transaction as Tx } from "ethereumjs-tx";
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 
 import web3 from "src/web3";
+import getConfig from "./getConfig";
 
 type args = {
   walletAddress: string;
@@ -18,14 +19,16 @@ async function approveSwap({
   gasPrice,
   bufferedPrivateKey,
 }: args) {
+  const configData = await getConfig();
+
   const conContract = new web3.eth.Contract(
-    JSON.parse(process.env.NEXT_PUBLIC_ABI || "[]"),
-    process.env.NEXT_PUBLIC_CONTRACT_ADDRESS
+    configData?.conContract?.abiRaw,
+    configData?.conContract?.address
   );
 
   const approve = await conContract.methods
     .approve(
-      process.env.NEXT_PUBLIC_BRIDGE_CONTRACT_ADDRESS,
+      configData?.bridgeContract.address,
       web3.utils.toWei(String(amount))
     )
     .encodeABI();
@@ -34,7 +37,7 @@ async function approveSwap({
 
   const txObject = {
     from: walletAddress,
-    to: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+    to: configData?.conContract?.address,
     nonce: web3.utils.toHex(txCount),
     value: "0x0",
     gasLimit: web3.utils.toHex(gasLimit * GAS_LIMIT_MULTIPLIER_FOR_SWAP),

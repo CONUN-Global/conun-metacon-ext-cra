@@ -1,17 +1,22 @@
-import { setRecentTransactions } from "../helpers/recentTransactions";
+import { METACON_TXNS } from "src/const";
+import { setChromeStorage } from "src/helpers/chromeStorage";
 import useStore from "../store/store";
 import { RecentTransaction } from "../types";
+import useGetTransactionsExt from "./useGetTransactionsExt";
 
 const TRANSACTION_LIMIT = 10;
 
 function useTransactionList() {
+
+  const {txns} = useGetTransactionsExt();
+
   const recentTransactions = useStore((store) => store.recentTransactions);
   const setStoreRecentTransactions = useStore(
     (store) => store.setRecentTransactions
   );
 
   const getTransactions = () => {
-    return recentTransactions;
+    return txns;
   };
 
   const addTransaction = (transaction: RecentTransaction) => {
@@ -20,18 +25,18 @@ function useTransactionList() {
     if (newTransactions.length > TRANSACTION_LIMIT) {
       newTransactions.splice(TRANSACTION_LIMIT);
     }
-    setRecentTransactions(newTransactions);
+    setChromeStorage(METACON_TXNS, newTransactions);
     setStoreRecentTransactions(newTransactions);
   };
 
-  const modifyTransactions = (transaction: RecentTransaction) => {
+  const modifyTransactions = async (transaction: RecentTransaction) => {
     const newTransactions = recentTransactions.map((t: RecentTransaction) => {
       if (t.hash === transaction.hash) {
         return transaction;
       }
       return t;
     });
-    setRecentTransactions(newTransactions);
+    setChromeStorage(METACON_TXNS, newTransactions);
     setStoreRecentTransactions(newTransactions);
   };
 

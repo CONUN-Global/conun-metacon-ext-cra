@@ -1,5 +1,6 @@
-import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
 import {ReactComponent as ConunLogo} from "../../../assets/icons/conun-logo.svg";
+
+import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
 
 import styles from "./Welcome.module.scss";
 
@@ -14,11 +15,9 @@ function Welcome() {
       <div className={styles.ColumnBottom}>
 
           
-          <a href={"http://192.168.100.54:5200/intro"} target="_blank" rel="noreferrer" className={styles.Button}>
+          <a href={process.env.REACT_APP_WEBAPP_ADDRESS} target="_blank" rel="noreferrer" className={styles.Button}>
           Login / Sign Up
           </a>
-
-        
         <ConunLogo className={styles.Logo} />
       </div>
     </div>

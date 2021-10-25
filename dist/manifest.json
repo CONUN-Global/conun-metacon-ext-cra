@@ -2,14 +2,17 @@
   "name": "Metacon",
   "description": "Metacon extension",
   "version": "1.0",
-  "manifest_version": 2,
-  "browser_action": {
+  "manifest_version": 3,
+  "action": {
     "default_icon": "conun-logo.svg",
     "default_popup": "index.html"
   },
+  "background": {
+    "service_worker": "background.js"
+  },
   "externally_connectable": {
     "ids": ["*"],
-    "matches": ["*://localhost/*"]
+    "matches": ["http://localhost:3333/*"]
   },
   "permissions": ["activeTab", "storage", "tabs"]
 }

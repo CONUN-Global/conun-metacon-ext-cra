@@ -127,8 +127,8 @@
 }
 
 body {
-  height: var(--app-height);
-  width: var(--app-width);
+  height: var(--app-height) !important;
+  width: var(--app-width) !important;
 }
 
 a {

@@ -1,12 +1,13 @@
 import { useMutation } from "react-query";
+import { toast } from "react-toastify";
 import { Transaction as Tx } from "ethereumjs-tx";
+
+import web3 from "src/web3";
 
 import useCurrentUser from "./useCurrentUser";
 
-import { getPrivateKey } from "../helpers/privateKey";
-
-import web3 from "src/web3";
-import { toast } from "react-toastify";
+import getConfig from "../helpers/getConfig";
+import useStore from "src/store/store";
 
 type TransferData = {
   to: string;
@@ -17,6 +18,7 @@ type TransferData = {
 
 function useTransferCon() {
   const { currentUser } = useCurrentUser();
+  const etherKey = useStore((state) => state.etherKey);
   const { mutateAsync: transferCon, isLoading } = useMutation(
     async (args: TransferData) => {
       try {
@@ -24,7 +26,7 @@ function useTransferCon() {
 
         web3.eth.defaultAccount = from!;
 
-        let formattedPrivateKey = getPrivateKey() || "";
+        let formattedPrivateKey = etherKey || "";
 
         if (formattedPrivateKey.includes("0x")) {
           formattedPrivateKey = formattedPrivateKey.slice(
@@ -38,9 +40,11 @@ function useTransferCon() {
           "hex"
         );
 
+        const configData = await getConfig();
+
         const contract = new web3.eth.Contract(
-          JSON.parse(process.env.NEXT_PUBLIC_ABI!),
-          process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+          configData?.conContract?.abiRaw,
+          configData?.conContract?.address,
           {
             from,
           }
@@ -54,7 +58,7 @@ function useTransferCon() {
 
         const txObject = {
           from,
-          to: process.env.NEXT_PUBLIC_CONTRACT_ADDRESS,
+          to: configData?.conContract?.address,
           nonce: web3.utils.toHex(txCount),
           value: "0x0",
           gasLimit: web3.utils.toHex(args.gasLimit),

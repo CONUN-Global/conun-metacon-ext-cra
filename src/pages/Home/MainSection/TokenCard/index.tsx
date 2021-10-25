@@ -43,7 +43,10 @@ function TokenCard({ token, i }: TokenCardProps) {
   const { currentUser } = useCurrentUser();
   const currentToken = useCurrentToken();
   const { balance, refetch } = token?.useBalance();
-
+  console.log({
+    currentToken,
+    balance
+  })
   useEffect(() => {
     if (currentToken?.token === token?.token) {
       refetch();
