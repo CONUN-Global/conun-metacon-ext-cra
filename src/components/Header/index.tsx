@@ -10,6 +10,7 @@ import Sidebar from "../Sidebar";
 import {ReactComponent as DeerIcon} from "../../assets/icons/metacon-deer-blue.svg";
 
 import styles from "./Header.module.scss";
+import { useLocation } from "react-router";
 
 const BLUE_SELECT_STEPS = ["helpUs"];
 
@@ -36,6 +37,12 @@ function Network() {
 function Header() {
   const currentStep = useStore((store) => store.currentStep);
   const isUserLoggedIn = useStore((state) => state.isUserLoggedIn);
+
+  const location = useLocation();
+
+  if (location.pathname === "/logout"){
+    return null;
+  }
 
   if (!isUserLoggedIn && currentStep.current === "welcome") {
     return null;

@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.css": "/static/css/main.89769800.chunk.css",
-    "main.js": "/static/js/main.41799a09.chunk.js",
+    "main.css": "/static/css/main.a5946337.chunk.css",
+    "main.js": "/static/js/main.99f8ee13.chunk.js",
     "runtime-main.js": "/static/js/runtime-main.c0a02609.js",
     "static/css/2.ff71c88d.chunk.css": "/static/css/2.ff71c88d.chunk.css",
-    "static/js/2.3f2867dc.chunk.js": "/static/js/2.3f2867dc.chunk.js",
+    "static/js/2.c52afd06.chunk.js": "/static/js/2.c52afd06.chunk.js",
     "index.html": "/index.html",
-    "static/js/2.3f2867dc.chunk.js.LICENSE.txt": "/static/js/2.3f2867dc.chunk.js.LICENSE.txt",
+    "static/js/2.c52afd06.chunk.js.LICENSE.txt": "/static/js/2.c52afd06.chunk.js.LICENSE.txt",
     "static/media/arrow-downside.77462152.svg": "/static/media/arrow-downside.77462152.svg",
     "static/media/arrow-right.e8edb5be.svg": "/static/media/arrow-right.e8edb5be.svg",
     "static/media/buy-icon-blue.b5d8a74d.svg": "/static/media/buy-icon-blue.b5d8a74d.svg",
@@ -33,8 +33,8 @@
   "entrypoints": [
     "static/js/runtime-main.c0a02609.js",
     "static/css/2.ff71c88d.chunk.css",
-    "static/js/2.3f2867dc.chunk.js",
-    "static/css/main.89769800.chunk.css",
-    "static/js/main.41799a09.chunk.js"
+    "static/js/2.c52afd06.chunk.js",
+    "static/css/main.a5946337.chunk.css",
+    "static/js/main.99f8ee13.chunk.js"
   ]
 }

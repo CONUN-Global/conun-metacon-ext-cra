@@ -1,18 +1,21 @@
-import { ToastContainer } from "react-toastify";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClientProvider } from "react-query";
+import { Route, Switch } from "react-router";
+import { ToastContainer } from "react-toastify";
 
 import AuthProvider from "./components/AuthProvider";
 import Layout from "./components/Layout";
 
-import { queryClient } from "./react-query/config";
-
-import styles from "./App.module.scss";
-import { Route, Switch } from "react-router";
 import Home from "./pages/Home";
 import Send from "./pages/Send";
 import Swap from "./pages/Swap";
 import Intro from "./pages/Intro";
+import LogOut from "./pages/LogOut";
+
+import { queryClient } from "./react-query/config";
+
+import styles from "./App.module.scss";
+
 
 
 function App() {
@@ -42,6 +45,9 @@ function App() {
           </Route>
           <Route path="/swap">
             <Swap/>
+          </Route>
+          <Route path="/logout">
+            <LogOut/>
           </Route>
           <Route path="/">
             <Home/>

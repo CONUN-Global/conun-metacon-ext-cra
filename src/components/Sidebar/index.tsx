@@ -88,10 +88,9 @@ function Sidebar() {
                   noStyle
                   className={styles.Button}
                   onClick={() => {
-                    localStorage.clear();
-                    history.push("/");
-                    // This was router.reload for next
-                    // Let's try this.
+                    chrome.storage.sync.clear();
+                    history.push("/logout");
+                    setIsOpen(false);
                   }}
                 >
                   <div className={styles.ButtonItem}>
