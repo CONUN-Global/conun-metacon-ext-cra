@@ -5,6 +5,8 @@ import web3 from "src/web3";
 import useCurrentUser from "./useCurrentUser";
 
 import getConfig from "../helpers/getConfig";
+import { Logger } from "src/classes/logger";
+import { getIsLoggerActive } from "src/helpers/logger";
 
 interface UseTransferFeeProps {
   to: string;
@@ -27,7 +29,7 @@ async function getGasEstimate(
   from: string,
   to: string,
   type: string,
-  amount: string
+  amount: string,
 ) {
   if (type === "conx") {
     return {};
@@ -62,6 +64,13 @@ async function getGasEstimate(
         data,
       });
     } catch (error: any) {
+      const logger = new Logger(getIsLoggerActive(), from)
+      logger.sendLog({
+        logTarget:"GetGasEstimate",
+        tags:["test"],
+        level:"ERROR",
+        message:error
+      })
       return {};
     }
   }

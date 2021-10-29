@@ -27,6 +27,7 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const setNeedPassword = useStore((store) => store.setNeedPassword);
+  const logger = useStore((store)=> store.loggerInstance); 
   const [password, setPassword] = useState("");
   const [isChecked, setChecked] = useState(false);
 
@@ -45,6 +46,12 @@ function Sidebar() {
         setIsSecurityModalOpen(false);
       }
     } catch (error: any) {
+      logger?.sendLog({
+        logTarget:"SetNeedPassword",
+        tags:["test"],
+        level:"ERROR",
+        message:error
+      })
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
     }
   };

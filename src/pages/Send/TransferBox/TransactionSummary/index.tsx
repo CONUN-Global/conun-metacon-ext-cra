@@ -83,8 +83,10 @@ function TransactionSummary({
   const { transferEth, isLoading: isLoadingEth } = useTransferEth();
   const { transferConx, isLoading: isLoadingConx } = useTransferConx();
 
-  const needPassword = useStore((state) => state.needPassword);
 
+  const needPassword = useStore((state) => state.needPassword);
+  const logger = useStore((state)=> state.loggerInstance);
+  
   const [isSummaryOpen, setSummaryOpen] = useState(true);
   const [password, setPassword] = useState("");
 
@@ -97,6 +99,12 @@ function TransactionSummary({
         onConfirm();
       }
     } catch (error: any) {
+      logger?.sendLog({
+        logTarget:"ValidateTransaction",
+        tags:["test"],
+        level:"ERROR",
+        message:error
+      })
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
     }
   };

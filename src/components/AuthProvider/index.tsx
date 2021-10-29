@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
+import { Logger } from "src/classes/logger";
 import useExtensionLogin from "src/hooks/useExtensionLogin";
 
 import useCurrentUser from "../../hooks/useCurrentUser";
@@ -14,6 +15,8 @@ interface Props {
 function AuthProvider({ children }: Props) {
   const { currentUser, isLoading } = useCurrentUser();
   const { current } = useStore((store) => store.currentStep);
+  const isLoggerActive = useStore((store)=> store.isLoggerActive)
+  const setLoggerInstance = useStore((store) => store.setLoggerInstance);
   const history = useHistory();
   const location = useLocation();
 
@@ -21,6 +24,12 @@ function AuthProvider({ children }: Props) {
   if (!!loadingLogin && loginPackage) {
     console.log("Authorized : ", loginPackage );
   }
+
+  useEffect(() => {
+    if (currentUser){
+      setLoggerInstance(new Logger(isLoggerActive, currentUser.walletAddress))
+    }
+  }, [currentUser, isLoggerActive, setLoggerInstance])
 
   useEffect(() => {
     if (

@@ -19,6 +19,7 @@ type TransferData = {
 function useTransferCon() {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
+  const logger = useStore((state)=> state.loggerInstance)
   const { mutateAsync: transferCon, isLoading } = useMutation(
     async (args: TransferData) => {
       try {
@@ -82,6 +83,12 @@ function useTransferCon() {
           });
         });
       } catch (error: any) {
+        logger?.sendLog({
+          logTarget:"TransferCon",
+          tags:["test"],
+          level:"ERROR",
+          message:error
+        })
         toast.error(error?.message);
       }
     }

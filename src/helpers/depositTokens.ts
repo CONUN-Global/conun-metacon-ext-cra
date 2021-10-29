@@ -5,6 +5,8 @@ import instance from "../axios/instance";
 import web3 from "src/web3";
 
 import getConfig from "./getConfig";
+import { Logger } from "src/classes/logger";
+import { getIsLoggerActive } from "./logger";
 
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 
@@ -78,6 +80,13 @@ async function despositTokens({
       });
     });
   } catch (error: any) {
+    const logger = new Logger(getIsLoggerActive(), walletAddress)
+    logger.sendLog({
+      logTarget:"DepositTokens",
+      tags:["test"],
+      level:"ERROR",
+      message:error
+    })
     toast.error(error?.message);
   }
 }
