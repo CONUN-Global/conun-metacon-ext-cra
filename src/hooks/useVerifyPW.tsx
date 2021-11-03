@@ -3,8 +3,6 @@ import { useMutation } from "react-query";
 import useStore from "src/store/store";
 import instance from "../axios/instance";
 
-import { getIdentity } from "../helpers/indentity";
-
 import { ORG_NAME } from "src/const";
 
 function useVerifyPW() {
