@@ -17,16 +17,13 @@ function AuthProvider({ children }: Props) {
   const history = useHistory();
   const location = useLocation();
 
-  const {loginPackage, isLoading:loadingLogin } = useExtensionLogin();
-  if (!!loadingLogin && loginPackage) {
-    console.log("Authorized : ", loginPackage );
+  const { loginPackage, isLoading: loadingLogin } = useExtensionLogin();
+  if (!loadingLogin && !!loginPackage) {
+    console.log("Authorized : ", loginPackage);
   }
 
   useEffect(() => {
-    if (
-      currentUser &&
-      PUBLIC_ROUTES.includes(location.pathname)
-    ) {
+    if (currentUser && PUBLIC_ROUTES.includes(location.pathname)) {
       history.replace("/");
     }
 
