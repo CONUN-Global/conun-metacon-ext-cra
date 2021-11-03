@@ -70,6 +70,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "./build.sh",
+    "build-win":"set \"INLINE_RUNTIME_CHUNK=false\" && set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
