@@ -1,7 +1,5 @@
 import create from "zustand";
-
-import { getAuthToken } from "../helpers/authToken";
-import { getIsLoggerActive, setIsLoggerActive } from "../helpers/logger";
+]import { getIsLoggerActive, setIsLoggerActive } from "../helpers/logger";
 import { getRecentTransactions } from "../helpers/recentTransactions";
 import { AppState } from "../types/index";
 
@@ -20,6 +18,8 @@ const useStore = create<AppState>((set) => ({
   setAuthToken: (token) => set({ authToken: token }),
   etherKey: null,
   setEtherKey: (key) => set({ etherKey: key }),
+  identity: null,
+  setIdentity: (identityPkg) => set({identity:identityPkg}),
   isUserLoggedIn: false,
   setIsUserLoggedIn: (state: boolean) => set({ isUserLoggedIn: state }),
   isCreateNewWalllet: false,

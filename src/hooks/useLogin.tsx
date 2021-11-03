@@ -2,7 +2,6 @@ import { useMutation } from "react-query";
 
 import useStore from "../store/store";
 
-import { getIdentity } from "../helpers/indentity";
 import { setAuthToken } from "../helpers/authToken";
 
 import instance from "../axios/instance";
@@ -11,7 +10,7 @@ import { ORG_NAME } from "src/const";
 
 function useLogin() {
   const setStoreAuthToken = useStore((state) => state.setAuthToken);
-  
+  const identity = useStore((state) => state.identity);
 
   const {
     mutateAsync: login,
@@ -19,8 +18,6 @@ function useLogin() {
     isError,
   } = useMutation(
     async (password: string) => {
-      const identity = getIdentity();
-
       const { data } = await instance.post("/users/importCertificate", {
         orgName: ORG_NAME,
         x509Identity:
@@ -31,7 +28,7 @@ function useLogin() {
       return data;
     },
     {
-      onSuccess: (data:any) => {
+      onSuccess: (data: any) => {
         setStoreAuthToken(data?.payload?.jwtAuthToken);
         setAuthToken(data?.payload?.jwtAuthToken);
       },

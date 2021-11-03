@@ -11,12 +11,12 @@ import Modal from "../../components/Modal";
 import Input from "../../components/Form/Input";
 import OutsideClickWrapper from "../OutsideClickHandler";
 
-import useLogin from "../../hooks/useLogin";
+import useVerifyPW from "../../hooks/useVerifyPW";
 
-import {ReactComponent as MenuIcon} from "../../assets/icons/menu-icon.svg";
-import {ReactComponent as DiscordIcon} from "../../assets/icons/discord-icon.svg";
-import {ReactComponent as SecurityIcon} from "../../assets/icons/security-icon.svg";
-import {ReactComponent as SignoutIcon} from "../../assets/icons/signout-icon.svg";
+import { ReactComponent as MenuIcon } from "../../assets/icons/menu-icon.svg";
+import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.svg";
+import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
+import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
 
 function Sidebar() {
@@ -32,15 +32,15 @@ function Sidebar() {
 
   const history = useHistory();
 
-  const { login } = useLogin();
+  const { verify } = useVerifyPW();
 
   const handleModal = () => {
     setIsSecurityModalOpen(true);
   };
   const onSecurityConfirmation = async () => {
     try {
-      const loginData:any = await login(password);
-      if (loginData?.success) {
+      const verifySuccess: any = await verify(password);
+      if (verifySuccess) {
         setNeedPassword(true);
         setIsSecurityModalOpen(false);
       }
@@ -79,9 +79,14 @@ function Sidebar() {
                   </div>
                 </Button>
                 <div className={styles.Button}>
-                  <Link to="https://discord.gg/VvXvQfa3Za" target="_blank" rel="noreferrer" className={styles.ButtonItem}>
-                      <DiscordIcon className={styles.Icon} />
-                      Connect to discord
+                  <Link
+                    to="https://discord.gg/VvXvQfa3Za"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.ButtonItem}
+                  >
+                    <DiscordIcon className={styles.Icon} />
+                    Connect to discord
                   </Link>
                 </div>
                 <Button
