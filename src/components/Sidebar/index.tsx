@@ -18,6 +18,7 @@ import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.s
 import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
 import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
+import { extensionSignOut } from "src/helpers/extensionSignOut";
 
 function Sidebar() {
   const variants = {
@@ -27,8 +28,9 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const setNeedPassword = useStore((store) => store.setNeedPassword);
+  const needPassword = useStore((store) => store.needPassword);
   const [password, setPassword] = useState("");
-  const [isChecked, setChecked] = useState(false);
+  const [isChecked, setChecked] = useState(needPassword);
 
   const history = useHistory();
 
@@ -37,15 +39,17 @@ function Sidebar() {
   const handleModal = () => {
     setIsSecurityModalOpen(true);
   };
-  const onSecurityConfirmation = async () => {
+  const onSecurityConfirmation = async (checked: boolean) => {
     try {
       const verifySuccess: any = await verify(password);
       if (verifySuccess) {
-        setNeedPassword(true);
+        setNeedPassword(checked);
+        setPassword("");
         setIsSecurityModalOpen(false);
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
+      setPassword("");
     }
   };
 
@@ -93,10 +97,9 @@ function Sidebar() {
                   noStyle
                   className={styles.Button}
                   onClick={() => {
-                    localStorage.clear();
+                    extensionSignOut();
                     history.push("/");
-                    // This was router.reload for next
-                    // Let's try this.
+                    window.close();
                   }}
                 >
                   <div className={styles.ButtonItem}>
@@ -141,18 +144,17 @@ function Sidebar() {
             size="smaller"
             variant="secondary"
             onClick={() => {
-              setNeedPassword(false);
               setIsSecurityModalOpen(false);
             }}
           >
-            NO
+            CANCEL
           </Button>
           <Button
             size="smaller"
-            disabled={!isChecked || !password}
-            onClick={onSecurityConfirmation}
+            disabled={!password}
+            onClick={() => onSecurityConfirmation(isChecked)}
           >
-            YES
+            SUBMIT
           </Button>
         </div>
       </Modal>
