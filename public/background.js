@@ -23,6 +23,9 @@ const extMsg = {
   BKG_SEND_TXNS: "BKG_SEND_TXNS",
 
   EXT_SEND_TXNS: "EXT_SEND_TXNS",
+
+  WEBAPP_SEND_LOGOUT_REQUEST: "WEBAPP_SEND_LOGOUT_REQUEST",
+  BKG_LOGOUT_ACKNOWLEDGED: "BKG_LOGOUT_ACKNOWLEDGED",
 };
 
 const METACON_LOGIN = "METACON_LOGIN";
@@ -56,6 +59,12 @@ chrome.runtime.onMessageExternal.addListener(async function (
       console.log("Txns were set to ", request.payload);
     });
     sendResponse({ success: true, message: extMsg.BKG_PACKAGE_RECEIVED });
+  } else if (request.message === extMsg.WEBAPP_SEND_LOGOUT_REQUEST) {
+    console.log("Webapp requests sign out");
+    chrome.storage.sync.set({ [METACON_LOGIN]: null });
+    chrome.storage.sync.set({ [METACON_TXNS]: null });
+    chrome.storage.sync.set({ [METACON_LOGGER_ACTIVE]: null });
+    sendResponse({ success: true, message: extMsg.BKG_LOGOUT_ACKNOWLEDGED });
   }
   console.log("Log all messages: ", request);
 });
