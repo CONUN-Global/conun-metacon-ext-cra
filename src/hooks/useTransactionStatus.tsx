@@ -14,8 +14,6 @@ function useTransactionStatus(transaction: RecentTransaction) {
     async () => {
       const receipt = await web3.eth.getTransactionReceipt(transaction.hash);
 
-      console.log(`receipt`, receipt)
-
       if (!receipt) {
         return {
           status: "pending",
