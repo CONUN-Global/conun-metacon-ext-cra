@@ -9,14 +9,20 @@ const TRANSACTION_LIMIT = 10;
 function useTransactionList() {
 
   const {txns} = useGetTransactionsExt();
-
+  
   const recentTransactions = useStore((store) => store.recentTransactions);
   const setStoreRecentTransactions = useStore(
     (store) => store.setRecentTransactions
   );
 
+  if (txns?.length && !recentTransactions?.length) setStoreRecentTransactions(txns)
+
   const getTransactions = () => {
-    return txns;
+    if (recentTransactions && recentTransactions.length){
+      return recentTransactions
+    } else {
+      return txns
+    }
   };
 
   const addTransaction = (transaction: RecentTransaction) => {

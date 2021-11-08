@@ -92,6 +92,14 @@ function SwapBox() {
               value: /^(([1-9][0-9]{0,17})|(0))([.][0-9]{0,17})?$/,
               message: "Number is invalid",
             },
+            validate: {
+              moreThanZero: (value) =>
+                Number(value) <= 0 ? "Amount should be more than 0" : "" || true,
+              lessThanTotalBalance: (value) =>
+                Number(value) > Number(balance?.balance?.payload)
+                  ? "You don't have enough balance"
+                  : "" || true,
+            },
           })}
           error={errors.amount}
           isSwapFrom={() =>
