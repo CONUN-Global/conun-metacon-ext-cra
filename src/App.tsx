@@ -14,6 +14,8 @@ import Send from "./pages/Send";
 import Swap from "./pages/Swap";
 import Intro from "./pages/Intro";
 
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   return (
