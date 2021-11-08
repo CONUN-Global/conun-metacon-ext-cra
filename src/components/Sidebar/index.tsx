@@ -11,13 +11,14 @@ import Modal from "../../components/Modal";
 import Input from "../../components/Form/Input";
 import OutsideClickWrapper from "../OutsideClickHandler";
 
-import useLogin from "../../hooks/useLogin";
+import useVerifyPW from "../../hooks/useVerifyPW";
 
-import {ReactComponent as MenuIcon} from "../../assets/icons/menu-icon.svg";
-import {ReactComponent as DiscordIcon} from "../../assets/icons/discord-icon.svg";
-import {ReactComponent as SecurityIcon} from "../../assets/icons/security-icon.svg";
-import {ReactComponent as SignoutIcon} from "../../assets/icons/signout-icon.svg";
+import { ReactComponent as MenuIcon } from "../../assets/icons/menu-icon.svg";
+import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.svg";
+import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
+import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
+import { extensionSignOut } from "src/helpers/extensionSignOut";
 
 function Sidebar() {
   const variants = {
@@ -27,25 +28,28 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const setNeedPassword = useStore((store) => store.setNeedPassword);
+  const needPassword = useStore((store) => store.needPassword);
   const [password, setPassword] = useState("");
-  const [isChecked, setChecked] = useState(false);
+  const [isChecked, setChecked] = useState(needPassword);
 
   const history = useHistory();
 
-  const { login } = useLogin();
+  const { verify } = useVerifyPW();
 
   const handleModal = () => {
     setIsSecurityModalOpen(true);
   };
-  const onSecurityConfirmation = async () => {
+  const onSecurityConfirmation = async (checked: boolean) => {
     try {
-      const loginData:any = await login(password);
-      if (loginData?.success) {
-        setNeedPassword(true);
+      const verifySuccess: any = await verify(password);
+      if (verifySuccess) {
+        setNeedPassword(checked);
+        setPassword("");
         setIsSecurityModalOpen(false);
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
+      setPassword("");
     }
   };
 
@@ -79,19 +83,23 @@ function Sidebar() {
                   </div>
                 </Button>
                 <div className={styles.Button}>
-                  <Link to="https://discord.gg/VvXvQfa3Za" target="_blank" rel="noreferrer" className={styles.ButtonItem}>
-                      <DiscordIcon className={styles.Icon} />
-                      Connect to discord
+                  <Link
+                    to="https://discord.gg/VvXvQfa3Za"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.ButtonItem}
+                  >
+                    <DiscordIcon className={styles.Icon} />
+                    Connect to discord
                   </Link>
                 </div>
                 <Button
                   noStyle
                   className={styles.Button}
                   onClick={() => {
-                    localStorage.clear();
+                    extensionSignOut();
                     history.push("/");
-                    // This was router.reload for next
-                    // Let's try this.
+                    window.close();
                   }}
                 >
                   <div className={styles.ButtonItem}>
@@ -136,18 +144,17 @@ function Sidebar() {
             size="smaller"
             variant="secondary"
             onClick={() => {
-              setNeedPassword(false);
               setIsSecurityModalOpen(false);
             }}
           >
-            NO
+            CANCEL
           </Button>
           <Button
             size="smaller"
-            disabled={!isChecked || !password}
-            onClick={onSecurityConfirmation}
+            disabled={!password}
+            onClick={() => onSecurityConfirmation(isChecked)}
           >
-            YES
+            SUBMIT
           </Button>
         </div>
       </Modal>
