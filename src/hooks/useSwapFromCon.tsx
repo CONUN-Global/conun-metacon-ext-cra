@@ -34,7 +34,6 @@ function useSwapFromCon() {
       }
 
       const bufferedPrivateKey = Buffer.from(formattedPrivateKey, "hex");
-
       await approveSwap({
         walletAddress: currentUser?.walletAddress!,
         bufferedPrivateKey,
@@ -50,7 +49,6 @@ function useSwapFromCon() {
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
       });
-
       return transaction;
     }
   );

@@ -20,12 +20,7 @@ function useTransactionStatus(transaction: RecentTransaction) {
           data: undefined,
         };
       }
-      if (receipt && !receipt.transactionIndex) {
-        return {
-          status: "pending",
-          data: receipt,
-        };
-      }
+
       setRefetch(false);
 
       if (receipt.status) {
