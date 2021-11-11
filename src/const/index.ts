@@ -70,18 +70,17 @@ export const TOKEN_CARDS: Token[] = [
 ];
 
 export const NETWORK_OPTIONS: {
-  value: "testnet";
-  // | "mainnet";
+  value: "testnet" | "mainnet";
   label: string;
 }[] = [
   {
     value: "testnet",
     label: "Conun Testnet",
   },
-  // {
-  //   value: "mainnet",
-  //   label: "Conun Mainnet",
-  // },
+  {
+    value: "mainnet",
+    label: "Conun Mainnet",
+  },
 ];
 
 export const extMsg = {
