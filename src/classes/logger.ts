@@ -38,11 +38,10 @@ export class Logger {
       "@osType":this.osType,
       "@agent":this.agent,
       "from": this.from,
-      
       "@logTarget": this.formatLogtarget(logDetails.logTarget),
       "@tags": logDetails.tags,
       "level": logDetails.level,
-      "message": logDetails.message,
+      "message": JSON.stringify(logDetails.message),
       }
   }
 
@@ -58,7 +57,12 @@ export class Logger {
   
   public async sendLog(logDetails:LogDetails){
     if (this.isActive){
-      await loggerInstance.post("", this.JSONformatted(logDetails))
+      try {
+        await loggerInstance.post("", this.JSONformatted(logDetails))
+      } catch(e){
+        console.warn(e)
+      }
+
     }
   }
 }
