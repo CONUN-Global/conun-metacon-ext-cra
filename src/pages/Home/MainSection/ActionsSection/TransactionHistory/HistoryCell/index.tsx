@@ -92,7 +92,6 @@ function DateCell({
 
 export function EthHistoryCell({ history }: { history: RecentTransaction }) {
   const { txnStatus, loadingTxnStatus } = useTransactionStatus(history);
-
   return (
     <div className={styles.Cell}>
       <div className={styles.IconCell}>

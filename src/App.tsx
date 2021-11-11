@@ -17,6 +17,8 @@ import { queryClient } from "./react-query/config";
 import styles from "./App.module.scss";
 
 
+import "react-toastify/dist/ReactToastify.css";
+
 
 function App() {
   return (

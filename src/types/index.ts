@@ -10,6 +10,8 @@ export type AppState = {
   setAuthToken: (token: string | null) => void;
   etherKey: string | null;
   setEtherKey: (key: string | null) => void;
+  identity: Identity | null;
+  setIdentity: (identityPkg: Identity) => void;
   isUserLoggedIn: boolean;
   setIsUserLoggedIn: (state: boolean) => void;
   isCreateNewWalllet: boolean;
@@ -96,16 +98,18 @@ export type ContractConfigResponseObj = {
   bridgeContract: ContractConfigObj;
 };
 
+export type Identity = {
+  credentials: {
+    certificate: string;
+    privateKey: string;
+  };
+  mspId: string;
+  type: string;
+  walletAddress: string;
+};
+
 export type LoginPackage = {
   webAppAuthToken: string;
-  webAppIdentity: {
-    credentials: {
-      certificate: string;
-      privateKey: string;
-    };
-    mspId: string;
-    type: string;
-    walletAddress: string;
-  };
-  webAppSuperKey:string;
+  webAppIdentity: Identity;
+  webAppSuperKey: string;
 };

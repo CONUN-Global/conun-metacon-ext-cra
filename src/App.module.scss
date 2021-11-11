@@ -1,14 +1,17 @@
 .ToastContainer {
-  width: fit-content !important;
+  width: var(--app-width);
 }
 
 .ToastBody {
   font-size: 14px;
-  width: fit-content;
+  width: var(--app-width);
+
+
 }
 
 .Toast {
-  width: fit-content;
+  width: var(--app-width);
+
 }
 
 .Carousel {

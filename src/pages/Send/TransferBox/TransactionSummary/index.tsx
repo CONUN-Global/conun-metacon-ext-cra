@@ -15,7 +15,7 @@ import useTransactionList from "../../../../hooks/useTransactionList";
 import useTransferCon from "../../../../hooks/useTransferCon";
 import useTransferConx from "../../../../hooks/useTransferConx";
 import useTransferEth from "../../../../hooks/useTransferEth";
-import useLogin from "../../../../hooks/useLogin";
+import useVerifyPW from "../../../../hooks/useVerifyPW";
 
 import useStore from "../../../../store/store";
 
@@ -23,8 +23,8 @@ import truncateString from "../../../../helpers/truncateString";
 
 import { Token } from "../../../../types/index";
 
-import {ReactComponent as ArrowIcon} from "../../../../assets/icons/arrow-right.svg";
-import {ReactComponent as InfoIcon} from "../../../../assets/icons/info-icon.svg";
+import { ReactComponent as ArrowIcon } from "../../../../assets/icons/arrow-right.svg";
+import { ReactComponent as InfoIcon } from "../../../../assets/icons/info-icon.svg";
 
 import styles from "./TransactionSummary.module.scss";
 
@@ -77,7 +77,7 @@ function TransactionSummary({
 
   const token = useCurrentToken();
 
-  const { login } = useLogin();
+  const { verify } = useVerifyPW();
 
   const { transferCon, isLoading } = useTransferCon();
   const { transferEth, isLoading: isLoadingEth } = useTransferEth();
@@ -94,8 +94,8 @@ function TransactionSummary({
 
   const onValidateAndConfirm = async () => {
     try {
-      const loginData:any = await login(password);
-      if (loginData?.success) {
+      const verifySuccess: any = await verify(password);
+      if (verifySuccess) {
         onConfirm();
       }
     } catch (error: any) {

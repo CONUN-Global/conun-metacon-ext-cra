@@ -1,8 +1,5 @@
 import { Logger } from "src/classes/logger";
 import create from "zustand";
-
-import { getIsLoggerActive, setIsLoggerActive } from "../helpers/logger";
-import { getRecentTransactions } from "../helpers/recentTransactions";
 import { AppState } from "../types/index";
 
 const useStore = create<AppState>((set) => ({
@@ -20,15 +17,14 @@ const useStore = create<AppState>((set) => ({
   setAuthToken: (token) => set({ authToken: token }),
   etherKey: null,
   setEtherKey: (key) => set({ etherKey: key }),
+  identity: null,
+  setIdentity: (identityPkg) => set({ identity: identityPkg }),
   isUserLoggedIn: false,
   setIsUserLoggedIn: (state: boolean) => set({ isUserLoggedIn: state }),
   isCreateNewWalllet: false,
   setCreateNewWallet: (state: boolean) => set({ isCreateNewWalllet: state }),
-  isLoggerActive: getIsLoggerActive(),
-  setIsLoggerActive: (state: boolean) => {
-    set({ isCreateNewWalllet: state });
-    setIsLoggerActive(state);
-  },
+  isLoggerActive: false,
+  setIsLoggerActive: (state: boolean) => set({ isLoggerActive: state }),
   loggerInstance: null,
   setLoggerInstance: (state: Logger) => set({loggerInstance:state}),
   setUser: (user) => set({ user }),
@@ -36,7 +32,7 @@ const useStore = create<AppState>((set) => ({
   setCurrentToken: (token) => set({ currentToken: token }),
   currentNetwork: "testnet",
   setCurrentNetwork: (network) => set({ currentNetwork: network }),
-  recentTransactions: getRecentTransactions(),
+  recentTransactions: [],
   setRecentTransactions: (transactions) =>
     set({ recentTransactions: transactions }),
   needPassword: false,
