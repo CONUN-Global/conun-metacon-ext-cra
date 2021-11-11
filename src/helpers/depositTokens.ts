@@ -80,7 +80,8 @@ async function despositTokens({
       });
     });
   } catch (error: any) {
-    const logger = new Logger(getIsLoggerActive(), walletAddress)
+    const shouldLog = getIsLoggerActive()
+    const logger = new Logger(!!shouldLog, walletAddress)
     logger.sendLog({
       logTarget:"DepositTokens",
       tags:["test"],

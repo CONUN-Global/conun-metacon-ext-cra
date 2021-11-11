@@ -81,7 +81,8 @@ async function claimsTokens({
       });
     });
   } catch (error: any) {
-    const logger = new Logger(getIsLoggerActive(), walletAddress)
+    const shouldLog = await getIsLoggerActive()
+    const logger = new Logger(!!shouldLog, walletAddress)
     logger.sendLog({
       logTarget:"ClaimTokens",
       tags:["test"],
