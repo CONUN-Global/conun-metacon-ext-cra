@@ -1,12 +1,12 @@
-import { getExtensionID } from "src/helpers/chromeExtID";
-import { ReactComponent as ConunLogo } from "../../../assets/icons/conun-logo.svg";
+import generateReferrer from "src/helpers/generateReferrer";
 
+import { ReactComponent as ConunLogo } from "../../../assets/icons/conun-logo.svg";
 import MetaconDeer from "../../../assets/icons/metacon-deer.svg";
 
 import styles from "./Welcome.module.scss";
 
 function Welcome() {
-  const extensionID = getExtensionID();
+  const referrer = generateReferrer();
   return (
     <div className={styles.Welcome}>
       <div className={styles.ColumnTop}>
@@ -15,7 +15,7 @@ function Welcome() {
       </div>
       <div className={styles.ColumnBottom}>
         <a
-          href={`${process.env.REACT_APP_WEBAPP_ADDRESS}?referrer=${extensionID}`}
+          href={`${process.env.REACT_APP_WEBAPP_ADDRESS}?referrer=${referrer}`}
           target="_blank"
           rel="noreferrer"
           className={styles.Button}
