@@ -32,7 +32,7 @@ export type AppState = {
   setNeedPassword: (state: boolean) => void;
 };
 
-type Network = "testnet" | "mainnet";
+export type Network = "testnet" | "mainnet";
 
 export type CurrentUser = {
   _id: string;

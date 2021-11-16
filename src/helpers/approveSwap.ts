@@ -1,5 +1,6 @@
 import { Transaction as Tx } from "ethereumjs-tx";
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
+import { Network } from "src/types";
 
 import web3 from "src/web3";
 import getConfig from "./getConfig";
@@ -10,6 +11,7 @@ type args = {
   gasLimit: number;
   gasPrice: number;
   bufferedPrivateKey: Buffer;
+  network:Network;
 };
 
 async function approveSwap({
@@ -18,8 +20,12 @@ async function approveSwap({
   gasLimit,
   gasPrice,
   bufferedPrivateKey,
+  network,
+  
 }: args) {
   const configData = await getConfig();
+
+  const networkChain = network === "testnet" ? "ropsten" : "mainnet"
 
   const conContract = new web3.eth.Contract(
     configData?.conContract?.abiRaw,
@@ -47,7 +53,7 @@ async function approveSwap({
     data: approve,
   };
 
-  const tx = new Tx(txObject, { chain: "ropsten" });
+  const tx = new Tx(txObject, { chain: networkChain });
   tx.sign(bufferedPrivateKey);
 
   const serializedTx = tx.serialize();

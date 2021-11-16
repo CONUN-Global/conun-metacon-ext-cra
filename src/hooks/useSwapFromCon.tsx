@@ -17,6 +17,7 @@ type Args = {
 function useSwapFromCon() {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
+  const currentNetwork = useStore((state) => state.currentNetwork);
   
   const { mutateAsync: swapFromCon, isLoading } = useMutation(
     async (args: Args) => {
@@ -40,6 +41,7 @@ function useSwapFromCon() {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
+        network:currentNetwork
       });
 
       const transaction = await despositTokens({
@@ -48,6 +50,7 @@ function useSwapFromCon() {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
+        network:currentNetwork
       });
       return transaction;
     }

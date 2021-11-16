@@ -16,6 +16,7 @@ type Args = {
 function useSwapFromConx() {
   const { currentUser, isLoading } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
+  const currentNetwork = useStore((state) => state.currentNetwork);
 
   const { mutateAsync: swapFromConx } = useMutation(async (args: Args) => {
     const from = currentUser?.walletAddress;
@@ -39,6 +40,7 @@ function useSwapFromConx() {
       amount: args.amount,
       gasPrice: args.gasPrice,
       gasLimit: args.gasLimit,
+      network:currentNetwork,
     });
 
     return transaction;

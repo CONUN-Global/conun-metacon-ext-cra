@@ -5,21 +5,25 @@ import useCurrentUser from "./useCurrentUser";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";
+import { Network } from "src/types";
 
 type TransferData = {
   to: string;
   amount: string;
   gasLimit: string;
   gasPrice: string;
+  network:Network;
 };
 
 function useTransferEth() {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
+
   
   const { mutateAsync: transferEth, isLoading } = useMutation(
     async (args: TransferData) => {
       const from = currentUser?.walletAddress;
+      const networkChain = args.network === "testnet" ? "ropsten" : "mainnet"
       web3.eth.defaultAccount = from || null;
       let formattedPrivateKey = etherKey || "";
 
@@ -44,7 +48,7 @@ function useTransferEth() {
         ),
       };
 
-      const tx = new Tx(txObject, { chain: "ropsten" });
+      const tx = new Tx(txObject, { chain: networkChain});
 
       tx.sign(bufferedPrivateKey);
 

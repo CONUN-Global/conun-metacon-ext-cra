@@ -9,6 +9,7 @@ import { getIsLoggerActive } from "./logger";
 import getConfig from "./getConfig";
 
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
+import { Network } from "src/types";
 
 type args = {
   walletAddress: string;
@@ -16,6 +17,7 @@ type args = {
   gasLimit: number;
   gasPrice: number;
   bufferedPrivateKey: Buffer;
+  network:Network;
 };
 
 async function claimsTokens({
@@ -24,9 +26,12 @@ async function claimsTokens({
   gasLimit,
   gasPrice,
   bufferedPrivateKey,
+  network,
 }: args) {
   try {
     const configData = await getConfig();
+
+    const networkChain = network === "testnet" ? "ropsten" : "mainnet"
 
     const bridgeContract = new web3.eth.Contract(
       configData?.bridgeContract?.abiRaw,
@@ -66,7 +71,7 @@ async function claimsTokens({
       data: withdrawal,
     };
 
-    const tx = new Tx(txObject, { chain: "ropsten" });
+    const tx = new Tx(txObject, { chain: networkChain });
     tx.sign(bufferedPrivateKey);
 
     const serializedTx = tx.serialize();
