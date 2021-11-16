@@ -33,6 +33,13 @@
       font-weight: 500;
       letter-spacing: -0.03em;
       text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      & .test {
+        font-size: 10px;
+        color: #9abde6;
+      }
     }
 
     & .Time {

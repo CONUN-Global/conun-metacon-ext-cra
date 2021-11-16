@@ -80,6 +80,7 @@ export type RecentTransaction = {
     from: string;
     to: string;
   };
+  network?:Network
 };
 
 export type ServiceCardObj = {

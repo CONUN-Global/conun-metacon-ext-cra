@@ -93,16 +93,15 @@ function DateCell({
 }
 
 export function EthHistoryCell({ history }: { history: RecentTransaction }) {
-  const { txnStatus, loadingTxnStatus } = useTransactionStatus(history);
 
-  const currentNetwork = useStore((store) => store.currentNetwork);
+  const { txnStatus, loadingTxnStatus } = useTransactionStatus(history);
 
   return (
     <div className={styles.Cell}>
       <div className={styles.IconCell}>
         <a
           className={styles.IconLink}
-          href={`https://${currentNetwork === "testnet" && "ropsten."}etherscan.io/tx/${
+          href={`https://${history?.network !== "mainnet" && "ropsten."}etherscan.io/tx/${
             history.hash
           }`}
           target="_blank"
@@ -113,7 +112,7 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
       </div>
 
       <div className={styles.TypeTime}>
-        <div className={styles.Type}>{history.txType}</div>
+        <div className={styles.Type}>{history.txType}{history?.network !== "mainnet" && <span className={styles.test}>test</span>}</div>
         <div className={styles.Time}>
           <DateCell
             date={history.date}
@@ -127,10 +126,9 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
           className={styles.FromVal}
         >{`${history.amount} ${history.token}`}</div>
         <div className={styles.ToVal}>
-          {/* The network here will need to be dynamic*/}
           <a
             className={styles.HashLink}
-            href={`https://${currentNetwork === "testnet" && "ropsten."}
+            href={`https://${history?.network === "mainnet" ? "" : "ropsten."}
             etherscan.io/tx/${history.hash}`}
             target="_blank"
             rel="noreferrer"
