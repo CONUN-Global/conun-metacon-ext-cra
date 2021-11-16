@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 
 import instance from "../axios/instance";
 import web3 from "src/web3";
+import { Logger } from "src/classes/logger";
+import { getIsLoggerActive } from "./logger";
 
 import getConfig from "./getConfig";
 
@@ -79,6 +81,14 @@ async function claimsTokens({
       });
     });
   } catch (error: any) {
+    const shouldLog = await getIsLoggerActive()
+    const logger = new Logger(!!shouldLog, walletAddress)
+    logger.sendLog({
+      logTarget:"ClaimTokens",
+      tags:["test"],
+      level:"ERROR",
+      message:error
+    })
     toast.error(error?.message);
   }
 }

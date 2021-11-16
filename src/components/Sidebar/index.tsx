@@ -28,6 +28,7 @@ function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
   const setNeedPassword = useStore((store) => store.setNeedPassword);
+  const logger = useStore((store)=> store.loggerInstance); 
   const needPassword = useStore((store) => store.needPassword);
   const [password, setPassword] = useState("");
   const [isChecked, setChecked] = useState(needPassword);
@@ -48,6 +49,12 @@ function Sidebar() {
         setIsSecurityModalOpen(false);
       }
     } catch (error: any) {
+      logger?.sendLog({
+        logTarget:"SetNeedPassword",
+        tags:["test"],
+        level:"ERROR",
+        message:error
+      })
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
       setPassword("");
     }
@@ -98,7 +105,7 @@ function Sidebar() {
                   className={styles.Button}
                   onClick={() => {
                     extensionSignOut();
-                    history.push("/");
+                    history.push("/logout");
                     window.close();
                   }}
                 >

@@ -1,3 +1,4 @@
+import { Logger } from "src/classes/logger";
 import create from "zustand";
 import { AppState } from "../types/index";
 
@@ -24,6 +25,8 @@ const useStore = create<AppState>((set) => ({
   setCreateNewWallet: (state: boolean) => set({ isCreateNewWalllet: state }),
   isLoggerActive: false,
   setIsLoggerActive: (state: boolean) => set({ isLoggerActive: state }),
+  loggerInstance: null,
+  setLoggerInstance: (state: Logger) => set({loggerInstance:state}),
   setUser: (user) => set({ user }),
   currentToken: "conx",
   setCurrentToken: (token) => set({ currentToken: token }),

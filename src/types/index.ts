@@ -1,3 +1,5 @@
+import { Logger } from "src/classes/logger";
+
 export type AppState = {
   currentStep: {
     current: Step;
@@ -16,6 +18,8 @@ export type AppState = {
   setCreateNewWallet: (state: boolean) => void;
   isLoggerActive: boolean;
   setIsLoggerActive: (state: boolean) => void;
+  loggerInstance: Logger | null;
+  setLoggerInstance: (state:Logger) => void;
   user?: StoreUser;
   setUser: (user: StoreUser) => void;
   currentToken: Token;

@@ -13,6 +13,7 @@ import copyToClipboard from "../../helpers/copyToClipboard";
 import {ReactComponent as CopyIcon} from "../../assets/icons/copy-icon.svg";
 
 import styles from "./Footer.module.scss";
+import { useLocation } from "react-router";
 
 const variants = {
   open: { y: 0 },
@@ -23,10 +24,16 @@ function Footer() {
   const [isOpen, setIsOpen] = useState(false);
   const { currentUser } = useCurrentUser();
 
+  const location = useLocation();
+
   const { data } = useQuery("wallet-qr-code", async () => {
     const data = await qrcode.toDataURL(currentUser?.walletAddress ?? "");
     return data;
   });
+
+  if (location.pathname === "/logout"){
+    return null;
+  }
 
   return (
     <OutsideClickWrapper onClickOutside={() => setIsOpen(false)}>

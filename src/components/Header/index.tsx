@@ -39,11 +39,12 @@ function Header() {
   const isUserLoggedIn = useStore((state) => state.isUserLoggedIn);
   const location = useLocation();
 
+  if (location.pathname === "/logout")return null;
   if (location.pathname === "/intro") return null
 
-    if (!isUserLoggedIn && currentStep.current === "welcome") {
-      return null;
-    }
+  if (!isUserLoggedIn && currentStep.current === "welcome") {
+    return null;
+  }
 
   if (isUserLoggedIn && currentStep.current !== "backup") {
     return (
