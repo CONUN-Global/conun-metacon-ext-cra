@@ -13,6 +13,7 @@ import useTransferFee from "../../../hooks/useTransferFee";
 
 import styles from "./SwapBox.module.scss";
 import InfoButton from "../../../components/InfoButton";
+import ConToConxSummary from "./ConToConxSummary";
 
 type FormData = {
   amount: number;
@@ -57,6 +58,11 @@ function SwapBox() {
 
     setIsConfirmModalOpen(true);
   };
+
+  const rejectSwap = () => {
+    setIsConfirmModalOpen(false);
+    setSwap(null);
+  }
 
   const handleButtons = (action: "min" | "half" | "max") => {
     if (!balance.loading && balance.balance) {
@@ -155,11 +161,21 @@ function SwapBox() {
           Next
         </Button>
       </div>
-      <SwapSummary
+      {!!swap &&
+      
+        token.token === "con"? 
+        <ConToConxSummary
         swap={swap}
         isOpen={isConfirmModalOpen}
-        onClose={() => setIsConfirmModalOpen(false)}
-      />
+        onClose={rejectSwap}
+        /> :
+        
+        <SwapSummary
+        swap={swap}
+        isOpen={isConfirmModalOpen}
+        onClose={rejectSwap}
+        /> 
+    }
     </form>
   );
 }

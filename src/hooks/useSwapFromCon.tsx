@@ -7,6 +7,7 @@ import despositTokens from "../helpers/depositTokens";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";
+import { ContractConfigResponseObj } from "src/types";
 
 type Args = {
   amount: number;
@@ -14,7 +15,7 @@ type Args = {
   gasPrice: number;
 };
 
-function useSwapFromCon() {
+const useSwapFromCon = () => {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
