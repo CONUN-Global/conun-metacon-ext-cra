@@ -7,7 +7,6 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 
 import useTransactionList from "../../../../hooks/useTransactionList";
-import useSwapFromCon from "../../../../hooks/useSwapFromCon";
 import useCurrentToken from "../../../../hooks/useCurrentToken";
 
 import { GAS_FEE_DIVIDEND, GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
@@ -19,6 +18,9 @@ import styles from "./SwapSummary.module.scss";
 import useCurrentUser from "src/hooks/useCurrentUser";
 import GasFeeBox from "./GasFeeBox";
 import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX";
+import LoadingOverlay from "./LoadingOverlay";
+import web3 from "src/web3";
+import useTransferFee from "src/hooks/useTransferFee";
 
 interface SwapSummaryProps {
   isOpen: boolean;
@@ -61,8 +63,7 @@ function Total({
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const [swapStage, setSwapStage] = useState<SwapStage>(stage.approval);
-  const [depositFee, setDepositFee] = useState(undefined);
-
+  const [depositFee, setDepositFee] = useState<number | undefined>(undefined);
 
   const history = useHistory();
 
@@ -70,7 +71,6 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const currentUser = useCurrentUser();
 
   const { addTransaction } = useTransactionList();
-  // const { swapFromCon, isLoading } = useSwapFromCon();
 
   const {
     approvalFee,
@@ -84,7 +84,16 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
     gasPrice: swap?.gasPrice!,
   });
 
-  const val = swap?.amount ? swap.amount.toString() : "0";
+  function boostDepositFee(depositData:string){
+    try {
+
+      const rawFee = Number(web3.utils.fromWei(depositData))
+      return rawFee * 1.1
+    } catch  (e)
+    {
+      console.log(`boostDepositFee e`, e)
+    }
+  }
 
 
   const onApprove = async () => {
@@ -92,7 +101,8 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
     if (swap && !isLoadingApprovalFee){
 
       const depositData = await getDepositFee();
-      setDepositFee(depositData);
+
+      setDepositFee(boostDepositFee(depositData));
       setSwapStage(stage.deposit); 
 
     }
@@ -100,33 +110,35 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
 
 
   const onConfirm = async () => {
-    // if (swap) {
-    //   let txHash: any;
-    //   txHash = await swapFromCon({
-    //     amount: swap.amount,
-    //     gasLimit: swap?.gasLimit ?? 21000,
-    //     gasPrice: Number(swap?.gasPrice ?? 2),
-    //   });
-    //   addTransaction({
-    //     txType: "swap",
-    //     hash: txHash,
-    //     token: token,
-    //     swapInfo: {
-    //       from: token,
-    //       to: token === "con" ? "conx" : "con",
-    //     },
-    //     amount: Number(swap?.amount),
-    //     date: new Date().toISOString(),
-    //     status: "pending",
-    //   });
-    //   history.push("/");
-    // }
-  };
 
-  const gasFee =
-    (Number(swap?.gasPrice ?? 0) *
-      Number(swap?.gasLimit ?? 0 * GAS_LIMIT_MULTIPLIER_FOR_SWAP ?? 0)) /
-    GAS_FEE_DIVIDEND;
+    if (swap && depositFee) {
+      let txHash: any;
+      try{
+
+        txHash = await performDeposit(depositFee);
+      } catch (e){
+        console.log(`perform Deposit e`, e)
+      }
+        if (!!txHash){
+
+          addTransaction({
+            txType: "swap",
+            hash: txHash,
+            token: token,
+            swapInfo: {
+              from: token,
+              to: token === "con" ? "conx" : "con",
+            },
+            amount: Number(swap?.amount),
+            date: new Date().toISOString(),
+            status: "pending",
+          });
+        }
+      history.push("/");
+    }
+
+
+  };
 
   return (
     <Modal
@@ -135,6 +147,9 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       onClose={onClose}
       title="Swap Summary"
     >
+      {(isLoadingApprovalFee || isLoadingDepositFee) &&
+        <LoadingOverlay/>
+      }
       <p className={styles.ReviewText}>
         Please review the details, and if everything is correct, click confirm.
       </p>

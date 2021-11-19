@@ -8,13 +8,24 @@ import styles from "./GasFeeBox.module.scss";
 
 interface Props {
   label: string,
-  gasFee:string | undefined,
+  gasFee:string | number | undefined,
 }
 
 
 function GasFeeBox({label, gasFee}:Props) {
 
-  const feeNumber = gasFee ? Number(web3.utils.fromWei(gasFee)).toFixed(6) : "..."
+
+  let feeToShow:string = "..."
+  try {
+
+    if (gasFee) {
+      if (typeof gasFee ===  "string") feeToShow = web3.utils.fromWei(gasFee)
+      else feeToShow = gasFee.toString()
+      
+    }
+  } catch (e){
+    console.log(`gas fee box e`, e)
+  }
 
   return (
     <div className={styles.GasFeeBox}>
@@ -23,7 +34,7 @@ function GasFeeBox({label, gasFee}:Props) {
         <InfoIcon className={styles.InfoIcon} />
       </div>
       <div className={styles.GasValueBox}>
-        <span className={styles.GasValue}>{feeNumber} ETH</span>
+        <span className={styles.GasValue}>{feeToShow} ETH</span>
       </div>
     </div>
   );

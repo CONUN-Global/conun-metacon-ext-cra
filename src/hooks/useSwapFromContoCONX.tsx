@@ -2,7 +2,6 @@ import { useMutation, useQuery } from "react-query";
 import infuraInstance from "src/axios/infuraInstance";
 import useStore from "src/store/store";
 import web3 from "src/web3";
-import useContractData from "./useContractData";
 import useCurrentUser from "./useCurrentUser";
 
 import { Transaction as Tx } from "ethereumjs-tx";
@@ -10,14 +9,23 @@ import { Transaction as Tx } from "ethereumjs-tx";
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 import { getBufferedKey } from "src/helpers/getBufferedKey";
 import instance from "src/axios/instance";
-import despositTokens from "src/helpers/depositTokens";
 import getConfig from "src/helpers/getConfig";
 import { ContractConfigResponseObj } from "src/types";
+import { getIsLoggerActive } from "src/helpers/logger";
+import { Logger } from "src/classes/logger";
+import { toast } from "react-toastify";
+import useTransferFee from "./useTransferFee";
 
 interface SwapProps {
   value: number;
   gasLimit: number;
   gasPrice: number;
+}
+
+type InfuraResponse = {
+  jsonrpc:string,
+  id:number,
+  result:string,
 }
 
 const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
@@ -95,7 +103,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
     const { data }: any = await instance.post(
       "/bridge-swap/swap-request/type/CONtoCONX",
       {
-        amount: value,
+        amount: String(value),
         walletAddress: currentUser?.walletAddress,
       }
     );
@@ -135,7 +143,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
       console.log(`approvalTxHash`, approvalTxHash)
 
       const DepositTokensABIData = await getDepositTokensABI(value, contractConfigData);
-      const { data }: any = await infuraInstance.post("", {
+      const { data }: {data:InfuraResponse} = await infuraInstance.post("", {
         jsonrpc: "2.0",
         method: "eth_estimateGas",
         params: [
@@ -147,21 +155,96 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
         ],
         id: 1,
       });
-      console.log(`deposit fee data`, data)
+
       return data?.result;
     });
 
 
-    const performDeposit = async () => {
+    async function depositTokens(configData:ContractConfigResponseObj, gasForDeposit:number){
+       try {
+        const bridgeContract = new web3.eth.Contract(
+          configData?.bridgeContract?.abiRaw,
+          configData?.bridgeContract?.address
+        );
+    
+        const { data }: any = await instance.post(
+          "/bridge-swap/swap-request/type/CONtoCONX",
+          {
+            amount: String(value),
+            walletAddress: currentUser?.walletAddress,
+          }
+        );
+        
+        const trustedSigner = await bridgeContract.methods
+          .depositTokens(
+            web3.utils.toWei(String(value)),
+            data?.payload?.swapID,
+            currentUser?.walletAddress
+          )
+          .encodeABI();
 
-      return await despositTokens({
-        walletAddress: currentUser?.walletAddress!,
-        bufferedPrivateKey,
-        amount: value,
-        gasPrice: gasPrice,
-        gasLimit: gasLimit,
-        network: currentNetwork,
-      })
+   
+
+
+        const txCount = await web3.eth.getTransactionCount(currentUser?.walletAddress!);   
+        
+        
+        const gasPrice = parseFloat(gasForDeposit.toFixed(9)) > 0.000000001 ? gasForDeposit.toFixed(9) : 0.000000001.toFixed(9)
+
+
+        const txObject = {
+          from: currentUser?.walletAddress,
+          nonce: web3.utils.toHex(txCount),
+          to: configData?.bridgeContract?.address,
+          value: web3.utils.toHex(value),
+          gasLimit: web3.utils.toHex(
+            String(gasLimit * GAS_LIMIT_MULTIPLIER_FOR_SWAP)
+          ),
+          gasPrice: web3.utils.toHex(
+            web3.utils.toWei(gasPrice, "gwei")
+          ),
+          data: trustedSigner,
+        };
+        console.log(`gasForDeposit`, gasForDeposit)
+        console.log(`txObject`, txObject)
+      
+        const tx = new Tx(txObject, { chain: networkChain });
+        tx.sign(bufferedPrivateKey);
+    
+        const serializedTx = tx.serialize();
+    
+        const raw = "0x" + serializedTx.toString("hex");
+    
+        const sentTx = web3.eth.sendSignedTransaction(raw);
+    
+        return new Promise((resolve) => {
+          sentTx.on("transactionHash", (hash) => {
+            resolve(hash);
+          });
+        });
+      } catch (error: any) {
+        const shouldLog = getIsLoggerActive()
+        const logger = new Logger(!!shouldLog, currentUser?.walletAddress!)
+        logger.sendLog({
+          logTarget:"DepositTokens",
+          tags:["test"],
+          level:"ERROR",
+          message:error
+        })
+        toast.error("Deposit Tokens: " + error?.message);
+      }
+    }
+
+        
+    const performDeposit = async (gasForDeposit:number) => {
+
+      const contractConfigData = await getConfig();
+      try {
+        return await depositTokens(contractConfigData, gasForDeposit)
+      } catch (e) {
+        console.log(`e:`, e)
+        return undefined
+      }
     }
 
 
