@@ -63,7 +63,7 @@ function Total({
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const [swapStage, setSwapStage] = useState<SwapStage>(stage.approval);
-  const [depositFee, setDepositFee] = useState<number | undefined>(undefined);
+  const [depositFee, setDepositFee] = useState<string | undefined>(undefined);
 
   const history = useHistory();
 
@@ -84,25 +84,13 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
     gasPrice: swap?.gasPrice!,
   });
 
-  function boostDepositFee(depositData:string){
-    try {
-
-      const rawFee = Number(web3.utils.fromWei(depositData))
-      return rawFee * 1.1
-    } catch  (e)
-    {
-      console.log(`boostDepositFee e`, e)
-    }
-  }
-
-
   const onApprove = async () => {
       
     if (swap && !isLoadingApprovalFee){
 
       const depositData = await getDepositFee();
 
-      setDepositFee(boostDepositFee(depositData));
+      setDepositFee(depositData);
       setSwapStage(stage.deposit); 
 
     }
