@@ -68,6 +68,8 @@ export type Token = "conx" | "eth" | "con";
 export type txAction = "buy" | "send" | "swap";
 export type txStatus = "pending" | "success" | "failed";
 
+export type GasFeeObj = { gasLimit: number; gasPrice: string };
+
 export type RecentTransaction = {
   txType: txAction;
   hash: string;

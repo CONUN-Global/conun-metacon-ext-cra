@@ -9,18 +9,15 @@ import Button from "../../../../components/Button";
 import useTransactionList from "../../../../hooks/useTransactionList";
 import useCurrentToken from "../../../../hooks/useCurrentToken";
 
-import { GAS_FEE_DIVIDEND, GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
-
-import { Token } from "../../../../types/index";
+import { Token, GasFeeObj } from "../../../../types/index";
 import { Swap } from "..";
 
 import styles from "./SwapSummary.module.scss";
-import useCurrentUser from "src/hooks/useCurrentUser";
+
 import GasFeeBox from "./GasFeeBox";
 import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX";
 import LoadingOverlay from "./LoadingOverlay";
-import web3 from "src/web3";
-import useTransferFee from "src/hooks/useTransferFee";
+
 
 interface SwapSummaryProps {
   isOpen: boolean;
@@ -34,6 +31,7 @@ enum stage {
 }
 
 type SwapStage = stage.approval | stage.deposit;
+
 
 function Total({
   token,
@@ -63,12 +61,11 @@ function Total({
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const [swapStage, setSwapStage] = useState<SwapStage>(stage.approval);
-  const [depositFee, setDepositFee] = useState<string | undefined>(undefined);
-
+  const [depositFee, setDepositFee] = useState<GasFeeObj | undefined>(undefined);
   const history = useHistory();
 
   const { token } = useCurrentToken();
-  const currentUser = useCurrentUser();
+  // const currentUser = useCurrentUser();
 
   const { addTransaction } = useTransactionList();
 
@@ -83,6 +80,8 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
     gasLimit: swap?.gasLimit!,
     gasPrice: swap?.gasPrice!,
   });
+  console.log("summary page :",approvalFee);
+  console.log("summary page deposit fee: ", depositFee)
 
   const onApprove = async () => {
       
@@ -163,8 +162,8 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       </div>
       <Divider />
       <div className={styles.GasFeeSection}>
-        <GasFeeBox label="Est. Approval Gas Fee" gasFee={approvalFee} />
-        <GasFeeBox label="Est. Swap Gas Fee" gasFee={depositFee} />
+        <GasFeeBox label="Est. Approval Gas Fee" gasFee={approvalFee?.gasPrice} />
+        <GasFeeBox label="Est. Swap Gas Fee" gasFee={depositFee?.gasPrice} />
       </div>
       <Divider />
       <div className={styles.TotalBox}>
