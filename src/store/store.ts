@@ -2,6 +2,9 @@ import { Logger } from "src/classes/logger";
 import create from "zustand";
 import { AppState } from "../types/index";
 
+
+const INITIAL_NETWORK = "mainnet"
+
 const useStore = create<AppState>((set) => ({
   currentStep: {
     current: "welcome",
@@ -30,7 +33,7 @@ const useStore = create<AppState>((set) => ({
   setUser: (user) => set({ user }),
   currentToken: "conx",
   setCurrentToken: (token) => set({ currentToken: token }),
-  currentNetwork: "testnet",
+  currentNetwork: INITIAL_NETWORK,
   setCurrentNetwork: (network) => set({ currentNetwork: network }),
   recentTransactions: [],
   setRecentTransactions: (transactions) =>
