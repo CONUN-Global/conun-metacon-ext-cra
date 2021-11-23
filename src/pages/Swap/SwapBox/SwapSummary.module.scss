@@ -42,6 +42,14 @@
     margin-bottom: 34px;
     margin-top: 13px;
 
+    & .TotalAmount {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: -0.03em;
+      display:flex;
+      flex-direction: column;
+    }
+
     & .LabelBox {
       display: flex;
       flex-direction: column;
@@ -56,12 +64,6 @@
         font-size: 12px;
         letter-spacing: -0.03em;
       }
-    }
-
-    & .TotalAmount {
-      font-size: 14px;
-      font-weight: bold;
-      letter-spacing: -0.03em;
     }
   }
 

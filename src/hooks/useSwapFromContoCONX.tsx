@@ -57,9 +57,6 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
       contractConfigData?.conContract?.abiRaw,
       contractConfigData?.conContract?.address
     );
-
-    console.log(`SwapApproval contractConfigData`, contractConfigData);
-
     const approve = await conContract.methods
       .approve(
         contractConfigData?.bridgeContract.address,
@@ -134,7 +131,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
         contractConfigData.conContract.address,
         ApproveSwapABIData
       );
-      return { gasPrice, gasLimit } as GasFeeObj;
+      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
     }
   );
 
@@ -154,9 +151,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
         contractConfigData.bridgeContract.address,
         DepositTokensABIData
       );
-
-      console.log(`deposit fee est.: `, { gasPrice, gasLimit });
-      return { gasPrice, gasLimit } as GasFeeObj;
+      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
     });
 
   async function depositTokens(
@@ -170,8 +165,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
         web3.eth.getTransactionCount(
           currentUser?.walletAddress!,
           (err, txCount) => {
-            console.log("get Transaction err: ", err);
-            // // Build the transaction
+            // Build the transaction
 
             var txObject = {
               from: currentUser?.walletAddress!,
@@ -194,16 +188,13 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
             web3.eth
               .sendSignedTransaction(raw)
               .on("transactionHash", function (hash) {
-                console.log(`hash`, hash);
                 resolve(hash);
               })
               .on("receipt", function (tx) {
-                console.log(`receipt`, tx);
                 if (tx) resolve(tx.transactionHash);
                 else reject();
               })
               .on("error", function (error) {
-                console.warn(">> sendSignedTransaction error", error);
                 reject(error);
               });
           }
@@ -227,7 +218,6 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
     try {
       return await depositTokens(contractConfigData, gasForDeposit);
     } catch (e) {
-      console.log(`e:`, e);
       return undefined;
     }
   };

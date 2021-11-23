@@ -39,6 +39,8 @@ const useStore = create<AppState>((set) => ({
   setNeedPassword: (state: boolean) => {
     set({ needPassword: state });
   },
+  isPerformingTransaction:false,
+  setPerformingTransaction:((state:boolean)=> set({isPerformingTransaction:state}))
 }));
 
 export default useStore;

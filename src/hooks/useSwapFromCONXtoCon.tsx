@@ -46,7 +46,7 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
     const {
       data: { payload },
     }: any = await instance.post("/bridge-swap/swap-request/type/CONXtoCON", {
-      amount: value,
+      amount: value.toString(),
       walletAddress: currentUser?.walletAddress!,
     });
 
@@ -71,8 +71,6 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
         web3.eth.getTransactionCount(
           currentUser?.walletAddress!,
           (err, txCount) => {
-            console.log(`transaction count err: `, err);
-
             const txObject = {
               from: currentUser?.walletAddress!,
               nonce: web3.utils.toHex(txCount),
@@ -93,16 +91,13 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
             web3.eth
               .sendSignedTransaction(raw)
               .on("transactionHash", function (hash) {
-                console.log(`hash`, hash);
                 resolve(hash);
               })
               .on("receipt", function (tx) {
-                console.log(`receipt`, tx);
                 if (tx) resolve(tx.transactionHash);
                 else reject();
               })
               .on("error", function (error) {
-                console.warn(">> sendSignedTransaction error", error);
                 reject(error);
               });
           }
@@ -133,7 +128,7 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
         contractConfigData.bridgeContract.address,
         claimTokensABI
       );
-      return { gasPrice, gasLimit } as GasFeeObj;
+      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
     }, {
       enabled: !!value
     }

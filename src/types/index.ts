@@ -30,6 +30,9 @@ export type AppState = {
   setRecentTransactions: (transactions: RecentTransaction[]) => void;
   needPassword: boolean;
   setNeedPassword: (state: boolean) => void;
+  isPerformingTransaction:boolean;
+  setPerformingTransaction: (state: boolean) => void;
+
 };
 
 export type Network = "testnet" | "mainnet";

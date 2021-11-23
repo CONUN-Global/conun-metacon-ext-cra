@@ -124,7 +124,7 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
       <div className={styles.Value}>
         <div
           className={styles.FromVal}
-        >{`${history.amount} ${history.token}`}</div>
+        >{`${Number(history.amount).toFixed(8).replace(/\.?0+$/,"")}`}</div>
         <div className={styles.ToVal}>
           <a
             className={styles.HashLink}

@@ -40,7 +40,7 @@ function useSwapFeeConToCONX({params}:SwapFeeProps){
       const { data }: any = await instance.post(
         "/bridge-swap/swap-request/type/CONtoCONX",
         {
-          amount: value,
+          amount: value.toString(),
           walletAddress,
         }
       );
@@ -84,9 +84,7 @@ function useSwapFeeConToCONX({params}:SwapFeeProps){
         "id": 1
       })
       
-      const DepositTokensABIData = await getDepositTokensABI({configData, value:params.value, walletAddress:params.from}) 
-      console.log(`DepositTokensABIData`, DepositTokensABIData)
-      
+      const DepositTokensABIData = await getDepositTokensABI({configData, value:params.value, walletAddress:params.from})      
       const {data: depositTokensData}:any = await infuraInstance.post("", {
         "jsonrpc": "2.0",
         "method":"eth_estimateGas", 

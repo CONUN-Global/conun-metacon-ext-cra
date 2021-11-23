@@ -6,7 +6,6 @@ export default async function sendTxnsToBkg(txnsToSend:any) {
       chrome.runtime.sendMessage(
         { message: extMsg.EXT_SEND_TXNS, payload:txnsToSend },
         function (response) {
-          console.log("Background responded with: ", response);
           resolve(response.payload);
         }
       )

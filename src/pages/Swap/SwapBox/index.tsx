@@ -1,4 +1,4 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -8,7 +8,6 @@ import FormTransactionInput from "../../../components/Form/HookForm/FormTransact
 
 import useCurrentToken from "../../../hooks/useCurrentToken";
 import useStore from "../../../store/store";
-import useTransferFee from "../../../hooks/useTransferFee";
 
 import styles from "./SwapBox.module.scss";
 import InfoButton from "../../../components/InfoButton";
@@ -21,8 +20,6 @@ type FormData = {
 
 export type Swap = {
   amount: number;
-  gasLimit: number;
-  gasPrice: number;
 };
 
 function SwapBox() {
@@ -41,19 +38,9 @@ function SwapBox() {
     formState: { errors },
   } = useForm<FormData>({ reValidateMode: "onChange" });
 
-  const watchAmount = watch("amount");
-
-  const { data } = useTransferFee({
-    to: "",
-    amount: String(watchAmount),
-    token: "con",
-  });
-
   const onSubmit: SubmitHandler<FormData> = async (values) => {
     setSwap({
       amount: values.amount,
-      gasLimit: data?.fast?.gasLimit ?? 21000,
-      gasPrice: Number(data?.fast?.gasPrice ?? 2),
     });
 
     setIsConfirmModalOpen(true);
@@ -62,6 +49,19 @@ function SwapBox() {
   const rejectSwap = () => {
     setIsConfirmModalOpen(false);
     setSwap(null);
+  };
+
+  function rectifyDecimal(num: number) {
+    if (num > 10000000000) {
+      // The highest number possible is 9,999,999,999
+      return 9999999999;
+    } else {
+      let fixedString = num.toFixed(6);
+      if (fixedString.length > 9) {
+        return parseFloat(fixedString.slice(0, 10));
+      }
+      return parseFloat(fixedString);
+    }
   }
 
   const handleButtons = (action: "min" | "half" | "max") => {
@@ -70,13 +70,13 @@ function SwapBox() {
       let valToUse = 0;
 
       if (action === "min") {
-        valToUse = userBalance * 0.2;
+        valToUse = rectifyDecimal(userBalance * 0.2);
       }
       if (action === "half") {
-        valToUse = userBalance / 2;
+        valToUse = rectifyDecimal(userBalance / 2);
       }
       if (action === "max") {
-        valToUse = userBalance;
+        valToUse = rectifyDecimal(userBalance);
       }
       setValue("amount", valToUse);
     }
@@ -95,12 +95,18 @@ function SwapBox() {
               message: "This is a required field",
             },
             pattern: {
-              value: /^(([1-9][0-9]{0,17})|(0))([.][0-9]{0,17})?$/,
+              value: /^(([1-9][0-9]{0,10})|(0))([.][0-9]{0,10})?$/,
               message: "Number is invalid",
+            },
+            maxLength: {
+              value: 10,
+              message: "Number must be less than 10 digits long",
             },
             validate: {
               moreThanZero: (value) =>
-                Number(value) <= 0 ? "Amount should be more than 0" : "" || true,
+                Number(value) <= 0
+                  ? "Amount should be more than 0"
+                  : "" || true,
               lessThanTotalBalance: (value) =>
                 Number(value) > Number(balance?.balance?.payload)
                   ? "You don't have enough balance"
@@ -161,19 +167,19 @@ function SwapBox() {
           Next
         </Button>
       </div>
-      {isConfirmModalOpen && !!swap?.amount &&
-        token.token === "con"? 
+      {isConfirmModalOpen && !!swap?.amount && token.token === "con" ? (
         <ConToConxSummary
-        swap={swap}
-        isOpen={isConfirmModalOpen}
-        onClose={rejectSwap}
-        /> :
+          swap={swap}
+          isOpen={isConfirmModalOpen}
+          onClose={rejectSwap}
+        />
+      ) : (
         <ConxToConSummary
-        swap={swap}
-        isOpen={isConfirmModalOpen}
-        onClose={rejectSwap}
-        /> 
-    }
+          swap={swap}
+          isOpen={isConfirmModalOpen}
+          onClose={rejectSwap}
+        />
+      )}
     </form>
   );
 }

@@ -7,7 +7,6 @@ import Button from "../../../../components/Button";
 import useTransactionList from "../../../../hooks/useTransactionList";
 import useCurrentToken from "../../../../hooks/useCurrentToken";
 
-import { Token } from "../../../../types/index";
 import { Swap } from "..";
 
 import styles from "../SwapSummary.module.scss";
@@ -15,6 +14,7 @@ import styles from "../SwapSummary.module.scss";
 import GasFeeBox from "../GasFeeBox";
 import useSwapFromCONXtoCon from "src/hooks/useSwapFromCONXtoCon";
 import LoadingOverlay from "../LoadingOverlay";
+import Total from "../Total";
 
 interface SwapSummaryProps {
   isOpen: boolean;
@@ -22,30 +22,6 @@ interface SwapSummaryProps {
   onClose: () => void;
 }
 
-function Total({
-  token,
-  amount,
-  gasFee,
-}: {
-  token: Token;
-  amount: number | undefined;
-  gasFee: number | undefined;
-}) {
-  if (gasFee) {
-    return (
-      <span
-        className={styles.TotalAmount}
-      >{`${amount} ${token.toLocaleUpperCase()} + ${gasFee?.toFixed(
-        6
-      )} ETH`}</span>
-    );
-  }
-  return (
-    <span
-      className={styles.TotalAmount}
-    >{`${amount} ${token.toLocaleUpperCase()} + ... ETH`}</span>
-  );
-}
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const history = useHistory();
@@ -62,7 +38,6 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       try {
         txHash = await swapFromCONX(claimFee!);
       } catch (e) {
-        console.log(`swap from CONX e`, e);
       }
       if (!!txHash) {
         addTransaction({
@@ -115,7 +90,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       </div>
       <Divider />
       <div className={styles.GasFeeSection}>
-        <GasFeeBox label="Est. Swap Gas Fee" gasFee={claimFee?.gasPrice} />
+        <GasFeeBox label="Est. Swap Fee" gasFee={claimFee?.gasPrice} />
       </div>
       <Divider />
       <div className={styles.TotalBox}>
@@ -123,8 +98,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
           <span className={styles.Label}>Total</span>
           <span className={styles.SubLabel}>Amount + gas fee</span>
         </div>
-        {/* <Total token={token} amount={swap?.amount} gasFee={gasFee} /> */}
-        totel
+        <Total token={token} amount={swap?.amount} gasFee={claimFee?.gasPrice} />
       </div>
 
       <div className={styles.ButtonsContainer}>

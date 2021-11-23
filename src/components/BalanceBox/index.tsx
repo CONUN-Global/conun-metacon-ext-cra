@@ -5,7 +5,6 @@ import Button from "../Button";
 import { TOKEN_CARDS } from "src/const";
 
 import copyToClipboard from "../../helpers/copyToClipboard";
-import truncateString from "../../helpers/truncateString";
 
 import useCurrentUser from "../../hooks/useCurrentUser";
 
@@ -19,6 +18,11 @@ function BalanceBox() {
 
   const token = TOKEN_CARDS.find((t) => t?.token === currentToken);
   const tokenBalance = token?.useBalance();
+
+  function rectifyDecimal(num:number){
+    return parseFloat(num.toFixed(6))
+  }
+  
 
   return (
     <div
@@ -34,7 +38,7 @@ function BalanceBox() {
             <span className={styles.Loading}>1234567890.0</span>
           ) : (
             <span className={styles.Number}>
-              {truncateString(tokenBalance?.balance?.payload || "", 8, true)}
+              {rectifyDecimal(+tokenBalance?.balance?.payload!)}
             </span>
           )}
           <span className={styles.Token}>{currentToken}</span>

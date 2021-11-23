@@ -4,15 +4,11 @@ export function getChromeAuthToken() {
   if (!isWindowPresent()) {
     return "";
   }
-  return chrome.storage.local.get(["METACON_AUTH_KEY"], function(val){
-    console.log("RETURNED VAL: ", val);
-  });
+  return chrome.storage.local.get(["METACON_AUTH_KEY"]);
 }
 
 export function setChromeAuthToken(key: string) {
-  chrome.storage.sync.set({"METACON_AUTH_KEY": key}, ()=> {
-    console.log("STORED: ", key);
-  })
+  chrome.storage.sync.set({"METACON_AUTH_KEY": key})
 }
 
 
