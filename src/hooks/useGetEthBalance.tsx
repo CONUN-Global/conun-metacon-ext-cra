@@ -4,7 +4,7 @@ import web3 from "src/web3";
 import useCurrentUser from "./useCurrentUser";
 
 function useGetEthBalance() {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isLoading:isLoadingUser } = useCurrentUser();
 
   const { data, isLoading, refetch, isFetching } = useQuery(
     "get-eth-balance",
@@ -14,7 +14,7 @@ function useGetEthBalance() {
       return { payload: balance };
     },
     {
-      enabled: !!currentUser?.walletAddress,
+      enabled: !!currentUser?.walletAddress && !isLoadingUser,
       cacheTime: 0,
       refetchOnMount: true,
       refetchOnWindowFocus: true,

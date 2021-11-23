@@ -7,7 +7,7 @@ import useCurrentUser from "./useCurrentUser";
 import getConfig from "../helpers/getConfig";
 
 function useGetConBalance() {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, isLoading:isLoadingUser } = useCurrentUser();
 
   const { data, isLoading, refetch, isFetching } = useQuery(
     "get-con-balance",
@@ -28,7 +28,7 @@ function useGetConBalance() {
       return { payload: balance };
     },
     {
-      enabled: !!currentUser?.walletAddress,
+      enabled: !!currentUser?.walletAddress && !isLoadingUser,
       cacheTime: 0,
       refetchOnMount: true,
       refetchOnWindowFocus: true,
