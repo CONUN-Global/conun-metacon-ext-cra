@@ -1,7 +1,4 @@
-import web3 from "web3"
-
-
-import { ReactComponent as InfoIcon } from "../../../../../assets/icons/info-icon.svg";
+import { ReactComponent as InfoIcon } from "../../../../assets/icons/info-icon.svg";
 
 import styles from "./GasFeeBox.module.scss";
 

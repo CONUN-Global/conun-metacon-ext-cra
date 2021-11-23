@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import { useHistory } from "react-router";
 
 import Divider from "../../../../components/Divider";
@@ -9,29 +7,20 @@ import Button from "../../../../components/Button";
 import useTransactionList from "../../../../hooks/useTransactionList";
 import useCurrentToken from "../../../../hooks/useCurrentToken";
 
-import { Token, GasFeeObj } from "../../../../types/index";
+import { Token } from "../../../../types/index";
 import { Swap } from "..";
 
 import styles from "../SwapSummary.module.scss";
 
 import GasFeeBox from "../GasFeeBox";
-import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX";
+import useSwapFromCONXtoCon from "src/hooks/useSwapFromCONXtoCon";
 import LoadingOverlay from "../LoadingOverlay";
-
 
 interface SwapSummaryProps {
   isOpen: boolean;
   swap: Swap | null;
   onClose: () => void;
 }
-
-enum stage {
-  "approval",
-  "deposit",
-}
-
-type SwapStage = stage.approval | stage.deposit;
-
 
 function Total({
   token,
@@ -56,73 +45,41 @@ function Total({
       className={styles.TotalAmount}
     >{`${amount} ${token.toLocaleUpperCase()} + ... ETH`}</span>
   );
-
 }
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
-  const [swapStage, setSwapStage] = useState<SwapStage>(stage.approval);
-  const [depositFee, setDepositFee] = useState<GasFeeObj | undefined>(undefined);
   const history = useHistory();
-
   const { token } = useCurrentToken();
-  // const currentUser = useCurrentUser();
-
   const { addTransaction } = useTransactionList();
 
-  const {
-    approvalFee,
-    isLoadingApprovalFee,
-    getDepositFee,
-    isLoadingDepositFee,
-    performDeposit,
-  } = useSwapFromContoCONX({
-    value: swap?.amount!
+  const { claimFee, isLoadingClaimFee, swapFromCONX } = useSwapFromCONXtoCon({
+    value: swap?.amount!,
   });
-  console.log("summary page :",approvalFee);
-  console.log("summary page deposit fee: ", depositFee)
-
-  const onApprove = async () => {
-      
-    if (swap && !isLoadingApprovalFee){
-
-      const depositData = await getDepositFee(approvalFee!);
-
-      setDepositFee(depositData);
-      setSwapStage(stage.deposit); 
-
-    }
-  }
-
 
   const onConfirm = async () => {
-
-    if (swap && depositFee) {
+    if (swap && !isLoadingClaimFee) {
       let txHash: any;
-      try{
-
-        txHash = await performDeposit(depositFee);
-      } catch (e){
-        console.log(`perform Deposit e`, e)
+      try {
+        txHash = await swapFromCONX(claimFee!);
+      } catch (e) {
+        console.log(`swap from CONX e`, e);
       }
-        if (!!txHash){
-
-          addTransaction({
-            txType: "swap",
-            hash: txHash,
-            token: token,
-            swapInfo: {
-              from: token,
-              to: token === "con" ? "conx" : "con",
-            },
-            amount: Number(swap?.amount),
-            date: new Date().toISOString(),
-            status: "pending",
-          });
-        }
+      if (!!txHash) {
+        addTransaction({
+          txType: "swap",
+          hash: txHash,
+          token: token,
+          swapInfo: {
+            from: "conx",
+            to: "con",
+          },
+          amount: Number(swap?.amount),
+          date: new Date().toISOString(),
+          status: "pending",
+        });
+      }
       history.push("/");
     }
-
-
   };
 
   return (
@@ -132,9 +89,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       onClose={onClose}
       title="Swap Summary"
     >
-      {(isLoadingApprovalFee || isLoadingDepositFee) &&
-        <LoadingOverlay/>
-      }
+      {isLoadingClaimFee && <LoadingOverlay />}
       <p className={styles.ReviewText}>
         Please review the details, and if everything is correct, click confirm.
       </p>
@@ -160,8 +115,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       </div>
       <Divider />
       <div className={styles.GasFeeSection}>
-        <GasFeeBox label="Est. Approval Gas Fee" gasFee={approvalFee?.gasPrice} />
-        <GasFeeBox label="Est. Swap Gas Fee" gasFee={depositFee?.gasPrice} />
+        <GasFeeBox label="Est. Swap Gas Fee" gasFee={claimFee?.gasPrice} />
       </div>
       <Divider />
       <div className={styles.TotalBox}>
@@ -169,7 +123,6 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
           <span className={styles.Label}>Total</span>
           <span className={styles.SubLabel}>Amount + gas fee</span>
         </div>
-
         {/* <Total token={token} amount={swap?.amount} gasFee={gasFee} /> */}
         totel
       </div>
@@ -178,23 +131,9 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
         <Button type="button" onClick={onClose} variant="secondary">
           Reject
         </Button>
-        {swapStage === stage.approval ? (
-          <Button
-            type="button"
-            onClick={onApprove}
-            disabled={isLoadingApprovalFee || isLoadingDepositFee}
-          >
-            Approve
-          </Button>
-        ) : (
-          <Button
-            type="button"
-            onClick={onConfirm}
-            disabled={isLoadingDepositFee}
-          >
-            Submit
-          </Button>
-        )}
+        <Button type="button" onClick={onConfirm} disabled={isLoadingClaimFee}>
+          Submit
+        </Button>
       </div>
     </Modal>
   );

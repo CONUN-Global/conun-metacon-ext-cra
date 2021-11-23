@@ -13,15 +13,14 @@ import { ContractConfigResponseObj, GasFeeObj } from "src/types";
 import { getIsLoggerActive } from "src/helpers/logger";
 import { Logger } from "src/classes/logger";
 import { toast } from "react-toastify";
+import { getGasLimit, getGasPrice } from "src/helpers/getGas";
 
 interface SwapProps {
   value: number;
-  gasLimit: number;
-  gasPrice: number;
 }
 
-const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
-  // const { contractConfigData } = useContractData();
+const useSwapFromContoCONX = ({ value }: SwapProps) => {
+
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
@@ -51,7 +50,8 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
   }
 
   async function performSwapApproval(
-    contractConfigData: ContractConfigResponseObj
+    contractConfigData: ContractConfigResponseObj,
+    gasForApproval:GasFeeObj
   ) {
     const conContract = new web3.eth.Contract(
       contractConfigData?.conContract?.abiRaw,
@@ -76,9 +76,9 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
       to: contractConfigData?.conContract?.address,
       nonce: web3.utils.toHex(txCount),
       value: "0x0",
-      gasLimit: web3.utils.toHex(gasLimit * GAS_LIMIT_MULTIPLIER_FOR_SWAP),
+      gasLimit: web3.utils.toHex(gasForApproval.gasLimit),
       gasPrice: web3.utils.toHex(
-        web3.utils.toWei(String(gasPrice.toFixed(9)), "gwei")
+        web3.utils.toWei(gasForApproval.gasPrice, "gwei")
       ),
       data: approve,
     };
@@ -118,38 +118,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
       .encodeABI();
   }
 
-  async function getGasPrice() {
-    return new Promise((resolve, reject) => {
-      web3.eth
-        .getGasPrice()
-        .then((result) => {
-          resolve(web3.utils.fromWei(result, "gwei"));
-          console.log(">> gasPrice: ", result);
-        })
-        .catch((err) => {
-          console.log("getGasPrice err: ", err);
-          reject(err);
-        });
-    });
-  }
-  async function getGasLimit(contractAddress: string, ABIData: string) {
-    return new Promise((resolve, reject) => {
-      web3.eth
-        .estimateGas({
-          from: currentUser?.walletAddress!,
-          to: contractAddress,
-          data: ABIData,
-        })
-        .then((result) => {
-          resolve(result);
-          console.log(">> gasLimit: ", result);
-        })
-        .catch((err) => {
-          console.log("estimateGas err: ", err);
-          reject(err);
-        });
-    });
-  }
+  
 
   const { data: approvalFee, isLoading: isLoadingApprovalFee } = useQuery(
     ["get-conToCONX-approval-estimate", value],
@@ -161,6 +130,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
       );
       const gasPrice = await getGasPrice();
       const gasLimit = await getGasLimit(
+        currentUser?.walletAddress!,
         contractConfigData.conContract.address,
         ApproveSwapABIData
       );
@@ -169,9 +139,9 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
   );
 
   const { mutateAsync: getDepositFee, isLoading: isLoadingDepositFee } =
-    useMutation(["get-conToCONX-deposit-estimate", value], async () => {
+    useMutation(["get-conToCONX-deposit-estimate", value], async (gasForApproval:GasFeeObj) => {
       const contractConfigData: ContractConfigResponseObj = await getConfig();
-      await performSwapApproval(contractConfigData);
+      await performSwapApproval(contractConfigData, gasForApproval);
 
       const DepositTokensABIData = await getDepositTokensABI(
         value,
@@ -180,6 +150,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
 
       const gasPrice = await getGasPrice();
       const gasLimit = await getGasLimit(
+        currentUser?.walletAddress!,
         contractConfigData.bridgeContract.address,
         DepositTokensABIData
       );
@@ -190,7 +161,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
 
   async function depositTokens(
     configData: ContractConfigResponseObj,
-    gasForDeposit: { gasLimit: number; gasPrice: string }
+    gasForDeposit: GasFeeObj
   ) {
     try {
       const depositABI = await getDepositTokensABI(value, configData);
@@ -251,10 +222,7 @@ const useSwapFromContoCONX = ({ value, gasLimit, gasPrice }: SwapProps) => {
     }
   }
 
-  const performDeposit = async (gasForDeposit: {
-    gasLimit: number;
-    gasPrice: string;
-  }) => {
+  const performDeposit = async (gasForDeposit: GasFeeObj) => {
     const contractConfigData = await getConfig();
     try {
       return await depositTokens(contractConfigData, gasForDeposit);

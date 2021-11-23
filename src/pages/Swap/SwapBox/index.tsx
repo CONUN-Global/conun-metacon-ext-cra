@@ -5,7 +5,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import TransactionInput from "../../../components/Form/TransactionInput";
 import FormTransactionInput from "../../../components/Form/HookForm/FormTransactionInput";
-import SwapSummary from "./SwapSummary";
 
 import useCurrentToken from "../../../hooks/useCurrentToken";
 import useStore from "../../../store/store";
@@ -14,6 +13,7 @@ import useTransferFee from "../../../hooks/useTransferFee";
 import styles from "./SwapBox.module.scss";
 import InfoButton from "../../../components/InfoButton";
 import ConToConxSummary from "./ConToConxSummary";
+import ConxToConSummary from "./ConxToConSummary";
 
 type FormData = {
   amount: number;
@@ -161,16 +161,14 @@ function SwapBox() {
           Next
         </Button>
       </div>
-      {!!swap &&
-      
+      {isConfirmModalOpen && !!swap?.amount &&
         token.token === "con"? 
         <ConToConxSummary
         swap={swap}
         isOpen={isConfirmModalOpen}
         onClose={rejectSwap}
         /> :
-        
-        <SwapSummary
+        <ConxToConSummary
         swap={swap}
         isOpen={isConfirmModalOpen}
         onClose={rejectSwap}
