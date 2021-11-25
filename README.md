@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+<p align="center">
+  <img alt="CONUN preview" src="https://raw.githubusercontent.com/CONUN-Global/conun-homepage/fcc7721617445e0fa571ac00bc8463ee3716ada8/src/assets/icons/conun-logo.svg" height="60" />
+  <br><br>
+</p>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CONUN METACON Chrome Extension
 
-## Available Scripts
+METACON is a cryptocurrency wallet organizer for Google Chrome, interacting with the CONUN mainnet and Ethereum blockchain. It allows users to store multiple wallets securely and manage account keys easily. 
 
-In the project directory, you can run:
+## Getting started with Metacon:
 
-### `yarn start`
+- Use git to clone the repository on your computer.
+- Use `yarn` or `npm -i` to fetch and install the required packages
+- Set up the correct environment variables (see below)
+- Build the project using `yarn build`, or `yarn build-win` if you're on windows.
+- Open Chrome, Chromium, or Brave browser, and navigate to the extensions page, e.g `chrome://extensions/`
+- Toggle developer mode
+- Select 'load unpacked' and navigate to the folder `build` in the project's directory
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+N.B The Metacon extension relies on an external web app to login, which is not supplied with this project.
+You will be required to implement your own login service that is able to handover login data to the extension.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+### Setting up the environment variables
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+The required environment variables are as follows:
 
-### `yarn build`
+| Key                        	| Description                                                    	| Example                                                                     	|
+|----------------------------	|----------------------------------------------------------------	|-----------------------------------------------------------------------------	|
+| REACT_APP_SERVER_URL       	| The URL for the server running the CONUN Blockchain middleware 	| "https://example.conun.io/api/etc"                                          	|
+| REACT_APP_WEB3_URL         	| The URL used to configure web3 (infura)                        	| "https://mainnet.infura.io/v3/000000000000"                                 	|
+| REACT_APP_LOGGER_URL       	| The URL of a logging service to send error messages to         	| "https://example.conun.io/logger/"                                          	|
+| REACT_APP_WEBAPP_ADDRESS   	| The URL of the login service for Metacon                       	| "https://login.conun.io/example"                                            	|
+| REACT_APP_GOOGLE_CLIENT_ID 	| The ID key for Google OAUth                                    	| "3948712349087134-ZXhhbXBsZS1jaHJvbWUta2V5.<br/>apps.googleusercontent.com" 	|
+| REACT_APP_KAKAO_CLIENT_ID  	| The ID key for Kakao Auth                                      	| "a2FrYW8ta2V5LWhhc2g"                                                       	|
+| REACT_APP_SMART_CONTRACT   	| The name for the private blockchain token and contract         	| "CONX"                                                                      	|
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Place the environment variables in a file such as `.env.development.local` and `.env.production.local` that is inside the root directory of the project.
