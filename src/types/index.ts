@@ -30,9 +30,12 @@ export type AppState = {
   setRecentTransactions: (transactions: RecentTransaction[]) => void;
   needPassword: boolean;
   setNeedPassword: (state: boolean) => void;
+  isPerformingTransaction:boolean;
+  setPerformingTransaction: (state: boolean) => void;
+
 };
 
-type Network = "testnet" | "mainnet";
+export type Network = "testnet" | "mainnet";
 
 export type CurrentUser = {
   _id: string;
@@ -68,6 +71,8 @@ export type Token = "conx" | "eth" | "con";
 export type txAction = "buy" | "send" | "swap";
 export type txStatus = "pending" | "success" | "failed";
 
+export type GasFeeObj = { gasLimit: number; gasPrice: string };
+
 export type RecentTransaction = {
   txType: txAction;
   hash: string;
@@ -80,6 +85,7 @@ export type RecentTransaction = {
     from: string;
     to: string;
   };
+  network?:Network
 };
 
 export type ServiceCardObj = {

@@ -1,6 +1,6 @@
 {
   "name": "Metacon",
-  "description": "Metacon extension",
+  "description": "Metacon Extension",
   "version": "1.0",
   "manifest_version": 3,
   "icons": {
@@ -12,8 +12,8 @@
     "128": "icons/metacon-icon-128.png",
     "256": "icons/metacon-icon-256.png"
   },
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoBp9u/moVLrtRLEmJlLW8/tjM8uQWfn41n63C7WlpGZOBWoWS/gUbZRSl2st/CFnisrZ7jZ3cOmO33npLnY8QiCVb6/cIrFqumVh03lxPj58hS5wtVZXMc9sG/Mis4PdZ5T5+44CGinWcHKY3T0K3hjEO2E0pFOzKmuGyk5eJpkT8DSz7LeCgX8lEfKzFEvctjPj5UJu42WYJEcFchzKqN9cniJAUT9v/OFbS8u4g7/ONKpjrlAdS0j39r8Ov1W1ToocKBI4Txil062ZtM5QWTlhTVbdIqEO1wgj/+yKMUmpNb7lcIpsiVGh4yuucEd0/TgFa+R3oSZRIHhXiSfd1wIDAQAB",
   "action": {
-    "default_icon": "conun-logo.svg",
     "default_popup": "index.html"
   },
   "background": {
@@ -21,7 +21,8 @@
   },
   "externally_connectable": {
     "ids": ["*"],
-    "matches": ["http://localhost:3333/*"]
+    "matches": ["http://localhost:3333/*", "http://192.168.100.54:5330/*"]
   },
   "permissions": ["activeTab", "storage", "tabs"]
 }
+

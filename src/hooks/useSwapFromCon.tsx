@@ -7,6 +7,7 @@ import despositTokens from "../helpers/depositTokens";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";
+import { ContractConfigResponseObj } from "src/types";
 
 type Args = {
   amount: number;
@@ -14,9 +15,10 @@ type Args = {
   gasPrice: number;
 };
 
-function useSwapFromCon() {
+const useSwapFromCon = () => {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
+  const currentNetwork = useStore((state) => state.currentNetwork);
   
   const { mutateAsync: swapFromCon, isLoading } = useMutation(
     async (args: Args) => {
@@ -40,6 +42,7 @@ function useSwapFromCon() {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
+        network:currentNetwork
       });
 
       const transaction = await despositTokens({
@@ -48,6 +51,7 @@ function useSwapFromCon() {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
+        network:currentNetwork
       });
       return transaction;
     }

@@ -71,13 +71,13 @@ function TransactionSummary({
   isOpen,
   onClose,
 }: TransactionSummaryProps) {
-  const { currentUser } = useCurrentUser();
-
   const history = useHistory();
-
+  
+  
+  const { currentUser } = useCurrentUser();
   const token = useCurrentToken();
-
   const { verify } = useVerifyPW();
+
 
   const { transferCon, isLoading } = useTransferCon();
   const { transferEth, isLoading: isLoadingEth } = useTransferEth();
@@ -86,6 +86,7 @@ function TransactionSummary({
 
   const needPassword = useStore((state) => state.needPassword);
   const logger = useStore((state)=> state.loggerInstance);
+  const currentNetwork = useStore((state)=> state.currentNetwork);
   
   const [isSummaryOpen, setSummaryOpen] = useState(true);
   const [password, setPassword] = useState("");
@@ -122,6 +123,7 @@ function TransactionSummary({
           to: transaction?.to,
           gasLimit: String(transaction.gasLimit),
           gasPrice: String(transaction.gasPrice),
+          network:currentNetwork
         });
       }
 
@@ -131,6 +133,7 @@ function TransactionSummary({
           to: transaction.to,
           gasLimit: String(transaction.gasLimit),
           gasPrice: String(transaction.gasPrice),
+          network:currentNetwork
         });
       }
 
@@ -149,6 +152,7 @@ function TransactionSummary({
         amount: Number(transaction?.amount),
         date: new Date().toISOString(),
         status: token.token === "conx" ? "success" : "pending",
+        network:currentNetwork
       });
 
       history.push("/");

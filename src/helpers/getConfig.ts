@@ -1,8 +1,10 @@
 import instance from "../axios/instance";
+import { getChromeStorage, setChromeStorage } from "./chromeStorage";
+import { METACON_CONFIG } from "../const";
 
 /**
  * getConfig:
- * Check for config data in local storage
+ * Check for config data in chrome storage
  *
  * if present, return it
  * if not present, fetch from API
@@ -10,14 +12,26 @@ import instance from "../axios/instance";
  * @returns contract config data
  */
 
-// Promise<ContractConfigResponseObj>
-async function getConfig() {
+async function getConfigFromChromeStorage() {
+  return await getChromeStorage(METACON_CONFIG);
+}
 
-    console.log("Fetching...")
-    const { data: configData }: any = await instance.get("/users/getConfig");
-    console.log("This data was fetched", configData);
-    return configData.payload;
-  
+async function getConfigFromSource() {
+  const { data: configData }: any = await instance.get("/users/getConfig");
+  return configData.payload;
+}
+
+async function getConfig() {
+  const localConfig = await getConfigFromChromeStorage();
+  if (localConfig) {
+
+    return localConfig;
+  } else {
+
+    const sourceConfig = await getConfigFromSource();
+    setChromeStorage(METACON_CONFIG, sourceConfig);
+    return sourceConfig;
+  }
 }
 
 export default getConfig;

@@ -7,7 +7,6 @@ import useCurrentUser from "./useCurrentUser";
 import getConfig from "../helpers/getConfig";
 import { Logger } from "src/classes/logger";
 import { getIsLoggerActive } from "src/helpers/logger";
-import { getChromeStorage } from "src/helpers/chromeStorage";
 
 interface UseTransferFeeProps {
   to: string;

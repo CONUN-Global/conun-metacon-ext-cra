@@ -1,33 +1,63 @@
-import {Link} from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import useStore from "src/store/store";
+import { toast } from "react-toastify";
 
 import TransactionHistory from "./TransactionHistory";
 
-import {ReactComponent as BuyIcon} from "../../../../assets/icons/buy-icon.svg";
-import {ReactComponent as SwapIcon} from "../../../../assets/icons/swap-icon.svg";
-import {ReactComponent as SendIcon} from "../../../../assets/icons/send-icon.svg";
+import { ReactComponent as BuyIcon } from "../../../../assets/icons/buy-icon.svg";
+import { ReactComponent as SwapIcon } from "../../../../assets/icons/swap-icon.svg";
+import { ReactComponent as SendIcon } from "../../../../assets/icons/send-icon.svg";
 
 import styles from "./ActionsSection.module.scss";
+import Button from "src/components/Button";
 
 function ActionsSection() {
+  const isPerformingTransaction = useStore(
+    (store) => store.isPerformingTransaction
+  );
+
+  const history = useHistory();
+
+  function handleLink(linkTo: string) {
+    if (isPerformingTransaction) {
+      toast.warn("Please wait whilst your transaction finishes");
+    } else {
+      history.push(linkTo);
+    }
+  }
+
   return (
     <div className={styles.ActionsSection}>
       <div className={styles.ActionButtons}>
         <div className={styles.ButtonCell}>
-          <Link to="/buy" className={styles.ActionButton}>
-              <BuyIcon className={styles.Icon} />
-          </Link>
+          <Button
+            noStyle
+            className={styles.ActionButton}
+            onClick={() => handleLink("/buy")}
+          >
+            <BuyIcon className={styles.Icon} />
+          </Button>
+
           <div className={styles.Label}>Buy</div>
         </div>
         <div className={styles.ButtonCell}>
-          <Link to="/send" className={styles.ActionButton}>
-              <SendIcon className={styles.Icon} />
-          </Link>
+          <Button
+            noStyle
+            className={styles.ActionButton}
+            onClick={() => handleLink("/send")}
+          >
+            <SendIcon className={styles.Icon} />
+          </Button>
           <div className={styles.Label}>Send</div>
         </div>
         <div className={styles.ButtonCell}>
-          <Link to="/swap" className={styles.ActionButton}>
-              <SwapIcon className={styles.Icon} />
-          </Link>
+          <Button
+            noStyle
+            className={styles.ActionButton}
+            onClick={() => handleLink("/swap")}
+          >
+            <SwapIcon className={styles.Icon} />
+          </Button>
           <div className={styles.Label}>Swap</div>
         </div>
       </div>

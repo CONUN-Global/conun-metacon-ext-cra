@@ -8,12 +8,14 @@ import useCurrentUser from "./useCurrentUser";
 
 import getConfig from "../helpers/getConfig";
 import useStore from "src/store/store";
+import { Network } from "src/types";
 
 type TransferData = {
   to: string;
   amount: string;
   gasLimit: string;
   gasPrice: string;
+  network:Network;
 };
 
 function useTransferCon() {
@@ -24,6 +26,7 @@ function useTransferCon() {
     async (args: TransferData) => {
       try {
         const from = currentUser?.walletAddress;
+        const networkChain = args.network === "testnet" ? "ropsten" : "mainnet"
 
         web3.eth.defaultAccount = from!;
 
@@ -69,7 +72,7 @@ function useTransferCon() {
           data,
         };
 
-        const tx = new Tx(txObject, { chain: "ropsten" });
+        const tx = new Tx(txObject, { chain: networkChain});
         tx.sign(bufferedPrivateKey);
 
         const serializedTx = tx.serialize();

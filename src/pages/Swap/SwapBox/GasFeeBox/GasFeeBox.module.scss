@@ -1,0 +1,30 @@
+
+  .GasFeeBox {
+    display: flex;
+    justify-content: space-between;
+
+    & .GasLabel {
+      display: flex;
+
+      & .Text {
+        font-size: 14px;
+        font-weight: bold;
+        margin-right: 3px;
+      }
+
+      & .InfoIcon {
+        width: 12px;
+      }
+    }
+
+    & .GasValueBox {
+      display: flex;
+      justify-content: flex-end;
+
+      & .GasValue {
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: -0.03em;
+      }
+    }
+  }

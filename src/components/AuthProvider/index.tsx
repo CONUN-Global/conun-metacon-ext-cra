@@ -23,7 +23,7 @@ function AuthProvider({ children }: Props) {
 
   const { loginPackage, isLoading: loadingLogin } = useExtensionLogin();
   if (!loadingLogin && !!loginPackage) {
-    console.log("Authorized : ", loginPackage);
+    console.log("Metacon Authorized");
   }
 
   // Create  and store logger if !exist.

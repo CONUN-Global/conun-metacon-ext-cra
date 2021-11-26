@@ -6,7 +6,6 @@ export default async function getTxnsFromBg() {
       chrome.runtime.sendMessage(
         { message: extMsg.EXT_TXN_REQUEST },
         function (response) {
-          console.log("Background responded with: ", response);
           resolve(response.payload);
         }
       )

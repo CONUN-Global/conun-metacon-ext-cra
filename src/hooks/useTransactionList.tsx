@@ -14,6 +14,7 @@ function useTransactionList() {
   const setStoreRecentTransactions = useStore(
     (store) => store.setRecentTransactions
   );
+  const setPerformingTransaction = useStore((store)=> store.setPerformingTransaction)
 
   if (txns?.length && !recentTransactions?.length) setStoreRecentTransactions(txns)
 
@@ -31,6 +32,7 @@ function useTransactionList() {
     if (newTransactions.length > TRANSACTION_LIMIT) {
       newTransactions.splice(TRANSACTION_LIMIT);
     }
+    setPerformingTransaction(true);
     setChromeStorage(METACON_TXNS, newTransactions);
     setStoreRecentTransactions(newTransactions);
   };
@@ -51,8 +53,10 @@ function useTransactionList() {
     txStatus: "success" | "failed"
   ) => {
     if (txStatus === "success") {
+      setPerformingTransaction(false);
       modifyTransactions({ ...transaction, status: "success" });
     } else if (txStatus === "failed") {
+      setPerformingTransaction(false);
       modifyTransactions({ ...transaction, status: "failed" });
     }
   };

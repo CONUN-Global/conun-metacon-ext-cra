@@ -8,7 +8,6 @@ import useCurrentUser from "../../../../hooks/useCurrentUser";
 import useCurrentToken from "../../../../hooks/useCurrentToken";
 
 import copyToClipboard from "../../../../helpers/copyToClipboard";
-import truncateString from "../../../../helpers/truncateString";
 
 import {ReactComponent as ConunLogo} from "../../../../assets/icons/conun-white.svg";
 import {ReactComponent as EthLogo} from "../../../../assets/icons/ethereum.svg";
@@ -39,6 +38,14 @@ function Logo({ token }: { token: "con" | "conx" | "eth" }) {
   return <ConunLogo className={styles.ConxLogo} />;
 }
 
+function rectifyDecimal(num:number){
+  if (num.toFixed(6).length > 16){
+    return parseFloat(num.toFixed().slice(0, 16))
+  }
+  return parseFloat(num.toFixed(6))
+}
+
+
 function TokenCard({ token, i }: TokenCardProps) {
   const { currentUser } = useCurrentUser();
   const currentToken = useCurrentToken();
@@ -65,7 +72,7 @@ function TokenCard({ token, i }: TokenCardProps) {
         <div className={styles.Balance}>
           {balance?.payload ? (
             <span className={styles.Number}>
-              {truncateString(balance?.payload || "", 10, true)}
+              {rectifyDecimal(+balance?.payload)}
             </span>
           ) : (
             <span className={styles.Loading}>1234567890.0</span>

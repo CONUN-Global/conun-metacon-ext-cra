@@ -104,6 +104,10 @@
       rgba(255, 117, 169, 0.28701) 402.11deg
     ),
     #fff;
+
+    --app-height: 600px;
+    --app-width: 360px;
+
   --primary-color: #a0a3e2;
   --primary-color-dark: #898df0;
   --primary-color-font: #fff;
@@ -118,12 +122,13 @@
   --grey: #666769;
   --arrow-grey: #a2a2a2;
   --green: #4da471;
-  --app-height: 600px;
-  --app-width: 360px;
+
   --dark-purple: #8969b5;
   --cba: #7b8cba;
   --token-blue: #6fb0e8;
   --conun-blue: #1d428a;
+
+  --modal-overlay: rgba(29, 37, 49, 0.7);
 }
 
 body {

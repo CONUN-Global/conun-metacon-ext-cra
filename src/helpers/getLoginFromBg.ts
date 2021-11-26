@@ -6,7 +6,6 @@ export default async function getLoginFromBg() {
       chrome.runtime.sendMessage(
         { message: extMsg.EXT_LOGIN_PACKAGE_REQUEST },
         function (response) {
-          console.log("Background responded with: ", response);
           resolve(response.payload);
         }
       )
