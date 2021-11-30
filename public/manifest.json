@@ -20,7 +20,7 @@
   },
   "externally_connectable": {
     "ids": ["*"],
-    "matches": ["https://metacon.conun.io/login"]
+    "matches": ["https://metacon.conun.io/*"]
   },
   "permissions": ["storage"]
 }
