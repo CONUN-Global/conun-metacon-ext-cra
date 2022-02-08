@@ -5,7 +5,7 @@ import useCurrentUser from "./useCurrentUser";
 
 import { Transaction as Tx } from "ethereumjs-tx";
 
-import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
+// import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 import { getBufferedKey } from "src/helpers/getBufferedKey";
 import instance from "src/axios/instance";
 import getConfig from "src/helpers/getConfig";
@@ -20,18 +20,19 @@ interface SwapProps {
 }
 
 const useSwapFromContoCONX = ({ value }: SwapProps) => {
-
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
 
   const networkChain = currentNetwork === "testnet" ? "ropsten" : "mainnet";
 
+  // Get real private key
   const bufferedPrivateKey = getBufferedKey(
     etherKey!,
     currentUser?.walletAddress!
   );
 
+  // get contract data for approval
   async function getApproveSwapABI(
     value: number,
     contractConfigData: ContractConfigResponseObj
@@ -51,7 +52,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
 
   async function performSwapApproval(
     contractConfigData: ContractConfigResponseObj,
-    gasForApproval:GasFeeObj
+    gasForApproval: GasFeeObj
   ) {
     const conContract = new web3.eth.Contract(
       contractConfigData?.conContract?.abiRaw,
@@ -89,6 +90,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
     return web3.eth.sendSignedTransaction(raw);
   }
 
+  // get contract data for deposit
   async function getDepositTokensABI(
     value: number,
     contractConfigData: ContractConfigResponseObj
@@ -115,8 +117,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
       .encodeABI();
   }
 
-  
-
+  // Prepare for APPROVAL, and get approval estimate
   const { data: approvalFee, isLoading: isLoadingApprovalFee } = useQuery(
     ["get-conToCONX-approval-estimate", value],
     async () => {
@@ -131,34 +132,47 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
         contractConfigData.conContract.address,
         ApproveSwapABIData
       );
-      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
+      return {
+        gasPrice: (3 * +gasPrice).toFixed(6),
+        gasLimit: Math.ceil(1.3 * gasLimit),
+      } as GasFeeObj;
     }
   );
 
+  // DO approval, prepare for DEPOSIT, and get deposit estimate
   const { mutateAsync: getDepositFee, isLoading: isLoadingDepositFee } =
-    useMutation(["get-conToCONX-deposit-estimate", value], async (gasForApproval:GasFeeObj) => {
-      const contractConfigData: ContractConfigResponseObj = await getConfig();
-      await performSwapApproval(contractConfigData, gasForApproval);
+    useMutation(
+      ["get-conToCONX-deposit-estimate", value],
+      async (gasForApproval: GasFeeObj) => {
+        const contractConfigData: ContractConfigResponseObj = await getConfig();
+        await performSwapApproval(contractConfigData, gasForApproval);
 
-      const DepositTokensABIData = await getDepositTokensABI(
-        value,
-        contractConfigData
-      );
+        // BUG - This value needs to be stored
+        const DepositTokensABIData = await getDepositTokensABI(
+          value,
+          contractConfigData
+        );
 
-      const gasPrice = await getGasPrice();
-      const gasLimit = await getGasLimit(
-        currentUser?.walletAddress!,
-        contractConfigData.bridgeContract.address,
-        DepositTokensABIData
-      );
-      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
-    });
+        const gasPrice = await getGasPrice();
+        const gasLimit = await getGasLimit(
+          currentUser?.walletAddress!,
+          contractConfigData.bridgeContract.address,
+          DepositTokensABIData
+        );
+        return {
+          gasPrice: (3 * +gasPrice).toFixed(6),
+          gasLimit: Math.ceil(1.3 * gasLimit),
+        } as GasFeeObj;
+      }
+    );
 
+  // DO the deposit (complete the swap)
   async function depositTokens(
     configData: ContractConfigResponseObj,
     gasForDeposit: GasFeeObj
   ) {
     try {
+      // BUG - do not repeat this action. Need to load this from store.
       const depositABI = await getDepositTokensABI(value, configData);
 
       return new Promise((resolve, reject) => {
@@ -232,3 +246,25 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
 };
 
 export default useSwapFromContoCONX;
+
+/* 
+
+Solutions for sending swap info to middleware twice:
+
+getDepositTokensABI is called twice, so the request is performed twice. WHOOPS.
+
+We need to perform this once, and SAVE the data for usage later.
+
+Solutions include:
+
+Save this data to state.
+Save this data to global state
+Save this data using a ref (!)
+
+state and ref
+
+react knows to rerender a component when state changes.
+useRef does not cause a rerender.
+
+
+*/

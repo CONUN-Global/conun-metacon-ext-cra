@@ -1,4 +1,4 @@
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import useStore from "src/store/store";
 import { toast } from "react-toastify";
 
