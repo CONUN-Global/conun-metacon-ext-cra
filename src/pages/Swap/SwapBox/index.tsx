@@ -5,14 +5,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../../components/Button";
 import TransactionInput from "../../../components/Form/TransactionInput";
 import FormTransactionInput from "../../../components/Form/HookForm/FormTransactionInput";
+import InfoButton from "../../../components/InfoButton";
+import ConToConxSummary from "./ConToConxSummary";
+import ConxToConSummary from "./ConxToConSummary";
 
 import useCurrentToken from "../../../hooks/useCurrentToken";
 import useStore from "../../../store/store";
 
 import styles from "./SwapBox.module.scss";
-import InfoButton from "../../../components/InfoButton";
-import ConToConxSummary from "./ConToConxSummary";
-import ConxToConSummary from "./ConxToConSummary";
 
 type FormData = {
   amount: number;
