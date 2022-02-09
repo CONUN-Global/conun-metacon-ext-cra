@@ -22,6 +22,7 @@
     "ids": ["*"],
     "matches": ["https://metacon.conun.io/*"]
   },
-  "permissions": ["storage"]
+  "permissions": ["storage"],
+  "update_url":""
 }
 
