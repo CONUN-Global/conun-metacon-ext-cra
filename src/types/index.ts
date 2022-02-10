@@ -19,7 +19,7 @@ export type AppState = {
   isLoggerActive: boolean;
   setIsLoggerActive: (state: boolean) => void;
   loggerInstance: Logger | null;
-  setLoggerInstance: (state:Logger) => void;
+  setLoggerInstance: (state: Logger) => void;
   user?: StoreUser;
   setUser: (user: StoreUser) => void;
   currentToken: Token;
@@ -30,12 +30,15 @@ export type AppState = {
   setRecentTransactions: (transactions: RecentTransaction[]) => void;
   needPassword: boolean;
   setNeedPassword: (state: boolean) => void;
-  isPerformingTransaction:boolean;
+  isPerformingTransaction: boolean;
   setPerformingTransaction: (state: boolean) => void;
-
 };
 
 export type Network = "testnet" | "mainnet";
+export interface NetworkOptions {
+  value: Network;
+  label: string;
+}
 
 export type CurrentUser = {
   _id: string;
@@ -85,7 +88,7 @@ export type RecentTransaction = {
     from: string;
     to: string;
   };
-  network?:Network
+  network?: Network;
 };
 
 export type ServiceCardObj = {

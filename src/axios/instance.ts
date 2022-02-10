@@ -2,18 +2,20 @@ import axios from "axios";
 
 import useStore from "../store/store";
 
+import { NetworkConfig } from "src/classes/networkConfig";
+
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_SERVER_URL,
+  baseURL: NetworkConfig.serverUrl,
 });
 
 instance.interceptors.request.use(
-  (config:any) => {
+  (config: any) => {
     const token = useStore.getState().authToken;
 
     if (token) {
       config.headers.jwtAuthToken = token;
     } else {
-      if (instance && instance.defaults.headers){
+      if (instance && instance.defaults.headers) {
         delete instance.defaults.headers.jwtAuthToken;
       }
     }

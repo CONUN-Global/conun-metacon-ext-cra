@@ -1,7 +1,9 @@
 import axios from "axios";
 
+import { NetworkConfig } from "src/classes/networkConfig";
+
 const infuraInstance = axios.create({
-  baseURL: process.env.REACT_APP_WEB3_URL,
+  baseURL: NetworkConfig.web3address,
 });
 
 export default infuraInstance;
