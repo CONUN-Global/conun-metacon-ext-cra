@@ -15,7 +15,7 @@ import { Swap } from "..";
 import styles from "../SwapSummary.module.scss";
 
 import GasFeeBox from "../GasFeeBox";
-import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX";
+import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX/";
 import LoadingOverlay from "../LoadingOverlay";
 
 interface SwapSummaryProps {
@@ -42,16 +42,17 @@ function Total({
   approvalFee: string | undefined;
   depositFee: string | undefined;
 }) {
-  if (approvalFee && depositFee) { // if both fees present
-      return (
-        <div className={styles.TotalAmount}>
+  if (approvalFee && depositFee) {
+    // if both fees present
+    return (
+      <div className={styles.TotalAmount}>
         <span>{`${amount} ${token.toLocaleUpperCase()} +`}</span>
-        <span>{`${(Number(
-  approvalFee
-) + Number(depositFee)).toFixed(6)} WEI`}</span>
+        <span>{`${(Number(approvalFee) + Number(depositFee)).toFixed(
+          6
+        )} WEI`}</span>
       </div>
-      );
-    } 
+    );
+  }
   return (
     <div className={styles.TotalAmount}>
       <span>{`${amount} ${token.toLocaleUpperCase()} +`}</span>
@@ -59,8 +60,6 @@ function Total({
     </div>
   );
 }
-
-
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const [swapStage, setSwapStage] = useState<SwapStage>(stage.approval);
@@ -98,8 +97,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       let txHash: any;
       try {
         txHash = await performDeposit(depositFee);
-      } catch (e) {
-      }
+      } catch (e) {}
       if (!!txHash) {
         addTransaction({
           txType: "swap",
@@ -151,10 +149,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       </div>
       <Divider />
       <div className={styles.GasFeeSection}>
-        <GasFeeBox
-          label="Est. Approval Fee"
-          gasFee={approvalFee?.gasPrice}
-        />
+        <GasFeeBox label="Est. Approval Fee" gasFee={approvalFee?.gasPrice} />
         <GasFeeBox label="Est. Swap Fee" gasFee={depositFee?.gasPrice} />
       </div>
       <Divider />
