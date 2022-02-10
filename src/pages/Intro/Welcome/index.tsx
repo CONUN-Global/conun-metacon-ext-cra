@@ -1,3 +1,4 @@
+import { NetworkConfig } from "src/classes/networkConfig";
 import generateReferrer from "src/helpers/generateReferrer";
 
 import { ReactComponent as ConunLogo } from "../../../assets/icons/conun-logo.svg";
@@ -7,6 +8,7 @@ import styles from "./Welcome.module.scss";
 
 function Welcome() {
   const referrer = generateReferrer();
+
   return (
     <div className={styles.Welcome}>
       <div className={styles.ColumnTop}>
@@ -15,7 +17,7 @@ function Welcome() {
       </div>
       <div className={styles.ColumnBottom}>
         <a
-          href={`${process.env.REACT_APP_WEBAPP_ADDRESS}?referrer=${referrer}`}
+          href={`${NetworkConfig.webAppUrl}?referrer=${referrer}`}
           target="_blank"
           rel="noreferrer"
           className={styles.Button}

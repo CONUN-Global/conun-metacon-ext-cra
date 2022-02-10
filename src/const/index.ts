@@ -1,3 +1,4 @@
+import { NetworkOptions } from "src/types";
 import useGetConBalance from "../hooks/useGetConBalance";
 import useGetConTokenBalance from "../hooks/useGetConTokenBalance";
 import useGetEthBalance from "../hooks/useGetEthBalance";
@@ -67,19 +68,24 @@ export const TOKEN_CARDS: Token[] = [
   },
 ];
 
-export const NETWORK_OPTIONS: {
-  value: "testnet" | "mainnet";
-  label: string;
-}[] = [
-  // {
-  //   value: "testnet",
-  //   label: "Conun Testnet",
-  // },
+const testnetOptions: NetworkOptions[] = [
+  {
+    value: "testnet",
+    label: "Conun Testnet",
+  },
+];
+
+const mainnetOptions: NetworkOptions[] = [
   {
     value: "mainnet",
     label: "Conun Mainnet",
   },
 ];
+
+// const allOptions = [...testnetOptions, ...mainnetOptions];
+
+export const NETWORK_OPTIONS: NetworkOptions[] =
+  process.env.REACT_APP_USE_TEST === "TRUE" ? testnetOptions : mainnetOptions;
 
 export const extMsg = {
   WEBAPP_SEND_AUTH: "WEBAPP_SEND_AUTH",
@@ -107,4 +113,4 @@ export const METACON_AUTH = "METACON_AUTH";
 export const METACON_LOGIN = "METACON_LOGIN";
 export const METACON_TXNS = "METACON_TXNS";
 export const METACON_LOGGER_ACTIVE = "METACON_LOGGER_ACTIVE";
-export const METACON_CONFIG = "METACON_CONFIG"
+export const METACON_CONFIG = "METACON_CONFIG";

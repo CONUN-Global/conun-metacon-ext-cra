@@ -2,8 +2,8 @@ import { Logger } from "src/classes/logger";
 import create from "zustand";
 import { AppState } from "../types/index";
 
-
-const INITIAL_NETWORK = "mainnet"
+const INITIAL_NETWORK =
+  process.env.REACT_APP_USE_TEST === "TRUE" ? "testnet" : "mainnet";
 
 const useStore = create<AppState>((set) => ({
   currentStep: {
@@ -29,7 +29,7 @@ const useStore = create<AppState>((set) => ({
   isLoggerActive: false,
   setIsLoggerActive: (state: boolean) => set({ isLoggerActive: state }),
   loggerInstance: null,
-  setLoggerInstance: (state: Logger) => set({loggerInstance:state}),
+  setLoggerInstance: (state: Logger) => set({ loggerInstance: state }),
   setUser: (user) => set({ user }),
   currentToken: "conx",
   setCurrentToken: (token) => set({ currentToken: token }),
@@ -42,8 +42,9 @@ const useStore = create<AppState>((set) => ({
   setNeedPassword: (state: boolean) => {
     set({ needPassword: state });
   },
-  isPerformingTransaction:false,
-  setPerformingTransaction:((state:boolean)=> set({isPerformingTransaction:state}))
+  isPerformingTransaction: false,
+  setPerformingTransaction: (state: boolean) =>
+    set({ isPerformingTransaction: state }),
 }));
 
 export default useStore;

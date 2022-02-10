@@ -1,5 +1,5 @@
 {
-  "name": "Metacon",
+  "name": "Metacon TEST",
   "description": "Metacon Extension",
   "version": "1.0",
   "manifest_version": 3,
@@ -20,8 +20,7 @@
   },
   "externally_connectable": {
     "ids": ["*"],
-    "matches": ["https://metacon.conun.io/*"]
+    "matches": ["http://localhost:3333/*"]
   },
   "permissions": ["storage"]
 }
-
