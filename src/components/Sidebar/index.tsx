@@ -15,6 +15,7 @@ import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.s
 import styles from "./Sidebar.module.scss";
 import { extensionSignOut } from "src/helpers/extensionSignOut";
 import SecurityModal from "./SecurityModal";
+import AddWalletModal from "./AddWalletModal";
 
 function Sidebar() {
   const variants = {
@@ -112,6 +113,10 @@ function Sidebar() {
       <SecurityModal
         isOpen={isSecurityModalOpen}
         closeHandler={() => setIsSecurityModalOpen(false)}
+      />
+      <AddWalletModal
+        isOpen={isAddWalletModalOpen}
+        closeHandler={() => setAddWalletModalOpen(false)}
       />
     </OutsideClickWrapper>
   );
