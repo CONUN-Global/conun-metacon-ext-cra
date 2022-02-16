@@ -1,0 +1,22 @@
+import { getIdentity } from "./identity";
+
+export function saveFileIdentity(walletAddress: string) {
+  console.log("importbackup");
+  const blob = new Blob([btoa(JSON.stringify(getIdentity()).toString())], {
+    type: "text/plain;charset=utf-8",
+  });
+  saveAs(blob, `${walletAddress}.json`);
+}
+
+/* 
+
+Identity is an object:
+
+
+{"walletAddress":"0x07824753dceda1722013496e7caee149eba48304","credentials":{"certificate":"-----BEGIN CERTIFICATE-----\nMIIE8zCCBJmgAwIBAgIUX3iKdQbZmy7hwwhDSi0TJhicSMEwCgYIKoZIzj0EAwIw\naDELMAkGA1UEBhMCVVMxFzAVBgNVBAgTDk5vcnRoIENhcm9saW5hMRQwEgYDVQQK\nEwtIeXBlcmxlZGdlcjEPMA0GA1UECxMGRmFicmljMRkwFwYDVQQDExBmYWJyaWMt\nY2Etc2VydmVyMB4XDTIyMDIxMDAyNDQwMFoXDTIzMDIxMDAyNDkwMFowZzEwMA0G\nA1UECxMGY2xpZW50MAsGA1UECxMEb3JnMTASBgNVBAsTC2RlcGFydG1lbnQxMTMw\nMQYDVQQDEyoweDA3ODI0NzUzZGNlZGExNzIyMDEzNDk2ZTdjYWVlMTQ5ZWJhNDgz\nMDQwWTATBgcqhkjOPQIBBggqhkjOPQMBBwNCAARbT7J90Zii4htHqeXxdOQdNrbN\nbQqJwKosoDK5rhzsARVlCDr7ICk954QOOVLrOlkpyCCQqb+NEKtDIAEoCbKAo4ID\nIDCCAxwwDgYDVR0PAQH/BAQDAgeAMAwGA1UdEwEB/wQCMAAwHQYDVR0OBBYEFCF6\niEHnQ/6NOmAFi3AQ6Zq9QkSzMB8GA1UdIwQYMBaAFCJISkXbHz9J4fZpSaxJ6Mfy\neKNQMIICugYIKgMEBQYHCAEEggKseyJhdHRycyI6eyJFVEgiOiJ0eFd1ZndvL0xC\ncW5acnc4NEpqd1Fic3JKN3NOc204NGgyVzQveXR1T1YvL0NONmt5blY2Q2xYc3lD\nUk1oMHgwLzJnNW9uc3pDUmRuajhza29rd2cyVWRJVWNyNmliQjZ0RFBLdDhURWYv\nVU8zTmRrMk53d0xMeU9YeldJUllhM0o4WlNrdmpwanpGbkczdGQ4dGwzWjlmSlNV\nNDJGRmJuUk9UNzJJWnlkenBTSWJaY052RlZmK2NaNWt1Y0lkUmxLY2Q2Y2xlMkQ3\nUS8xMjNndEtYcWtvamY4aWR3ejVSSis5T210Zm10ZUpEMmhJcU1XaUo4Vnd5Zlg1\ncHZBbHV2UWlrU1dmODNySEUwK1RheCs5WjFNUlBvbWsxb0VJMTVGRy9nN3cyRmZC\nTjk1M05pVmdrWGtZaG0xVCtsWmpzcXZFc1hDYStNSE1RRXJoOVRUZVVjREFzOXE3\nc3N0WEZnUTRINExObUpNNkt5MHA5aElIaVdhdjJnZ2JYTWtLdENIN1VhdStaOWoy\nMDRVZE1rRHhCYW5MSG0vN3ZqWkdJYkxnbm4xTlM0bVROMFI1ZDluby9BQVZGUHRE\nUVk1MkFUZGRobC9aUGUrVlpMUENJRkdIb0dKakxlbldKTFlBeFp2MmwyeVU2OVI1\nWk1iL01DRVc5blNlb2poQ21OTVNlOHJneENIZHVPaUpkSlZnQ09EMXRsWnFiOGdS\nZHZHeFBPS0M0ZlgvMUdyZVZQOHFXbWJLcFd6SnI4NUF4ZC9EUWlBTWFJYVJ4bjVT\nY1BXYkdFTWxnSkMxRDFqUll0KzRvd0s2S0Z5K0FkempRTnVQT3JhTEhzcGhzOEFs\nOXFncEgySng2TCtseEZZbzl5KzFkRlpFVnlpdz09In19MAoGCCqGSM49BAMCA0gA\nMEUCIQDr6qyHUt4zh5JSFTRTdchxE4do3pNq7RtadG0j/xresQIgLkGS9nsQaU6+\ng/R8OrdEOMZ8NCWmMbFEKEpvqyb+4G8=\n-----END CERTIFICATE-----\n","privateKey":"-----BEGIN PRIVATE KEY-----\r\nMIGHAgEAMBMGByqGSM49AgEGCCqGSM49AwEHBG0wawIBAQQgZ6FBLya9tdmBuidZ\r\nQTljVIeX2EVDP9dgAmiYrurW5pqhRANCAARbT7J90Zii4htHqeXxdOQdNrbNbQqJ\r\nwKosoDK5rhzsARVlCDr7ICk954QOOVLrOlkpyCCQqb+NEKtDIAEoCbKA\r\n-----END PRIVATE KEY-----\r\n"},"mspId":"Org1MSP","type":"X.509"}
+
+This is the contents of the certificate.
+These should exist in the background's login package.
+
+
+*/

@@ -5,6 +5,10 @@ import Button from "src/components/Button";
 import Input from "src/components/Form/Input";
 import Modal from "src/components/Modal";
 
+import useExtensionLogin from "src/hooks/useExtensionLogin";
+
+import { saveChromeFile } from "src/helpers/saveFile";
+
 // import useStore from "../../../store/store";
 
 import styles from "./AddWalletModal.module.scss";
@@ -15,34 +19,17 @@ interface Props {
 }
 
 function AddWalletModal({ isOpen, closeHandler }: Props) {
-  // const logger = useStore((store) => store.loggerInstance);
-
   const [newWalletKey, setNewWalletKey] = useState("");
-
-  // const { verify } = useVerifyPW();
-
-  // const onSecurityConfirmation = async (checked: boolean) => {
-  //   try {
-  //     const verifySuccess: any = await verify(password);
-  //     if (verifySuccess) {
-  //       setNeedPassword(checked);
-  //       setPassword("");
-  //       closeHandler();
-  //     }
-  //   } catch (error: any) {
-  //     logger?.sendLog({
-  //       logTarget: "SetNeedPassword",
-  //       tags: ["test"],
-  //       level: "ERROR",
-  //       message: error,
-  //     });
-  //     toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
-  //     setPassword("");
-  //   }
-  // };
+  const { loginPackage } = useExtensionLogin();
 
   const handleSubmitWalletKey = () => {
     toast.success("You added the new wallet, " + newWalletKey)!;
+
+    const walletAddress = loginPackage?.package.webAppIdentity.walletAddress;
+    const identityBlob = [
+      btoa(JSON.stringify(loginPackage?.package.webAppIdentity).toString()),
+    ];
+    saveChromeFile(walletAddress!, identityBlob);
     closeHandler();
   };
 

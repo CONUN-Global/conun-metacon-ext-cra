@@ -68,6 +68,7 @@
     ]
   },
   "scripts": {
+    "dev": "echo \"Metacon Extension cannot be run in dev mode. Use build.\" ",
     "start": "react-scripts start",
     "build-prod": "./build-prod.sh",
     "build": "./build.sh",
