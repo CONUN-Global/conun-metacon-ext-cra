@@ -10,10 +10,11 @@ import useCurrentUser from "../../hooks/useCurrentUser";
 
 import copyToClipboard from "../../helpers/copyToClipboard";
 
-import {ReactComponent as CopyIcon} from "../../assets/icons/copy-icon.svg";
+import { ReactComponent as CopyIcon } from "../../assets/icons/copy-icon.svg";
 
 import styles from "./Footer.module.scss";
 import { useLocation } from "react-router";
+import { routes } from "src/const";
 
 const variants = {
   open: { y: 0 },
@@ -31,7 +32,7 @@ function Footer() {
     return data;
   });
 
-  if (location.pathname === "/logout"){
+  if (location.pathname === routes.logout) {
     return null;
   }
 

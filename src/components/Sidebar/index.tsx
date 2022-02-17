@@ -17,6 +17,7 @@ import { extensionSignOut } from "src/helpers/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
 import { openExtInTab } from "src/helpers/chromeTab";
+import { routes } from "src/const";
 
 function Sidebar() {
   const variants = {
@@ -106,7 +107,7 @@ function Sidebar() {
                   className={styles.Button}
                   onClick={() => {
                     extensionSignOut();
-                    history.push("/logout");
+                    history.push(routes.logout);
                     window.close();
                   }}
                 >

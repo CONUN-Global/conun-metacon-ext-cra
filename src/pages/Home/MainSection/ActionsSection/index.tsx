@@ -2,14 +2,17 @@ import { useHistory } from "react-router-dom";
 import useStore from "src/store/store";
 import { toast } from "react-toastify";
 
+import Button from "src/components/Button";
+
 import TransactionHistory from "./TransactionHistory";
+
+import { routes } from "src/const";
 
 import { ReactComponent as BuyIcon } from "../../../../assets/icons/buy-icon.svg";
 import { ReactComponent as SwapIcon } from "../../../../assets/icons/swap-icon.svg";
 import { ReactComponent as SendIcon } from "../../../../assets/icons/send-icon.svg";
 
 import styles from "./ActionsSection.module.scss";
-import Button from "src/components/Button";
 
 function ActionsSection() {
   const isPerformingTransaction = useStore(
@@ -25,6 +28,9 @@ function ActionsSection() {
       history.push(linkTo);
     }
   }
+  function handleBuyLink() {
+    toast.warn("The Buy feature is not yet available");
+  }
 
   return (
     <div className={styles.ActionsSection}>
@@ -33,7 +39,7 @@ function ActionsSection() {
           <Button
             noStyle
             className={styles.ActionButton}
-            onClick={() => handleLink("/buy")}
+            onClick={() => handleBuyLink()}
           >
             <BuyIcon className={styles.Icon} />
           </Button>
@@ -44,7 +50,7 @@ function ActionsSection() {
           <Button
             noStyle
             className={styles.ActionButton}
-            onClick={() => handleLink("/send")}
+            onClick={() => handleLink(routes.send)}
           >
             <SendIcon className={styles.Icon} />
           </Button>
@@ -54,7 +60,7 @@ function ActionsSection() {
           <Button
             noStyle
             className={styles.ActionButton}
-            onClick={() => handleLink("/swap")}
+            onClick={() => handleLink(routes.swap)}
           >
             <SwapIcon className={styles.Icon} />
           </Button>

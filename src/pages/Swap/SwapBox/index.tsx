@@ -12,6 +12,8 @@ import ConxToConSummary from "./ConxToConSummary";
 import useCurrentToken from "../../../hooks/useCurrentToken";
 import useStore from "../../../store/store";
 
+import { routes } from "src/const";
+
 import styles from "./SwapBox.module.scss";
 
 type FormData = {
@@ -161,7 +163,7 @@ function SwapBox() {
 
       <div className={styles.Buttons}>
         <Button type="reset" variant="secondary">
-          <Link to="/">Cancel</Link>
+          <Link to={routes.index}>Cancel</Link>
         </Button>
         <Button type="submit" variant="primary">
           Next

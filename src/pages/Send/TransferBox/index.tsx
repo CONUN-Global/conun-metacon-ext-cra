@@ -1,6 +1,6 @@
 import { useState } from "react";
 import classNames from "classnames";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 
 import Button from "../../../components/Button";
@@ -13,6 +13,8 @@ import TransactionSummary from "./TransactionSummary";
 
 import useCurrentToken from "../../../hooks/useCurrentToken";
 import useTransferFee from "../../../hooks/useTransferFee";
+
+import { routes } from "src/const";
 
 import styles from "./TransferBox.module.scss";
 
@@ -265,16 +267,14 @@ function TransferBox() {
       )}
       <div className={styles.Buttons}>
         {/* Expect this to be broken */}
-        <Link to="/">
-          
-            <Button
-              className={styles.ConfirmButton}
-              type="reset"
-              variant="secondary"
-            >
-              Cancel
-            </Button>
-          
+        <Link to={routes.index}>
+          <Button
+            className={styles.ConfirmButton}
+            type="reset"
+            variant="secondary"
+          >
+            Cancel
+          </Button>
         </Link>
         <Button
           className={classNames(styles.ConfirmButton, {

@@ -2,8 +2,8 @@
 @import "./colors.scss";
 
 body {
-  height: var(--app-height) !important;
-  width: var(--app-width) !important;
+  min-height: var(--app-height) !important;
+  min-width: var(--app-width) !important;
 }
 
 a {
