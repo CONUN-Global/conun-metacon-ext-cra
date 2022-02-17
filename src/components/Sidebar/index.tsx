@@ -16,6 +16,7 @@ import styles from "./Sidebar.module.scss";
 import { extensionSignOut } from "src/helpers/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
+import { openExtInTab } from "src/helpers/chromeTab";
 
 function Sidebar() {
   const variants = {
@@ -90,6 +91,16 @@ function Sidebar() {
                     Connect to discord
                   </Link>
                 </div>
+                <Button
+                  noStyle
+                  className={styles.Button}
+                  onClick={openExtInTab}
+                >
+                  <div className={styles.ButtonItem}>
+                    <SignoutIcon className={styles.Icon} />
+                    Open In Tab
+                  </div>
+                </Button>
                 <Button
                   noStyle
                   className={styles.Button}
