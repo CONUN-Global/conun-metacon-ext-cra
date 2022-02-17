@@ -22,5 +22,5 @@
     "ids": ["*"],
     "matches": ["http://localhost:3333/*"]
   },
-  "permissions": ["storage"]
+  "permissions": ["storage", "downloads"]
 }

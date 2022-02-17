@@ -1,0 +1,24 @@
+
+.WalletModal {
+  height: 300px;
+  width: 320px;
+
+  & .CheckboxContainer {
+    font-size: 14px;
+    font-weight: 500;
+
+    & .Checkbox {
+      margin-right: 5px;
+    }
+  }
+
+  & .TextboxContainer {
+    margin-top: 17px;
+  }
+
+  & .ButtonContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 46px;
+  }
+}

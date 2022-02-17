@@ -1,17 +1,12 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import useStore from "../../store/store";
 
 import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "../Button";
-import Modal from "../../components/Modal";
-import Input from "../../components/Form/Input";
 import OutsideClickWrapper from "../OutsideClickHandler";
-
-import useVerifyPW from "../../hooks/useVerifyPW";
 
 import { ReactComponent as MenuIcon } from "../../assets/icons/menu-icon.svg";
 import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.svg";
@@ -19,6 +14,8 @@ import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon
 import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
 import { extensionSignOut } from "src/helpers/extensionSignOut";
+import SecurityModal from "./SecurityModal";
+import AddWalletModal from "./AddWalletModal";
 
 function Sidebar() {
   const variants = {
@@ -27,37 +24,16 @@ function Sidebar() {
   };
   const [isOpen, setIsOpen] = useState(false);
   const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
-  const setNeedPassword = useStore((store) => store.setNeedPassword);
-  const logger = useStore((store)=> store.loggerInstance); 
-  const needPassword = useStore((store) => store.needPassword);
-  const [password, setPassword] = useState("");
-  const [isChecked, setChecked] = useState(needPassword);
+  const [isAddWalletModalOpen, setAddWalletModalOpen] = useState(false);
 
   const history = useHistory();
 
-  const { verify } = useVerifyPW();
-
-  const handleModal = () => {
+  const handleSecurityModal = () => {
     setIsSecurityModalOpen(true);
   };
-  const onSecurityConfirmation = async (checked: boolean) => {
-    try {
-      const verifySuccess: any = await verify(password);
-      if (verifySuccess) {
-        setNeedPassword(checked);
-        setPassword("");
-        setIsSecurityModalOpen(false);
-      }
-    } catch (error: any) {
-      logger?.sendLog({
-        logTarget:"SetNeedPassword",
-        tags:["test"],
-        level:"ERROR",
-        message:error
-      })
-      toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
-      setPassword("");
-    }
+
+  const handleAddWalletModal = () => {
+    setAddWalletModalOpen(true);
   };
 
   return (
@@ -83,10 +59,24 @@ function Sidebar() {
             >
               <div className={styles.MenuButtons}>
                 <p className={styles.MenuTitle}>Menu</p>
-                <Button className={styles.Button} noStyle onClick={handleModal}>
+                <Button
+                  className={styles.Button}
+                  noStyle
+                  onClick={handleSecurityModal}
+                >
                   <div className={styles.ButtonItem}>
                     <SecurityIcon className={styles.Icon} />
                     Security
+                  </div>
+                </Button>
+                <Button
+                  className={styles.Button}
+                  noStyle
+                  onClick={handleAddWalletModal}
+                >
+                  <div className={styles.ButtonItem}>
+                    <SecurityIcon className={styles.Icon} />
+                    Add Wallet
                   </div>
                 </Button>
                 <div className={styles.Button}>
@@ -120,51 +110,14 @@ function Sidebar() {
           )}
         </AnimatePresence>
       </div>
-      <Modal
+      <SecurityModal
         isOpen={isSecurityModalOpen}
-        onClose={() => setIsSecurityModalOpen(false)}
-        className={styles.SecurityModal}
-        title="Security Settings"
-      >
-        <div className={styles.CheckboxContainer}>
-          <input
-            id="checkbox"
-            type="checkbox"
-            checked={isChecked}
-            onChange={() => setChecked(!isChecked)}
-            className={styles.Checkbox}
-          ></input>
-          <label htmlFor="checkbox">
-            Ask for password before every transaction
-          </label>
-        </div>
-        <div className={styles.TextboxContainer}>
-          <Input
-            label="PASSWORD"
-            type="password"
-            onChange={(e) => setPassword(e?.target?.value)}
-            value={password}
-          ></Input>
-        </div>
-        <div className={styles.ButtonContainer}>
-          <Button
-            size="smaller"
-            variant="secondary"
-            onClick={() => {
-              setIsSecurityModalOpen(false);
-            }}
-          >
-            CANCEL
-          </Button>
-          <Button
-            size="smaller"
-            disabled={!password}
-            onClick={() => onSecurityConfirmation(isChecked)}
-          >
-            SUBMIT
-          </Button>
-        </div>
-      </Modal>
+        closeHandler={() => setIsSecurityModalOpen(false)}
+      />
+      <AddWalletModal
+        isOpen={isAddWalletModalOpen}
+        closeHandler={() => setAddWalletModalOpen(false)}
+      />
     </OutsideClickWrapper>
   );
 }
