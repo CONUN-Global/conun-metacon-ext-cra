@@ -18,8 +18,14 @@ import styles from "./App.module.scss";
 
 import "react-toastify/dist/ReactToastify.css";
 import { routes } from "./const";
+import useURLQuery from "./hooks/useURLQuery";
 
 function App() {
+  const query = useURLQuery();
+  const isTab = query.get("tab");
+  console.log("query", query);
+  console.log("isTab", isTab);
+
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
@@ -52,9 +58,6 @@ function App() {
             </Route>
             <Route path={routes.index}>
               <Home />
-            </Route>
-            <Route path={routes.root}>
-              <Redirect to={routes.index} />
             </Route>
           </Switch>
         </Layout>

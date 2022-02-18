@@ -37,6 +37,10 @@ function AuthProvider({ children }: Props) {
   // Auth logic - push user to correct page
   useEffect(() => {
     // If logged in and you're on intro, go to actual home page
+    if (loadingLogin || isLoading) {
+      return;
+    }
+
     if (currentUser && PUBLIC_ROUTES.includes(location.pathname)) {
       history.replace(routes.index);
     }
@@ -45,9 +49,9 @@ function AuthProvider({ children }: Props) {
     if (!currentUser && location.pathname !== routes.intro) {
       history.replace(routes.intro);
     }
-  }, [currentUser, location, history, currentStep]);
+  }, [currentUser, location, history, currentStep, loadingLogin, isLoading]);
 
-  if (isLoading) {
+  if (isLoading || loadingLogin) {
     return null;
   }
 

@@ -13,6 +13,7 @@ import { ReactComponent as SwapIcon } from "../../../../assets/icons/swap-icon.s
 import { ReactComponent as SendIcon } from "../../../../assets/icons/send-icon.svg";
 
 import styles from "./ActionsSection.module.scss";
+import { openPageInTab } from "src/helpers/chromeTab";
 
 function ActionsSection() {
   const isPerformingTransaction = useStore(
@@ -25,7 +26,8 @@ function ActionsSection() {
     if (isPerformingTransaction) {
       toast.warn("Please wait whilst your transaction finishes");
     } else {
-      history.push(linkTo);
+      openPageInTab(linkTo);
+      // history.push(linkTo);
     }
   }
   function handleBuyLink() {

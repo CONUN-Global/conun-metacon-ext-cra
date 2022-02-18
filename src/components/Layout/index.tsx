@@ -13,6 +13,11 @@ interface Props {
 function Layout({ children }: Props) {
   const { currentUser } = useCurrentUser();
 
+  const views = chrome.extension.getViews();
+  if (views.length === 2) {
+    console.log("views", views);
+  }
+
   return (
     <div className={styles.Layout} id="appLayout">
       <div className={styles.AppContainer}>

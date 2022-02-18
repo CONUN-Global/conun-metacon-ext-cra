@@ -5,7 +5,7 @@ import useGetEthBalance from "../hooks/useGetEthBalance";
 
 export const routes = {
   root: "/",
-  index: "/index.html",
+  index: "/",
   logout: "/logout",
   intro: "/intro",
   buy: "/buy",
