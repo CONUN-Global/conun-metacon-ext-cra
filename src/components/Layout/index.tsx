@@ -4,7 +4,9 @@ import Header from "../Header";
 import Footer from "../Footer";
 
 import useCurrentUser from "../../hooks/useCurrentUser";
+
 import styles from "./Layout.module.scss";
+import useBrowserTab from "src/hooks/useBrowserTab";
 
 interface Props {
   children: React.ReactNode;
@@ -12,11 +14,7 @@ interface Props {
 
 function Layout({ children }: Props) {
   const { currentUser } = useCurrentUser();
-
-  const views = chrome.extension.getViews();
-  if (views.length === 2) {
-    console.log("views", views);
-  }
+  useBrowserTab();
 
   return (
     <div className={styles.Layout} id="appLayout">

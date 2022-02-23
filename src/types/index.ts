@@ -32,6 +32,8 @@ export type AppState = {
   setNeedPassword: (state: boolean) => void;
   isPerformingTransaction: boolean;
   setPerformingTransaction: (state: boolean) => void;
+  isRunningInBrowserTab: boolean;
+  setRunningInBrowserTab: (state: boolean) => void;
 };
 
 export type Network = "testnet" | "mainnet";
