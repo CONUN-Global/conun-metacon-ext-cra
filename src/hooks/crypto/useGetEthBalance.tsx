@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 import web3 from "src/web3";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
 function useGetEthBalance() {
-  const { currentUser, isLoading:isLoadingUser } = useCurrentUser();
+  const { currentUser, isLoading: isLoadingUser } = useCurrentUser();
 
   const { data, isLoading, refetch, isFetching } = useQuery(
     "get-eth-balance",

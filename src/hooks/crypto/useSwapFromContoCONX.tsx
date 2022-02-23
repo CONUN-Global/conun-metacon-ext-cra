@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "react-query";
 import useStore from "src/store/store";
 import web3 from "src/web3";
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
 import { Transaction as Tx } from "ethereumjs-tx";
 

@@ -1,13 +1,12 @@
 import { useMutation } from "react-query";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import approveSwap from "../helpers/approveSwap";
-import despositTokens from "../helpers/depositTokens";
+import approveSwap from "../../helpers/approveSwap";
+import despositTokens from "../../helpers/depositTokens";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";
-import { ContractConfigResponseObj } from "src/types";
 
 type Args = {
   amount: number;
@@ -19,7 +18,7 @@ const useSwapFromCon = () => {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
-  
+
   const { mutateAsync: swapFromCon, isLoading } = useMutation(
     async (args: Args) => {
       const from = currentUser?.walletAddress;
@@ -42,7 +41,7 @@ const useSwapFromCon = () => {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
-        network:currentNetwork
+        network: currentNetwork,
       });
 
       const transaction = await despositTokens({
@@ -51,13 +50,13 @@ const useSwapFromCon = () => {
         amount: args.amount,
         gasPrice: args.gasPrice,
         gasLimit: args.gasLimit,
-        network:currentNetwork
+        network: currentNetwork,
       });
       return transaction;
     }
   );
 
   return { swapFromCon, isLoading };
-}
+};
 
 export default useSwapFromCon;

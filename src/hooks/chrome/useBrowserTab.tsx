@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import useStore from "src/store/store";
-import useURLQuery from "./useURLQuery";
+import useURLQuery from "../useURLQuery";
 
 function useBrowserTab() {
   const isRunningInBrowserTab = useStore(

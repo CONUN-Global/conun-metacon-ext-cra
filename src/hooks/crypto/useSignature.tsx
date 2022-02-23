@@ -1,15 +1,13 @@
 import { useMutation } from "react-query";
 
-import useStore from "../store/store";
+import useStore from "../../store/store";
 
 import web3 from "src/web3";
 
 function useSignature() {
-
   const etherKey = useStore((state) => state.etherKey);
-  
-  const { mutateAsync: sign } = useMutation(async (data: any) => {
 
+  const { mutateAsync: sign } = useMutation(async (data: any) => {
     const encoded = web3.eth.abi.encodeParameters(
       ["uint256", "address"],
       [web3.utils.toWei(data.value), data.toAddress]
