@@ -1,4 +1,4 @@
-import { getExtensionID } from "./chromeExtID";
+import { getExtensionID } from "./chrome/chromeExtID";
 
 export default function generateReferrer() {
   const extensionID = getExtensionID();
