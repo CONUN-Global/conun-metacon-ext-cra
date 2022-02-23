@@ -1,10 +1,12 @@
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ServiceCardObj } from "../../types/index";
 
 import ServiceCard from "./ServiceCard";
 
-import {ReactComponent as BithumbIcon} from "../../assets/icons/bithumb-logo.svg";
-import {ReactComponent as UniswapIcon} from "../../assets/icons/uniswap-logo.svg";
+import { routes } from "src/const";
+
+import { ReactComponent as BithumbIcon } from "../../assets/icons/bithumb-logo.svg";
+import { ReactComponent as UniswapIcon } from "../../assets/icons/uniswap-logo.svg";
 
 import styles from "./Buy.module.scss";
 
@@ -26,7 +28,7 @@ function Buy() {
     <div className={styles.Buy}>
       <div className={styles.BuyHeader}>
         <div className={styles.Title}>BUY</div>
-        <Link to="/" className={styles.Ecks}>
+        <Link to={routes.index} className={styles.Ecks}>
           X
         </Link>
       </div>

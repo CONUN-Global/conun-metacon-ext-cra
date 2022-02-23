@@ -3,7 +3,9 @@ import React from "react";
 import Header from "../Header";
 import Footer from "../Footer";
 
+import useBrowserTab from "src/hooks/useBrowserTab";
 import useCurrentUser from "../../hooks/useCurrentUser";
+
 import styles from "./Layout.module.scss";
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 
 function Layout({ children }: Props) {
   const { currentUser } = useCurrentUser();
+  useBrowserTab();
 
   return (
     <div className={styles.Layout} id="appLayout">

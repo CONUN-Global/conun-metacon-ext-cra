@@ -3,6 +3,16 @@ import useGetConBalance from "../hooks/useGetConBalance";
 import useGetConTokenBalance from "../hooks/useGetConTokenBalance";
 import useGetEthBalance from "../hooks/useGetEthBalance";
 
+export const routes = {
+  root: "/",
+  index: "/",
+  logout: "/logout",
+  intro: "/intro",
+  buy: "/buy",
+  send: "/send",
+  swap: "/swap",
+};
+
 export const LOGGER_NAME = "metacon-is-logger-active";
 
 export const METACON_PRIVATE = "metacon-private";

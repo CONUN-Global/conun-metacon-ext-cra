@@ -6,9 +6,9 @@ import Sidebar from "../Sidebar";
 
 import useStore from "../../store/store";
 
-import { NETWORK_OPTIONS } from "src/const";
+import { NETWORK_OPTIONS, routes } from "src/const";
 
-import {ReactComponent as DeerIcon} from "../../assets/icons/metacon-deer-blue.svg";
+import { ReactComponent as DeerIcon } from "../../assets/icons/metacon-deer-blue.svg";
 
 import styles from "./Header.module.scss";
 
@@ -39,8 +39,8 @@ function Header() {
   const isUserLoggedIn = useStore((state) => state.isUserLoggedIn);
   const location = useLocation();
 
-  if (location.pathname === "/logout")return null;
-  if (location.pathname === "/intro") return null
+  if (location.pathname === routes.logout) return null;
+  if (location.pathname === routes.intro) return null;
 
   if (!isUserLoggedIn && currentStep.current === "welcome") {
     return null;

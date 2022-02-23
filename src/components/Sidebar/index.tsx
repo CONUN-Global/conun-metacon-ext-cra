@@ -16,6 +16,8 @@ import styles from "./Sidebar.module.scss";
 import { extensionSignOut } from "src/helpers/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
+import { routes } from "src/const";
+import useBrowserTab from "src/hooks/useBrowserTab";
 
 function Sidebar() {
   const variants = {
@@ -27,6 +29,7 @@ function Sidebar() {
   const [isAddWalletModalOpen, setAddWalletModalOpen] = useState(false);
 
   const history = useHistory();
+  const { isRunningInBrowserTab, openIndexInTab } = useBrowserTab();
 
   const handleSecurityModal = () => {
     setIsSecurityModalOpen(true);
@@ -90,12 +93,24 @@ function Sidebar() {
                     Connect to discord
                   </Link>
                 </div>
+                {!isRunningInBrowserTab && (
+                  <Button
+                    noStyle
+                    className={styles.Button}
+                    onClick={openIndexInTab}
+                  >
+                    <div className={styles.ButtonItem}>
+                      <SignoutIcon className={styles.Icon} />
+                      Open In Tab
+                    </div>
+                  </Button>
+                )}
                 <Button
                   noStyle
                   className={styles.Button}
                   onClick={() => {
                     extensionSignOut();
-                    history.push("/logout");
+                    history.push(routes.logout);
                     window.close();
                   }}
                 >

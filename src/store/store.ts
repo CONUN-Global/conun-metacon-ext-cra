@@ -45,6 +45,10 @@ const useStore = create<AppState>((set) => ({
   isPerformingTransaction: false,
   setPerformingTransaction: (state: boolean) =>
     set({ isPerformingTransaction: state }),
+
+  isRunningInBrowserTab: false,
+  setRunningInBrowserTab: (state: boolean) =>
+    set({ isRunningInBrowserTab: state }),
 }));
 
 export default useStore;

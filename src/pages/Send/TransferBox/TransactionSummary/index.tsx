@@ -27,6 +27,7 @@ import { ReactComponent as ArrowIcon } from "../../../../assets/icons/arrow-righ
 import { ReactComponent as InfoIcon } from "../../../../assets/icons/info-icon.svg";
 
 import styles from "./TransactionSummary.module.scss";
+import { routes } from "src/const";
 
 interface TransactionSummaryProps {
   isOpen: boolean;
@@ -72,22 +73,19 @@ function TransactionSummary({
   onClose,
 }: TransactionSummaryProps) {
   const history = useHistory();
-  
-  
+
   const { currentUser } = useCurrentUser();
   const token = useCurrentToken();
   const { verify } = useVerifyPW();
-
 
   const { transferCon, isLoading } = useTransferCon();
   const { transferEth, isLoading: isLoadingEth } = useTransferEth();
   const { transferConx, isLoading: isLoadingConx } = useTransferConx();
 
-
   const needPassword = useStore((state) => state.needPassword);
-  const logger = useStore((state)=> state.loggerInstance);
-  const currentNetwork = useStore((state)=> state.currentNetwork);
-  
+  const logger = useStore((state) => state.loggerInstance);
+  const currentNetwork = useStore((state) => state.currentNetwork);
+
   const [isSummaryOpen, setSummaryOpen] = useState(true);
   const [password, setPassword] = useState("");
 
@@ -101,11 +99,11 @@ function TransactionSummary({
       }
     } catch (error: any) {
       logger?.sendLog({
-        logTarget:"ValidateTransaction",
-        tags:["test"],
-        level:"ERROR",
-        message:error
-      })
+        logTarget: "ValidateTransaction",
+        tags: ["test"],
+        level: "ERROR",
+        message: error,
+      });
       toast.error(error?.response?.data?.payload ?? "Sorry an error happened");
     }
   };
@@ -123,7 +121,7 @@ function TransactionSummary({
           to: transaction?.to,
           gasLimit: String(transaction.gasLimit),
           gasPrice: String(transaction.gasPrice),
-          network:currentNetwork
+          network: currentNetwork,
         });
       }
 
@@ -133,7 +131,7 @@ function TransactionSummary({
           to: transaction.to,
           gasLimit: String(transaction.gasLimit),
           gasPrice: String(transaction.gasPrice),
-          network:currentNetwork
+          network: currentNetwork,
         });
       }
 
@@ -152,10 +150,10 @@ function TransactionSummary({
         amount: Number(transaction?.amount),
         date: new Date().toISOString(),
         status: token.token === "conx" ? "success" : "pending",
-        network:currentNetwork
+        network: currentNetwork,
       });
 
-      history.push("/");
+      history.push(routes.index);
     }
   };
 

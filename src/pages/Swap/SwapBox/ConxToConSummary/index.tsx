@@ -15,13 +15,13 @@ import GasFeeBox from "../GasFeeBox";
 import useSwapFromCONXtoCon from "src/hooks/useSwapFromCONXtoCon";
 import LoadingOverlay from "../LoadingOverlay";
 import Total from "../Total";
+import { routes } from "src/const";
 
 interface SwapSummaryProps {
   isOpen: boolean;
   swap: Swap | null;
   onClose: () => void;
 }
-
 
 function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
   const history = useHistory();
@@ -37,8 +37,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
       let txHash: any;
       try {
         txHash = await swapFromCONX(claimFee!);
-      } catch (e) {
-      }
+      } catch (e) {}
       if (!!txHash) {
         addTransaction({
           txType: "swap",
@@ -53,7 +52,7 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
           status: "pending",
         });
       }
-      history.push("/");
+      history.push(routes.index);
     }
   };
 
@@ -98,7 +97,11 @@ function ConToConxSummary({ swap, isOpen, onClose }: SwapSummaryProps) {
           <span className={styles.Label}>Total</span>
           <span className={styles.SubLabel}>Amount + gas fee</span>
         </div>
-        <Total token={token} amount={swap?.amount} gasFee={claimFee?.gasPrice} />
+        <Total
+          token={token}
+          amount={swap?.amount}
+          gasFee={claimFee?.gasPrice}
+        />
       </div>
 
       <div className={styles.ButtonsContainer}>
