@@ -33,7 +33,13 @@ function useBrowserTab() {
     }
   }
 
-  return { handleBrowserLink, isRunningInBrowserTab };
+  function openIndexInTab() {
+    chrome.tabs.create({
+      url: chrome.runtime.getURL("index.html#?tab=true"),
+    });
+  }
+
+  return { isRunningInBrowserTab, handleBrowserLink, openIndexInTab };
 }
 
 export default useBrowserTab;
