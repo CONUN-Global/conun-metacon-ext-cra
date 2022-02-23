@@ -11,7 +11,7 @@ import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.s
 import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
 import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
-import { extensionSignOut } from "src/helpers/extensionSignOut";
+import { extensionSignOut } from "src/helpers/chrome/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
 import { routes } from "src/const";

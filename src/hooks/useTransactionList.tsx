@@ -1,5 +1,5 @@
 import { METACON_TXNS } from "src/const";
-import { setChromeStorage } from "src/helpers/chromeStorage";
+import { setChromeStorage } from "src/helpers/chrome/chromeStorage";
 import useStore from "../store/store";
 import { RecentTransaction } from "../types";
 import useGetTransactionsExt from "./chrome/useGetTransactionsExt";

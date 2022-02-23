@@ -10,9 +10,9 @@ import { Logger } from "src/classes/logger";
 import useStore from "src/store/store";
 import web3 from "src/web3";
 
-import { getBufferedKey } from "src/helpers/getBufferedKey";
-import { getGasLimit, getGasPrice } from "src/helpers/getGas";
-import getConfig from "src/helpers/getConfig";
+import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
+import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
+import getConfig from "src/helpers/crypto/getConfig";
 import { getIsLoggerActive } from "src/helpers/logger";
 
 import { ContractConfigResponseObj, GasFeeObj } from "src/types";

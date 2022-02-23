@@ -1,4 +1,4 @@
-import { getIdentity } from "./identity";
+import { getIdentity } from "./crypto/identity";
 
 export function saveFileIdentity(walletAddress: string) {
   console.log("importbackup");

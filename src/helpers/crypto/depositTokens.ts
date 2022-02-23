@@ -1,12 +1,12 @@
 import { Transaction as Tx } from "ethereumjs-tx";
 import { toast } from "react-toastify";
 
-import instance from "../axios/instance";
+import instance from "../../axios/instance";
 import web3 from "src/web3";
 
 import getConfig from "./getConfig";
 import { Logger } from "src/classes/logger";
-import { getIsLoggerActive } from "./logger";
+import { getIsLoggerActive } from "../logger";
 
 import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 import { Network } from "src/types";
@@ -17,7 +17,7 @@ type args = {
   gasLimit: number;
   gasPrice: number;
   bufferedPrivateKey: Buffer;
-  network:Network;
+  network: Network;
 };
 
 async function despositTokens({
@@ -31,7 +31,7 @@ async function despositTokens({
   try {
     const configData = await getConfig();
 
-    const networkChain = network === "testnet" ? "ropsten" : "mainnet"
+    const networkChain = network === "testnet" ? "ropsten" : "mainnet";
 
     const bridgeContract = new web3.eth.Contract(
       configData?.bridgeContract?.abiRaw,
@@ -85,14 +85,14 @@ async function despositTokens({
       });
     });
   } catch (error: any) {
-    const shouldLog = getIsLoggerActive()
-    const logger = new Logger(!!shouldLog, walletAddress)
+    const shouldLog = getIsLoggerActive();
+    const logger = new Logger(!!shouldLog, walletAddress);
     logger.sendLog({
-      logTarget:"DepositTokens",
-      tags:["test"],
-      level:"ERROR",
-      message:error
-    })
+      logTarget: "DepositTokens",
+      tags: ["test"],
+      level: "ERROR",
+      message: error,
+    });
     toast.error(error?.message);
   }
 }

@@ -2,8 +2,8 @@ import { useMutation } from "react-query";
 
 import useCurrentUser from "../useCurrentUser";
 
-import approveSwap from "../../helpers/approveSwap";
-import despositTokens from "../../helpers/depositTokens";
+import approveSwap from "../../helpers/crypto/approveSwap";
+import despositTokens from "../../helpers/crypto/depositTokens";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";

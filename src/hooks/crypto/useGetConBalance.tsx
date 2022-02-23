@@ -4,7 +4,7 @@ import web3 from "src/web3";
 
 import useCurrentUser from "../useCurrentUser";
 
-import getConfig from "../../helpers/getConfig";
+import getConfig from "../../helpers/crypto/getConfig";
 
 function useGetConBalance() {
   const { currentUser, isLoading: isLoadingUser } = useCurrentUser();
