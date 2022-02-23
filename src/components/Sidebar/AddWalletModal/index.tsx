@@ -5,7 +5,7 @@ import Button from "src/components/Button";
 import Input from "src/components/Form/Input";
 import Modal from "src/components/Modal";
 
-import useExtensionLogin from "src/hooks/useExtensionLogin";
+import useExtensionLogin from "src/hooks/chrome/useExtensionLogin";
 
 import { saveChromeFile } from "src/helpers/saveFile";
 

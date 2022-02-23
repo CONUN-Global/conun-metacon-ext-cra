@@ -5,13 +5,13 @@ import classNames from "classnames";
 import Button from "../../../../components/Button";
 
 import useCurrentUser from "../../../../hooks/useCurrentUser";
-import useCurrentToken from "../../../../hooks/useCurrentToken";
+import useCurrentToken from "../../../../hooks/crypto/useCurrentToken";
 
 import copyToClipboard from "../../../../helpers/copyToClipboard";
 
-import {ReactComponent as ConunLogo} from "../../../../assets/icons/conun-white.svg";
-import {ReactComponent as EthLogo} from "../../../../assets/icons/ethereum.svg";
-import {ReactComponent as CopyIcon} from "../../../../assets/icons/copy-icon.svg";
+import { ReactComponent as ConunLogo } from "../../../../assets/icons/conun-white.svg";
+import { ReactComponent as EthLogo } from "../../../../assets/icons/ethereum.svg";
+import { ReactComponent as CopyIcon } from "../../../../assets/icons/copy-icon.svg";
 
 import styles from "./TokenCard.module.scss";
 
@@ -38,13 +38,12 @@ function Logo({ token }: { token: "con" | "conx" | "eth" }) {
   return <ConunLogo className={styles.ConxLogo} />;
 }
 
-function rectifyDecimal(num:number){
-  if (num.toFixed(6).length > 16){
-    return parseFloat(num.toFixed().slice(0, 16))
+function rectifyDecimal(num: number) {
+  if (num.toFixed(6).length > 16) {
+    return parseFloat(num.toFixed().slice(0, 16));
   }
-  return parseFloat(num.toFixed(6))
+  return parseFloat(num.toFixed(6));
 }
-
 
 function TokenCard({ token, i }: TokenCardProps) {
   const { currentUser } = useCurrentUser();

@@ -4,9 +4,9 @@ import { Transaction as Tx } from "ethereumjs-tx";
 
 import web3 from "src/web3";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import getConfig from "../helpers/getConfig";
+import getConfig from "../../helpers/getConfig";
 import useStore from "src/store/store";
 import { Network } from "src/types";
 
@@ -15,18 +15,18 @@ type TransferData = {
   amount: string;
   gasLimit: string;
   gasPrice: string;
-  network:Network;
+  network: Network;
 };
 
 function useTransferCon() {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
-  const logger = useStore((state)=> state.loggerInstance)
+  const logger = useStore((state) => state.loggerInstance);
   const { mutateAsync: transferCon, isLoading } = useMutation(
     async (args: TransferData) => {
       try {
         const from = currentUser?.walletAddress;
-        const networkChain = args.network === "testnet" ? "ropsten" : "mainnet"
+        const networkChain = args.network === "testnet" ? "ropsten" : "mainnet";
 
         web3.eth.defaultAccount = from!;
 
@@ -72,7 +72,7 @@ function useTransferCon() {
           data,
         };
 
-        const tx = new Tx(txObject, { chain: networkChain});
+        const tx = new Tx(txObject, { chain: networkChain });
         tx.sign(bufferedPrivateKey);
 
         const serializedTx = tx.serialize();
@@ -87,11 +87,11 @@ function useTransferCon() {
         });
       } catch (error: any) {
         logger?.sendLog({
-          logTarget:"TransferCon",
-          tags:["test"],
-          level:"ERROR",
-          message:error
-        })
+          logTarget: "TransferCon",
+          tags: ["test"],
+          level: "ERROR",
+          message: error,
+        });
         toast.error(error?.message);
       }
     }

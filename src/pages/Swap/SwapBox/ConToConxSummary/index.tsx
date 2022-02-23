@@ -7,7 +7,7 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 
 import useTransactionList from "../../../../hooks/useTransactionList";
-import useCurrentToken from "../../../../hooks/useCurrentToken";
+import useCurrentToken from "../../../../hooks/crypto/useCurrentToken";
 
 import { GasFeeObj, Token } from "../../../../types/index";
 import { Swap } from "..";
@@ -15,7 +15,7 @@ import { Swap } from "..";
 import styles from "../SwapSummary.module.scss";
 
 import GasFeeBox from "../GasFeeBox";
-import useSwapFromContoCONX from "src/hooks/useSwapFromContoCONX";
+import useSwapFromContoCONX from "src/hooks/crypto/useSwapFromContoCONX";
 import LoadingOverlay from "../LoadingOverlay";
 import { routes } from "src/const";
 

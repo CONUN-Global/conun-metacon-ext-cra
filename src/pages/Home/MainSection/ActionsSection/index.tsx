@@ -13,7 +13,7 @@ import { ReactComponent as SwapIcon } from "../../../../assets/icons/swap-icon.s
 import { ReactComponent as SendIcon } from "../../../../assets/icons/send-icon.svg";
 
 import styles from "./ActionsSection.module.scss";
-import useBrowserTab from "src/hooks/useBrowserTab";
+import useBrowserTab from "src/hooks/chrome/useBrowserTab";
 
 function ActionsSection() {
   const isPerformingTransaction = useStore(

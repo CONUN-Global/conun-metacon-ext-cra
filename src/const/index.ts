@@ -1,7 +1,7 @@
 import { NetworkOptions } from "src/types";
-import useGetConBalance from "../hooks/useGetConBalance";
-import useGetConTokenBalance from "../hooks/useGetConTokenBalance";
-import useGetEthBalance from "../hooks/useGetEthBalance";
+import useGetConBalance from "../hooks/crypto/useGetConBalance";
+import useGetConTokenBalance from "../hooks/crypto/useGetConTokenBalance";
+import useGetEthBalance from "../hooks/crypto/useGetEthBalance";
 
 export const routes = {
   root: "/",

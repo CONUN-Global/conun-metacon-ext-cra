@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import useStore from "../../store/store";
-
 import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "../Button";
@@ -17,7 +15,7 @@ import { extensionSignOut } from "src/helpers/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
 import { routes } from "src/const";
-import useBrowserTab from "src/hooks/useBrowserTab";
+import useBrowserTab from "src/hooks/chrome/useBrowserTab";
 
 function Sidebar() {
   const variants = {
