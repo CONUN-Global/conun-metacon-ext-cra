@@ -2,9 +2,9 @@ import { useQuery } from "react-query";
 
 import web3 from "src/web3";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import getConfig from "../helpers/getConfig";
+import getConfig from "../../helpers/crypto/getConfig";
 import { Logger } from "src/classes/logger";
 import { getIsLoggerActive } from "src/helpers/logger";
 
@@ -29,9 +29,8 @@ async function getGasEstimate(
   from: string,
   to: string,
   type: string,
-  amount: string,
+  amount: string
 ) {
-  
   if (type === "conx") {
     return {};
   }
@@ -65,14 +64,14 @@ async function getGasEstimate(
         data,
       });
     } catch (error: any) {
-      const shouldLog = await getIsLoggerActive()
-      const logger = new Logger(!!shouldLog, from)
+      const shouldLog = await getIsLoggerActive();
+      const logger = new Logger(!!shouldLog, from);
       logger.sendLog({
-        logTarget:"GetGasEstimate",
-        tags:["test"],
-        level:"ERROR",
-        message:error
-      })
+        logTarget: "GetGasEstimate",
+        tags: ["test"],
+        level: "ERROR",
+        message: error,
+      });
       return {};
     }
   }

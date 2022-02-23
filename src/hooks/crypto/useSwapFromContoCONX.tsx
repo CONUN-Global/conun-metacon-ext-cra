@@ -1,19 +1,19 @@
 import { useMutation, useQuery } from "react-query";
 import useStore from "src/store/store";
 import web3 from "src/web3";
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
 import { Transaction as Tx } from "ethereumjs-tx";
 
 // import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
-import { getBufferedKey } from "src/helpers/getBufferedKey";
+import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
 import instance from "src/axios/instance";
-import getConfig from "src/helpers/getConfig";
+import getConfig from "src/helpers/crypto/getConfig";
 import { ContractConfigResponseObj, GasFeeObj } from "src/types";
 import { getIsLoggerActive } from "src/helpers/logger";
 import { Logger } from "src/classes/logger";
 import { toast } from "react-toastify";
-import { getGasLimit, getGasPrice } from "src/helpers/getGas";
+import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
 
 interface SwapProps {
   value: number;

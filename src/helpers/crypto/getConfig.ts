@@ -1,6 +1,6 @@
-import instance from "../axios/instance";
-import { getChromeStorage, setChromeStorage } from "./chromeStorage";
-import { METACON_CONFIG } from "../const";
+import instance from "../../axios/instance";
+import { getChromeStorage, setChromeStorage } from "../chrome/chromeStorage";
+import { METACON_CONFIG } from "../../const";
 
 /**
  * getConfig:
@@ -24,10 +24,8 @@ async function getConfigFromSource() {
 async function getConfig() {
   const localConfig = await getConfigFromChromeStorage();
   if (localConfig) {
-
     return localConfig;
   } else {
-
     const sourceConfig = await getConfigFromSource();
     setChromeStorage(METACON_CONFIG, sourceConfig);
     return sourceConfig;

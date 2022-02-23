@@ -1,28 +1,30 @@
 import { METACON_TXNS } from "src/const";
-import { setChromeStorage } from "src/helpers/chromeStorage";
+import { setChromeStorage } from "src/helpers/chrome/chromeStorage";
 import useStore from "../store/store";
 import { RecentTransaction } from "../types";
-import useGetTransactionsExt from "./useGetTransactionsExt";
+import useGetTransactionsExt from "./chrome/useGetTransactionsExt";
 
 const TRANSACTION_LIMIT = 10;
 
 function useTransactionList() {
+  const { txns } = useGetTransactionsExt();
 
-  const {txns} = useGetTransactionsExt();
-  
   const recentTransactions = useStore((store) => store.recentTransactions);
   const setStoreRecentTransactions = useStore(
     (store) => store.setRecentTransactions
   );
-  const setPerformingTransaction = useStore((store)=> store.setPerformingTransaction)
+  const setPerformingTransaction = useStore(
+    (store) => store.setPerformingTransaction
+  );
 
-  if (txns?.length && !recentTransactions?.length) setStoreRecentTransactions(txns)
+  if (txns?.length && !recentTransactions?.length)
+    setStoreRecentTransactions(txns);
 
   const getTransactions = () => {
-    if (recentTransactions && recentTransactions.length){
-      return recentTransactions
+    if (recentTransactions && recentTransactions.length) {
+      return recentTransactions;
     } else {
-      return txns
+      return txns;
     }
   };
 

@@ -1,11 +1,14 @@
 import { useQuery } from "react-query";
-import getConfig from "src/helpers/getConfig";
+import getConfig from "src/helpers/crypto/getConfig";
 import { ContractConfigResponseObj } from "src/types";
 
 const useContractData = () => {
-  const { data, isLoading } = useQuery<ContractConfigResponseObj>("contract-config", async () => {
-    return await getConfig();
-  });
+  const { data, isLoading } = useQuery<ContractConfigResponseObj>(
+    "contract-config",
+    async () => {
+      return await getConfig();
+    }
+  );
 
   return {
     contractConfigData: data,

@@ -1,16 +1,12 @@
-
 import useTransactionStatus from "../../../../../../hooks/useTransactionStatus";
-
-
-import useStore from "../../../../../../store/store";
 
 import truncateString from "../../../../../../helpers/truncateString";
 
 import { RecentTransaction, txAction } from "../../../../../../types/index";
 
-import {ReactComponent as SendIcon} from "../../../../../../assets/icons/send-icon-blue.svg";
-import {ReactComponent as BuyIcon} from "../../../../../../assets/icons/buy-icon-blue.svg";
-import {ReactComponent as SwapIcon} from "../../../../../../assets/icons/swap-icon-blue.svg";
+import { ReactComponent as SendIcon } from "../../../../../../assets/icons/send-icon-blue.svg";
+import { ReactComponent as BuyIcon } from "../../../../../../assets/icons/buy-icon-blue.svg";
+import { ReactComponent as SwapIcon } from "../../../../../../assets/icons/swap-icon-blue.svg";
 
 import styles from "./HistoryCell.module.scss";
 
@@ -93,7 +89,6 @@ function DateCell({
 }
 
 export function EthHistoryCell({ history }: { history: RecentTransaction }) {
-
   const { txnStatus, loadingTxnStatus } = useTransactionStatus(history);
 
   return (
@@ -101,9 +96,9 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
       <div className={styles.IconCell}>
         <a
           className={styles.IconLink}
-          href={`https://${history?.network !== "mainnet" && "ropsten."}etherscan.io/tx/${
-            history.hash
-          }`}
+          href={`https://${
+            history?.network !== "mainnet" && "ropsten."
+          }etherscan.io/tx/${history.hash}`}
           target="_blank"
           rel="noreferrer"
         >
@@ -112,7 +107,12 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
       </div>
 
       <div className={styles.TypeTime}>
-        <div className={styles.Type}>{history.txType}{history?.network !== "mainnet" && <span className={styles.test}>test</span>}</div>
+        <div className={styles.Type}>
+          {history.txType}
+          {history?.network !== "mainnet" && (
+            <span className={styles.test}>test</span>
+          )}
+        </div>
         <div className={styles.Time}>
           <DateCell
             date={history.date}
@@ -122,9 +122,9 @@ export function EthHistoryCell({ history }: { history: RecentTransaction }) {
         </div>
       </div>
       <div className={styles.Value}>
-        <div
-          className={styles.FromVal}
-        >{`${Number(history.amount).toFixed(8).replace(/\.?0+$/,"")}`}</div>
+        <div className={styles.FromVal}>{`${Number(history.amount)
+          .toFixed(8)
+          .replace(/\.?0+$/, "")}`}</div>
         <div className={styles.ToVal}>
           <a
             className={styles.HashLink}

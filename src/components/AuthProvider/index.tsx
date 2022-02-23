@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { Logger } from "src/classes/logger";
 import { routes } from "src/const";
-import useExtensionLogin from "src/hooks/useExtensionLogin";
+import useExtensionLogin from "src/hooks/chrome/useExtensionLogin";
 
 import useCurrentUser from "../../hooks/useCurrentUser";
 

@@ -1,8 +1,8 @@
 import { useMutation } from "react-query";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import claimsTokens from "../helpers/claimTokens";
+import claimsTokens from "../../helpers/crypto/claimTokens";
 
 import web3 from "src/web3";
 import useStore from "src/store/store";
@@ -40,7 +40,7 @@ function useSwapFromConx() {
       amount: args.amount,
       gasPrice: args.gasPrice,
       gasLimit: args.gasLimit,
-      network:currentNetwork,
+      network: currentNetwork,
     });
 
     return transaction;

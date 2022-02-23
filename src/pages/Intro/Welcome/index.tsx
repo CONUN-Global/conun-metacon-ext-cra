@@ -1,5 +1,5 @@
 import { NetworkConfig } from "src/classes/networkConfig";
-import generateReferrer from "src/helpers/generateReferrer";
+import generateReferrer from "src/helpers/chrome/generateReferrer";
 
 import { ReactComponent as ConunLogo } from "../../../assets/icons/conun-logo.svg";
 import MetaconDeer from "../../../assets/icons/metacon-deer.svg";

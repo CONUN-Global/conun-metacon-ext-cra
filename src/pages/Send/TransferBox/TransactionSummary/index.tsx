@@ -9,12 +9,12 @@ import Divider from "../../../../components/Divider";
 import Tooltip from "../../../../components/Tooltip";
 import { Transaction } from "..";
 
-import useCurrentToken from "../../../../hooks/useCurrentToken";
+import useCurrentToken from "../../../../hooks/crypto/useCurrentToken";
 import useCurrentUser from "../../../../hooks/useCurrentUser";
 import useTransactionList from "../../../../hooks/useTransactionList";
-import useTransferCon from "../../../../hooks/useTransferCon";
-import useTransferConx from "../../../../hooks/useTransferConx";
-import useTransferEth from "../../../../hooks/useTransferEth";
+import useTransferCon from "../../../../hooks/crypto/useTransferCon";
+import useTransferConx from "../../../../hooks/crypto/useTransferConx";
+import useTransferEth from "../../../../hooks/crypto/useTransferEth";
 import useVerifyPW from "../../../../hooks/useVerifyPW";
 
 import useStore from "../../../../store/store";

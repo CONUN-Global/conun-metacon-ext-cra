@@ -1,8 +1,8 @@
 import { useMutation } from "react-query";
 
-import instance from "../axios/instance";
+import instance from "../../axios/instance";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 import useSignature from "./useSignature";
 
 import { FcnTypes, ORG_NAME } from "src/const";
@@ -20,7 +20,7 @@ function useTransferConx() {
       const signature = await sign({
         ...transferData,
       });
-      const { data }:any = await instance.post(
+      const { data }: any = await instance.post(
         `/con-token/channels/mychannel/chaincodes/${process.env.REACT_APP_SMART_CONTRACT}`,
         {
           ...transferData,

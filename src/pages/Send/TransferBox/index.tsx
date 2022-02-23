@@ -11,8 +11,8 @@ import FormGasInput from "../../../components/Form/HookForm/FormGasInput";
 import NonHookGasInput from "../../../components/Form/Input/NonHookGasInput";
 import TransactionSummary from "./TransactionSummary";
 
-import useCurrentToken from "../../../hooks/useCurrentToken";
-import useTransferFee from "../../../hooks/useTransferFee";
+import useCurrentToken from "../../../hooks/crypto/useCurrentToken";
+import useTransferFee from "../../../hooks/crypto/useTransferFee";
 
 import { routes } from "src/const";
 

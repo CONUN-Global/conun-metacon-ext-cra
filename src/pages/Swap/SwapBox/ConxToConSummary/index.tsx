@@ -5,14 +5,14 @@ import Modal from "../../../../components/Modal";
 import Button from "../../../../components/Button";
 
 import useTransactionList from "../../../../hooks/useTransactionList";
-import useCurrentToken from "../../../../hooks/useCurrentToken";
+import useCurrentToken from "../../../../hooks/crypto/useCurrentToken";
 
 import { Swap } from "..";
 
 import styles from "../SwapSummary.module.scss";
 
 import GasFeeBox from "../GasFeeBox";
-import useSwapFromCONXtoCon from "src/hooks/useSwapFromCONXtoCon";
+import useSwapFromCONXtoCon from "src/hooks/crypto/useSwapFromCONXtoCon";
 import LoadingOverlay from "../LoadingOverlay";
 import Total from "../Total";
 import { routes } from "src/const";

@@ -9,7 +9,7 @@ import InfoButton from "../../../components/InfoButton";
 import ConToConxSummary from "./ConToConxSummary";
 import ConxToConSummary from "./ConxToConSummary";
 
-import useCurrentToken from "../../../hooks/useCurrentToken";
+import useCurrentToken from "../../../hooks/crypto/useCurrentToken";
 import useStore from "../../../store/store";
 
 import { routes } from "src/const";

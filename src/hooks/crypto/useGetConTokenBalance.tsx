@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import instance from "../axios/instance";
+import instance from "../../axios/instance";
 
-import { FcnTypes, ORG_NAME } from "../const";
+import { FcnTypes, ORG_NAME } from "../../const";
 
 function useGetConTokenBalance() {
   const { currentUser, isLoading: isLoadingUser } = useCurrentUser();
@@ -17,9 +17,9 @@ function useGetConTokenBalance() {
           `/con-token/channels/mychannel/chaincodes/${process.env.REACT_APP_SMART_CONTRACT}?walletAddress=${currentUser?.walletAddress}&orgName=${ORG_NAME}&fcn=${FcnTypes.BalanceOf}`
         );
         return data;
-     } else {
-       return undefined;
-     }
+      } else {
+        return undefined;
+      }
     },
     {
       enabled: !!currentUser && !!currentUser.walletAddress && !isLoadingUser,

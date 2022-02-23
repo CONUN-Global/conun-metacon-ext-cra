@@ -1,8 +1,6 @@
 import { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
 
-import useStore from "../../store/store";
-
 import { AnimatePresence, motion } from "framer-motion";
 
 import Button from "../Button";
@@ -13,11 +11,11 @@ import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.s
 import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
 import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
 import styles from "./Sidebar.module.scss";
-import { extensionSignOut } from "src/helpers/extensionSignOut";
+import { extensionSignOut } from "src/helpers/chrome/extensionSignOut";
 import SecurityModal from "./SecurityModal";
 import AddWalletModal from "./AddWalletModal";
 import { routes } from "src/const";
-import useBrowserTab from "src/hooks/useBrowserTab";
+import useBrowserTab from "src/hooks/chrome/useBrowserTab";
 
 function Sidebar() {
   const variants = {

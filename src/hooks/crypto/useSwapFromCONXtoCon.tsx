@@ -1,28 +1,27 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 
 import { Transaction as Tx } from "ethereumjs-tx";
 
-import useCurrentUser from "./useCurrentUser";
+import useCurrentUser from "../useCurrentUser";
 
-import claimsTokens from "../helpers/claimTokens";
-
-import web3 from "src/web3";
-import useStore from "src/store/store";
-import { getBufferedKey } from "src/helpers/getBufferedKey";
-import { ContractConfigResponseObj, GasFeeObj } from "src/types";
 import instance from "src/axios/instance";
-import { getGasLimit, getGasPrice } from "src/helpers/getGas";
-import getConfig from "src/helpers/getConfig";
-import { getIsLoggerActive } from "src/helpers/logger";
 import { Logger } from "src/classes/logger";
-import { toast } from "react-toastify";
+import useStore from "src/store/store";
+import web3 from "src/web3";
+
+import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
+import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
+import getConfig from "src/helpers/crypto/getConfig";
+import { getIsLoggerActive } from "src/helpers/logger";
+
+import { ContractConfigResponseObj, GasFeeObj } from "src/types";
 
 interface Props {
   value: number;
 }
 
 const useSwapFromCONXtoCon = ({ value }: Props) => {
-
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
@@ -128,9 +127,13 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
         contractConfigData.bridgeContract.address,
         claimTokensABI
       );
-      return { gasPrice:(3* +gasPrice).toFixed(6), gasLimit:(Math.ceil(1.3* gasLimit)) } as GasFeeObj;
-    }, {
-      enabled: !!value
+      return {
+        gasPrice: (3 * +gasPrice).toFixed(6),
+        gasLimit: Math.ceil(1.3 * gasLimit),
+      } as GasFeeObj;
+    },
+    {
+      enabled: !!value,
     }
   );
 

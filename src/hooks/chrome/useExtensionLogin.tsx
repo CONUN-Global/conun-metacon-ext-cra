@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import useStore from "src/store/store";
 
-import { getChromeStorage } from "src/helpers/chromeStorage";
+import { getChromeStorage } from "src/helpers/chrome/chromeStorage";
 import { METACON_LOGGER_ACTIVE, METACON_LOGIN } from "src/const";
 import { LoginPackage } from "src/types";
 

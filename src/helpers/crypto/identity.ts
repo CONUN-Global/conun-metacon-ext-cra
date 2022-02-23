@@ -1,4 +1,4 @@
-import { getChromeStorage } from "./chromeStorage";
+import { getChromeStorage } from "../chrome/chromeStorage";
 
 import { METACON_LOGIN } from "src/const";
 

@@ -1,10 +1,10 @@
 import { Transaction as Tx } from "ethereumjs-tx";
 import { toast } from "react-toastify";
 
-import instance from "../axios/instance";
+import instance from "../../axios/instance";
 import web3 from "src/web3";
 import { Logger } from "src/classes/logger";
-import { getIsLoggerActive } from "./logger";
+import { getIsLoggerActive } from "../logger";
 
 import getConfig from "./getConfig";
 
@@ -17,7 +17,7 @@ type args = {
   gasLimit: number;
   gasPrice: number;
   bufferedPrivateKey: Buffer;
-  network:Network;
+  network: Network;
 };
 
 async function claimsTokens({
@@ -31,7 +31,7 @@ async function claimsTokens({
   try {
     const configData = await getConfig();
 
-    const networkChain = network === "testnet" ? "ropsten" : "mainnet"
+    const networkChain = network === "testnet" ? "ropsten" : "mainnet";
 
     const bridgeContract = new web3.eth.Contract(
       configData?.bridgeContract?.abiRaw,
@@ -86,14 +86,14 @@ async function claimsTokens({
       });
     });
   } catch (error: any) {
-    const shouldLog = await getIsLoggerActive()
-    const logger = new Logger(!!shouldLog, walletAddress)
+    const shouldLog = await getIsLoggerActive();
+    const logger = new Logger(!!shouldLog, walletAddress);
     logger.sendLog({
-      logTarget:"ClaimTokens",
-      tags:["test"],
-      level:"ERROR",
-      message:error
-    })
+      logTarget: "ClaimTokens",
+      tags: ["test"],
+      level: "ERROR",
+      message: error,
+    });
     toast.error(error?.message);
   }
 }
