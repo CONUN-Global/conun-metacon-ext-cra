@@ -14,10 +14,10 @@ import LogOut from "./pages/LogOut";
 
 import { queryClient } from "./react-query/config";
 
-import styles from "./App.module.scss";
-
-import "react-toastify/dist/ReactToastify.css";
 import { routes } from "./const";
+
+import styles from "./App.module.scss";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
