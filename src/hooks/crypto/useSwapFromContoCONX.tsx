@@ -14,6 +14,7 @@ import { getIsLoggerActive } from "src/helpers/logger";
 import { Logger } from "src/classes/logger";
 import { toast } from "react-toastify";
 import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
+import useChromeNotification from "../chrome/useChromeNotification";
 
 interface SwapProps {
   value: number;
@@ -21,6 +22,7 @@ interface SwapProps {
 
 const useSwapFromContoCONX = ({ value }: SwapProps) => {
   const { currentUser } = useCurrentUser();
+  const { swapNotification } = useChromeNotification();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
 
