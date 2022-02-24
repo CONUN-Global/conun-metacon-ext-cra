@@ -1,19 +1,23 @@
+import { useRef } from "react";
 import { useMutation, useQuery } from "react-query";
-import useStore from "src/store/store";
+import { toast } from "react-toastify";
 import web3 from "src/web3";
-import useCurrentUser from "../useCurrentUser";
 
-import { Transaction as Tx } from "ethereumjs-tx";
+import { BufferLike, Transaction as Tx } from "ethereumjs-tx";
+
+import useStore from "src/store/store";
 
 // import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
 import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
-import instance from "src/axios/instance";
 import getConfig from "src/helpers/crypto/getConfig";
-import { ContractConfigResponseObj, GasFeeObj } from "src/types";
 import { getIsLoggerActive } from "src/helpers/logger";
-import { Logger } from "src/classes/logger";
-import { toast } from "react-toastify";
 import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
+import useCurrentUser from "../../useCurrentUser";
+import { getApproveSwapABI, getDepositTokensABI } from "./getABI";
+
+import { ContractConfigResponseObj, GasFeeObj } from "src/types";
+
+import { Logger } from "src/classes/logger";
 
 interface SwapProps {
   value: number;
@@ -23,6 +27,8 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
   const { currentUser } = useCurrentUser();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
+  const approvalABIRef = useRef<BufferLike | null>(null);
+  const depositABIRef = useRef<string | null>(null);
 
   const networkChain = currentNetwork === "testnet" ? "ropsten" : "mainnet";
 
@@ -32,39 +38,46 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
     currentUser?.walletAddress!
   );
 
-  // get contract data for approval
-  async function getApproveSwapABI(
-    value: number,
-    contractConfigData: ContractConfigResponseObj
-  ) {
-    const conContract = new web3.eth.Contract(
-      contractConfigData.conContract.abiRaw,
-      contractConfigData.conContract.address
-    );
+  // Prepare for APPROVAL, and get approval estimate
+  const { data: approvalFee, isLoading: isLoadingApprovalFee } = useQuery(
+    ["get-conToCONX-approval-estimate", value],
+    async () => {
+      const contractConfigData: ContractConfigResponseObj = await getConfig();
+      const ApproveSwapABIData = await getApproveSwapABI(
+        value,
+        contractConfigData
+      );
 
-    return await conContract.methods
-      .approve(
-        contractConfigData.bridgeContract.address,
-        web3.utils.toWei(String(value))
-      )
-      .encodeABI();
-  }
+      // set approval data to ref, so it can be reused.
+      approvalABIRef.current = ApproveSwapABIData;
+      const gasPrice = await getGasPrice();
+      const gasLimit = await getGasLimit(
+        currentUser?.walletAddress!,
+        contractConfigData.conContract.address,
+        ApproveSwapABIData
+      );
+      return {
+        gasPrice: (3 * +gasPrice).toFixed(6),
+        gasLimit: Math.ceil(1.3 * gasLimit),
+      } as GasFeeObj;
+    }
+  );
 
+  // perform approval - used in the function to get deposit fees.
   async function performSwapApproval(
     contractConfigData: ContractConfigResponseObj,
     gasForApproval: GasFeeObj
   ) {
-    const conContract = new web3.eth.Contract(
-      contractConfigData?.conContract?.abiRaw,
-      contractConfigData?.conContract?.address
-    );
-    const approve = await conContract.methods
-      .approve(
-        contractConfigData?.bridgeContract.address,
-        web3.utils.toWei(String(value))
-      )
-      .encodeABI();
+    // check if approvalABI is already present, refetch if not
+    let approve: BufferLike;
+    if (!approvalABIRef.current) {
+      console.log("cached approval ABI missing, refetching...");
 
+      approve = await getApproveSwapABI(value, contractConfigData);
+    } else {
+      console.log("using cached approval ABI");
+      approve = approvalABIRef.current;
+    }
     const txCount = await web3.eth.getTransactionCount(
       currentUser?.walletAddress!
     );
@@ -90,55 +103,6 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
     return web3.eth.sendSignedTransaction(raw);
   }
 
-  // get contract data for deposit
-  async function getDepositTokensABI(
-    value: number,
-    contractConfigData: ContractConfigResponseObj
-  ) {
-    const bridgeContract = new web3.eth.Contract(
-      contractConfigData?.bridgeContract?.abiRaw,
-      contractConfigData?.bridgeContract?.address
-    );
-
-    const { data }: any = await instance.post(
-      "/bridge-swap/swap-request/type/CONtoCONX",
-      {
-        amount: String(value),
-        walletAddress: currentUser?.walletAddress,
-      }
-    );
-
-    return await bridgeContract.methods
-      .depositTokens(
-        web3.utils.toWei(String(value)),
-        data?.payload?.swapID,
-        currentUser?.walletAddress
-      )
-      .encodeABI();
-  }
-
-  // Prepare for APPROVAL, and get approval estimate
-  const { data: approvalFee, isLoading: isLoadingApprovalFee } = useQuery(
-    ["get-conToCONX-approval-estimate", value],
-    async () => {
-      const contractConfigData: ContractConfigResponseObj = await getConfig();
-      const ApproveSwapABIData = await getApproveSwapABI(
-        value,
-        contractConfigData
-      );
-      const gasPrice = await getGasPrice();
-      const gasLimit = await getGasLimit(
-        currentUser?.walletAddress!,
-        contractConfigData.conContract.address,
-        ApproveSwapABIData
-      );
-      return {
-        gasPrice: (3 * +gasPrice).toFixed(6),
-        gasLimit: Math.ceil(1.3 * gasLimit),
-      } as GasFeeObj;
-    }
-  );
-
   // DO approval, prepare for DEPOSIT, and get deposit estimate
   const { mutateAsync: getDepositFee, isLoading: isLoadingDepositFee } =
     useMutation(
@@ -147,17 +111,18 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
         const contractConfigData: ContractConfigResponseObj = await getConfig();
         await performSwapApproval(contractConfigData, gasForApproval);
 
-        // BUG - This value needs to be stored
-        const DepositTokensABIData = await getDepositTokensABI(
+        const depositTokensABIData: string = await getDepositTokensABI(
           value,
-          contractConfigData
+          contractConfigData,
+          currentUser?.walletAddress!
         );
+        depositABIRef.current = depositTokensABIData;
 
         const gasPrice = await getGasPrice();
         const gasLimit = await getGasLimit(
           currentUser?.walletAddress!,
           contractConfigData.bridgeContract.address,
-          DepositTokensABIData
+          depositTokensABIData
         );
         return {
           gasPrice: (3 * +gasPrice).toFixed(6),
@@ -172,8 +137,19 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
     gasForDeposit: GasFeeObj
   ) {
     try {
-      // BUG - do not repeat this action. Need to load this from store.
-      const depositABI = await getDepositTokensABI(value, configData);
+      let depositABI: string;
+      if (!depositABIRef.current) {
+        console.log("cached deposit ABI missing, refetching...");
+        depositABI = await getDepositTokensABI(
+          value,
+          configData,
+          currentUser?.walletAddress!
+        );
+      } else {
+        console.log("using cached deposit ABI");
+
+        depositABI = depositABIRef.current;
+      }
 
       return new Promise((resolve, reject) => {
         web3.eth.getTransactionCount(
