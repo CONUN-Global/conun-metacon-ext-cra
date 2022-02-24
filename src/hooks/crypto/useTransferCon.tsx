@@ -4,6 +4,7 @@ import { Transaction as Tx } from "ethereumjs-tx";
 
 import web3 from "src/web3";
 
+import useChromeNotification from "../chrome/useChromeNotification";
 import useCurrentUser from "../useCurrentUser";
 
 import getConfig from "../../helpers/crypto/getConfig";
@@ -20,6 +21,7 @@ type TransferData = {
 
 function useTransferCon() {
   const { currentUser } = useCurrentUser();
+  const { transferNotification } = useChromeNotification();
   const etherKey = useStore((state) => state.etherKey);
   const logger = useStore((state) => state.loggerInstance);
   const { mutateAsync: transferCon, isLoading } = useMutation(
@@ -82,6 +84,7 @@ function useTransferCon() {
 
         return new Promise((resolve) => {
           sentTx.on("transactionHash", (hash) => {
+            transferNotification("Successfully sent CON tokens");
             resolve(hash);
           });
         });

@@ -6,6 +6,7 @@ import useCurrentUser from "../useCurrentUser";
 import useSignature from "./useSignature";
 
 import { FcnTypes, ORG_NAME } from "src/const";
+import useChromeNotification from "../chrome/useChromeNotification";
 
 type TransferData = {
   toAddress: string;
@@ -14,6 +15,7 @@ type TransferData = {
 
 function useTransferConx() {
   const { currentUser } = useCurrentUser();
+  const { transferNotification } = useChromeNotification();
   const { sign } = useSignature();
   const { mutateAsync: transferConx, isLoading } = useMutation(
     async (transferData: TransferData) => {
@@ -31,7 +33,7 @@ function useTransferConx() {
           messageHash: signature?.messageHash,
         }
       );
-
+      transferNotification("Successfully sent CONX tokens");
       return data?.payload?.TxID;
     }
   );

@@ -1,6 +1,7 @@
 import { useMutation } from "react-query";
 import { Transaction as Tx } from "ethereumjs-tx";
 
+import useChromeNotification from "../chrome/useChromeNotification";
 import useCurrentUser from "../useCurrentUser";
 
 import web3 from "src/web3";
@@ -17,6 +18,7 @@ type TransferData = {
 
 function useTransferEth() {
   const { currentUser } = useCurrentUser();
+  const { transferNotification } = useChromeNotification();
   const etherKey = useStore((state) => state.etherKey);
 
   const { mutateAsync: transferEth, isLoading } = useMutation(
@@ -58,6 +60,7 @@ function useTransferEth() {
 
       return new Promise((resolve) => {
         sentTx.on("transactionHash", (hash) => {
+          transferNotification("Successfully sent ETH tokens");
           resolve(hash);
         });
       });
