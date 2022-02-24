@@ -16,6 +16,10 @@ function useExtensionLogin() {
     "EXT_LOGIN",
     async () => {
       const res = await getChromeStorage(METACON_LOGIN);
+      if (!res) {
+        throw new Error("Login package was empty.");
+      }
+      console.log("res", res);
       const useLogger =
         (await getChromeStorage(METACON_LOGGER_ACTIVE)) || false;
       return { package: res as LoginPackage, useLogger };

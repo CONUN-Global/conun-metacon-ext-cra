@@ -7,12 +7,13 @@ import { BufferLike, Transaction as Tx } from "ethereumjs-tx";
 
 import useStore from "src/store/store";
 
-// import { GAS_LIMIT_MULTIPLIER_FOR_SWAP } from "src/const";
+import useCurrentUser from "../../useCurrentUser";
+import useChromeNotification from "../../chrome/useChromeNotification";
+
 import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
 import getConfig from "src/helpers/crypto/getConfig";
 import { getIsLoggerActive } from "src/helpers/logger";
 import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
-import useCurrentUser from "../../useCurrentUser";
 import { getApproveSwapABI, getDepositTokensABI } from "./getABI";
 
 import { ContractConfigResponseObj, GasFeeObj } from "src/types";
@@ -25,7 +26,7 @@ interface SwapProps {
 
 const useSwapFromContoCONX = ({ value }: SwapProps) => {
   const { currentUser } = useCurrentUser();
-  // const { swapNotification } = useChromeNotification();
+  const { swapNotification } = useChromeNotification();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
   const approvalABIRef = useRef<BufferLike | null>(null);
@@ -111,6 +112,7 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
       async (gasForApproval: GasFeeObj) => {
         const contractConfigData: ContractConfigResponseObj = await getConfig();
         await performSwapApproval(contractConfigData, gasForApproval);
+        swapNotification("Your CON to CONX swap has been approved.");
 
         const depositTokensABIData: string = await getDepositTokensABI(
           value,
@@ -182,10 +184,15 @@ const useSwapFromContoCONX = ({ value }: SwapProps) => {
                 resolve(hash);
               })
               .on("receipt", function (tx) {
-                if (tx) resolve(tx.transactionHash);
-                else reject();
+                if (tx) {
+                  resolve(tx.transactionHash);
+                  swapNotification("Your CON to CONX transaction is complete.");
+                } else reject();
               })
               .on("error", function (error) {
+                swapNotification(
+                  "There was a problem performing your transaction."
+                );
                 reject(error);
               });
           }

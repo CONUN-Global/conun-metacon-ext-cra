@@ -5,6 +5,7 @@ function useChromeNotification() {
     contextMessage: string = ""
   ) {
     chrome.notifications.create({
+      iconUrl: "./favicon.ico",
       title,
       message,
       contextMessage,
