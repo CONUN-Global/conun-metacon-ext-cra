@@ -10,6 +10,8 @@ import { Logger } from "src/classes/logger";
 import useStore from "src/store/store";
 import web3 from "src/web3";
 
+import useChromeNotification from "../chrome/useChromeNotification";
+
 import { getBufferedKey } from "src/helpers/crypto/getBufferedKey";
 import { getGasLimit, getGasPrice } from "src/helpers/crypto/getGas";
 import getConfig from "src/helpers/crypto/getConfig";
@@ -23,6 +25,7 @@ interface Props {
 
 const useSwapFromCONXtoCon = ({ value }: Props) => {
   const { currentUser } = useCurrentUser();
+  const { swapNotification } = useChromeNotification();
   const etherKey = useStore((state) => state.etherKey);
   const currentNetwork = useStore((state) => state.currentNetwork);
 
@@ -90,6 +93,7 @@ const useSwapFromCONXtoCon = ({ value }: Props) => {
             web3.eth
               .sendSignedTransaction(raw)
               .on("transactionHash", function (hash) {
+                swapNotification("Your CONX to CON transaction is complete.");
                 resolve(hash);
               })
               .on("receipt", function (tx) {
