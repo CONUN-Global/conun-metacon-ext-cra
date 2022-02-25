@@ -139,14 +139,18 @@ function Sidebar() {
           )}
         </AnimatePresence>
       </div>
-      <SecurityModal
-        isOpen={isSecurityModalOpen}
-        closeHandler={() => setIsSecurityModalOpen(false)}
-      />
-      <AddWalletModal
-        isOpen={isAddWalletModalOpen}
-        closeHandler={() => setAddWalletModalOpen(false)}
-      />
+      {isSecurityModalOpen && (
+        <SecurityModal
+          isOpen={isSecurityModalOpen}
+          closeHandler={() => setIsSecurityModalOpen(false)}
+        />
+      )}
+      {isAddWalletModalOpen && (
+        <AddWalletModal
+          isOpen={isAddWalletModalOpen}
+          closeHandler={() => setAddWalletModalOpen(false)}
+        />
+      )}
     </OutsideClickWrapper>
   );
 }
