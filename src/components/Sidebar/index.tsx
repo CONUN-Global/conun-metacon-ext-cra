@@ -7,6 +7,7 @@ import AddWalletModal from "./AddWalletModal";
 import Button from "../Button";
 import OutsideClickWrapper from "../OutsideClickHandler";
 import SecurityModal from "./SecurityModal";
+import NotificationsModal from "./NotificationsModal";
 
 import useBrowserTab from "src/hooks/chrome/useBrowserTab";
 
@@ -28,19 +29,12 @@ function Sidebar() {
     closed: { x: 0, opacity: 1 },
   };
   const [isOpen, setIsOpen] = useState(false);
-  const [isSecurityModalOpen, setIsSecurityModalOpen] = useState(false);
+  const [isSecurityModalOpen, setSecurityModalOpen] = useState(false);
   const [isAddWalletModalOpen, setAddWalletModalOpen] = useState(false);
+  const [isNotificationModalOpen, setNotificationModalOpen] = useState(false);
 
   const history = useHistory();
   const { isRunningInBrowserTab, openIndexInTab } = useBrowserTab();
-
-  const handleSecurityModal = () => {
-    setIsSecurityModalOpen(true);
-  };
-
-  const handleAddWalletModal = () => {
-    setAddWalletModalOpen(true);
-  };
 
   return (
     <OutsideClickWrapper onClickOutside={() => setIsOpen(false)}>
@@ -79,7 +73,7 @@ function Sidebar() {
                 <Button
                   className={styles.Button}
                   noStyle
-                  onClick={handleSecurityModal}
+                  onClick={() => setSecurityModalOpen(true)}
                 >
                   <div className={styles.ButtonItem}>
                     <SecurityIcon className={styles.Icon} />
@@ -89,7 +83,17 @@ function Sidebar() {
                 <Button
                   className={styles.Button}
                   noStyle
-                  onClick={handleAddWalletModal}
+                  onClick={() => setNotificationModalOpen(true)}
+                >
+                  <div className={styles.ButtonItem}>
+                    <SecurityIcon className={styles.Icon} />
+                    Notifications
+                  </div>
+                </Button>
+                <Button
+                  className={styles.Button}
+                  noStyle
+                  onClick={() => setAddWalletModalOpen(true)}
                 >
                   <div className={styles.ButtonItem}>
                     <SecurityIcon className={styles.Icon} />
@@ -142,13 +146,19 @@ function Sidebar() {
       {isSecurityModalOpen && (
         <SecurityModal
           isOpen={isSecurityModalOpen}
-          closeHandler={() => setIsSecurityModalOpen(false)}
+          closeHandler={() => setSecurityModalOpen(false)}
         />
       )}
       {isAddWalletModalOpen && (
         <AddWalletModal
           isOpen={isAddWalletModalOpen}
           closeHandler={() => setAddWalletModalOpen(false)}
+        />
+      )}
+      {isNotificationModalOpen && (
+        <NotificationsModal
+          isOpen={isNotificationModalOpen}
+          closeHandler={() => setNotificationModalOpen(false)}
         />
       )}
     </OutsideClickWrapper>
