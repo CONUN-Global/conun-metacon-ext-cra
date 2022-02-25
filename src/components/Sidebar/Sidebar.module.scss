@@ -27,6 +27,16 @@
       font-size: 20px;
       padding: 15px 0;
       text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      & .CloseButton {
+        position: absolute;
+        right:30px;
+        top: 13px;
+      }
     }
     & .Button {
       color: #fff;

@@ -3,19 +3,24 @@ import { useHistory, Link } from "react-router-dom";
 
 import { AnimatePresence, motion } from "framer-motion";
 
+import AddWalletModal from "./AddWalletModal";
 import Button from "../Button";
 import OutsideClickWrapper from "../OutsideClickHandler";
+import SecurityModal from "./SecurityModal";
+
+import useBrowserTab from "src/hooks/chrome/useBrowserTab";
+
+import { extensionSignOut } from "src/helpers/chrome/extensionSignOut";
+
+import { routes } from "src/const";
 
 import { ReactComponent as MenuIcon } from "../../assets/icons/menu-icon.svg";
+import { ReactComponent as CloseIcon } from "../../assets/icons/menu-close.svg";
 import { ReactComponent as DiscordIcon } from "../../assets/icons/discord-icon.svg";
 import { ReactComponent as SecurityIcon } from "../../assets/icons/security-icon.svg";
 import { ReactComponent as SignoutIcon } from "../../assets/icons/signout-icon.svg";
+
 import styles from "./Sidebar.module.scss";
-import { extensionSignOut } from "src/helpers/chrome/extensionSignOut";
-import SecurityModal from "./SecurityModal";
-import AddWalletModal from "./AddWalletModal";
-import { routes } from "src/const";
-import useBrowserTab from "src/hooks/chrome/useBrowserTab";
 
 function Sidebar() {
   const variants = {
@@ -59,7 +64,18 @@ function Sidebar() {
               className={styles.MenuSlide}
             >
               <div className={styles.MenuButtons}>
-                <p className={styles.MenuTitle}>Menu</p>
+                <p className={styles.MenuTitle}>
+                  <span>Menu</span>
+                  <Button
+                    noStyle
+                    className={styles.CloseButton}
+                    onClick={() => {
+                      setIsOpen(false);
+                    }}
+                  >
+                    <CloseIcon className={styles.CloseIcon} />
+                  </Button>
+                </p>
                 <Button
                   className={styles.Button}
                   noStyle
