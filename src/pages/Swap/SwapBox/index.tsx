@@ -10,11 +10,13 @@ import ConToConxSummary from "./ConToConxSummary";
 import ConxToConSummary from "./ConxToConSummary";
 
 import useCurrentToken from "../../../hooks/crypto/useCurrentToken";
+import useURLQuery from "../../../hooks/useURLQuery";
 import useStore from "../../../store/store";
 
 import { routes } from "src/const";
 
 import styles from "./SwapBox.module.scss";
+import useTokenInNewTab from "src/hooks/useTokenInNewTab";
 
 type FormData = {
   amount: number;
@@ -32,6 +34,8 @@ function SwapBox() {
   const balance = token.useBalance();
 
   const setCurrentToken = useStore((store) => store.setCurrentToken);
+  useTokenInNewTab();
+
   const {
     register,
     handleSubmit,
@@ -85,6 +89,7 @@ function SwapBox() {
   };
 
   const amount = watch("amount");
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.SwapBox}>
       <div className={styles.FromBox}>

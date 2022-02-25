@@ -17,6 +17,7 @@ import useTransferFee from "../../../hooks/crypto/useTransferFee";
 import { routes } from "src/const";
 
 import styles from "./TransferBox.module.scss";
+import useTokenInNewTab from "src/hooks/useTokenInNewTab";
 
 const speeds: {
   id: "slow" | "average" | "fast";
@@ -52,6 +53,7 @@ function TransferBox() {
   const token = useCurrentToken();
 
   const { balance } = token.useBalance();
+  useTokenInNewTab();
 
   const {
     register,
