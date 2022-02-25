@@ -20,13 +20,13 @@ function ActionsSection() {
     (store) => store.isPerformingTransaction
   );
 
-  const { handleBrowserLink } = useBrowserTab();
+  const { handleBrowserLinkWithToken } = useBrowserTab();
 
   function handleLink(linkTo: string) {
     if (isPerformingTransaction) {
       toast.warn("Please wait whilst your transaction finishes");
     } else {
-      handleBrowserLink(linkTo);
+      handleBrowserLinkWithToken(linkTo);
     }
   }
   function handleBuyLink() {
